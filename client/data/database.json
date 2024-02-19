@@ -35,14 +35,6 @@
       "img": "",
       "role": 2,
       "id": 4
-    },
-    {
-      "username": "qwer",
-      "email": "qwer@gmail.com",
-      "phoneNumber": "0246484322",
-      "password": "f4e98344541784f2eabcf6fcd1daf050afd9a1bfa2c59819356fe0543752f311",
-      "role": 2,
-      "id": 5
     }
   ],
   "Categories": [
@@ -136,7 +128,7 @@
       "image": "https://nettruyenco.vn/public/images/comics/jujutsu-kaisen-chu-thuat-hoi-chien.jpg",
       "publishedDate": "2023-08-09T10:06:31.336Z",
       "updateDate": "2023-08-09T10:06:31.336Z",
-      "view": 1000013,
+      "view": 1000012,
       "active": 1
     },
     {
@@ -193,7 +185,7 @@
       "image": "https://nettruyenco.vn/public/images/comics/nguyen-lai-ta-la-tu-tien-dai-lao.jpg",
       "publishedDate": "2023-08-09T10:06:31.336Z",
       "updateDate": "2023-08-09T10:06:31.336Z",
-      "view": 1000014,
+      "view": 1000007,
       "active": 1
     },
     {
@@ -284,12 +276,12 @@
       ],
       "author": "Luong ",
       "description": "scsc",
-      "userId": 5,
-      "image": "https://nettruyenco.vn/public/images/comics/yeu-than-ky.jpg",
-      "publishedDate": "2023-08-09T10:06:31.336Z",
+      "userId": 3,
+      "image": "C:\\fakepath\\2.jpg",
+      "publishedDate": "",
       "updateDate": "2023-08-21T18:46:34.371Z",
-      "view": 3,
-      "active": 1
+      "view": 0,
+      "active": 0
     }
   ],
   "rateStory": [
@@ -470,54 +462,6 @@
       "name": "Tóm Tắt",
       "publishedDate": "",
       "active": 0
-    },
-    {
-      "storyId": 9,
-      "chapterNo": 1,
-      "name": "",
-      "publishedDate": "2024-01-18T16:32:09.985Z",
-      "active": 1,
-      "id": 11
-    },
-    {
-      "storyId": 9,
-      "chapterNo": 2,
-      "name": "",
-      "publishedDate": "2024-01-18T16:32:09.226Z",
-      "active": 1,
-      "id": 12
-    },
-    {
-      "storyId": 9,
-      "chapterNo": 3,
-      "name": "",
-      "publishedDate": "2024-01-18T16:32:06.263Z",
-      "active": 1,
-      "id": 13
-    },
-    {
-      "storyId": 9,
-      "chapterNo": 4,
-      "name": "",
-      "publishedDate": "2024-01-18T16:32:01.507Z",
-      "active": 1,
-      "id": 14
-    },
-    {
-      "storyId": 9,
-      "chapterNo": 5,
-      "name": "",
-      "publishedDate": "2024-01-18T16:32:00.055Z",
-      "active": 1,
-      "id": 15
-    },
-    {
-      "storyId": 9,
-      "chapterNo": 6,
-      "name": "luong beo",
-      "publishedDate": "2024-01-18T16:31:59.463Z",
-      "active": 1,
-      "id": 16
     }
   ],
   "chapterContent": [
@@ -526,7 +470,31 @@
       "storyId": 5,
       "chapterId": 1,
       "paragraph": [
-       ""
+        "Mưa dầm rả rích gần nửa tháng, thời tiết của ngày hôm nay rốt cuộc cũng đã chuyển biến tốt hơn. Trầm Khê ngẩng đầu lên quan sát bầu trời, trời xanh không mây, trời sáng, không khí trong lành, trời trong gió nhẹ, tựa như tất cả từ ngữ đều có thể dùng để hình dung thời tiết của hôm nay vậy đó. Thời tiết hôm nay thật là tốt nha, nếu so sánh với thời điểm bọn họ kết hôn đúng là hoàn toàn không giống nhau. Cô còn nhớ rõ lúc cô kết hôn với Tô Hàng, đột nhiên hôm đó xuất hiện một trận mưa rào lớn kèm theo cả sấm chớp nữa, trong đêm tối sấm chớp lại rền vang phảng phất như báo hiệu ngày tận thế sắp đến vậy, đó cũng là ngày mà cô nhớ nhất trong đời.",
+        "'Chị dâu, cái này chị vẫn nên đến thả đi.' Lý Thanh Viễn, bằng hữu tốt nhất của Tô Hàng cầm hũ tro cốt trong tay đưa về phía Trầm Khê.",
+        "Trầm Khê nhìn qua 'hũ tro cốt' mà Lý Thanh Viễn cầm trong tay, kia là chồng trước của mình, hũ đựng tro cốt của Tô Hàng. Nhưng Trầm Khê biết kỳ thật tro cốt trong chiếc hộp kia thật sự không phải là tro cốt của Tô Hàng. Tô Hàng ૮ɦếƭ trong một vụ tai nạn máy bay, máy bay tại Thái Bình Dương nổ tung, cả máy bay rơi vào biển cả, mặc dù đến nay đã ba tháng trôi qua, nhưng vẫn không vớt được một mảnh hài cốt nào.",
+        "'Bên trong... Thả cái gì?' Trầm Khê nhận thấy giọng nói của chính mình có chút khàn khàn.",
+        "'Đây là đồ vật mà Tô Hàng trước kia giữ gìn nhất đấy, chị muốn mở ra nhìn xem sao?' Lý Thanh Viễn cười khổ cầm chiếc hộp trong tay mình đặt ở sâu trong tay Trầm Khê, 'Có lẽ chị sẽ cảm thấy có chút quen mắt.'",
+        "Trầm Khê có chút không rõ ý tứ trong lời nói của Lý Thanh Viễn, cô nghi hoặc nhìn đối phương một cái, nhưng Lý Thanh Viễn đã quay người rời đi từ lúc nào rồi. Trầm Khê đành phải ôm hộp đi vào mộ bia đằng sau, nơi đây là nơi chôn thả tro cốt của địa phương. Kia là một cái hố hình vuông đã được đào sẵn, đứng tại hai bên là nhân viên công tác phụ trách vùi lấp cầm thuổng sắt với sắc mặt lạnh lùng, giống như chỉ cần cô có động tác buông xuống, bọn họ ngay lập tức sẽ lấp đầy nơi đó vậy.",
+        "Trầm Khê ngồi xổm trên mặt đất, bàn tay đang vuốt ve hũ tro cốt đậm màu xám xịt này, thiết kế của hũ tro cốt vừa đơn giản vừa mộc mạc, lại không có một vật trang trí dư thừa nào, tựa như người tên Tô Hàng, càng giống năm năm hôn nhân của cô vậy.",
+        "Trước khi gả cho Tô Hàng, Trầm Khê với Tô Hàng không có thân thiết cho lắm. Cô biết Tô Hàng là đứa con mà Tô gia đón từ bên ngoài vào. Có người nói hắn là con riêng của Tô Bách Niên, bởi vì thế hệ này Tô gia không có con trai nối dõi cho nên mới bị đón trở về kế thừa sản nghiệp. Cũng có người nói Tô Bách Niên khi học đại học từng yêu một cô gái, hai người sau khi kết hôn có Tô Hàng, chỉ có điều bị Tô lão gia tử chia rẽ.",
+        "Đối với những lời đồn đại này, Trầm Khê một mực xem như là không thấy, ngoại trừ ngẫu nhiên tham gia mấy bữa tiệc rượu, hai người tình cờ gặp nhau đều chỉ chào hỏi qua loa vài lần, chứ cô và người đàn ông này không gặp nhau quá nhiều.",
+        "Trầm Khê là con gái rượu của Trầm gia, thân thể Trầm phu nhân vì suy yếu, sinh hạ Trầm Khê xong về sau liền không thể sinh con được nữa. Mặc dù vậy nhưng vợ chồng Trầm thị vẫn tình cảm nồng thắm như thường, dù cho về sau bọn họ không thể sinh con trai, hai người cũng cũng không có vì vậy mà tình cảm bất hòa, vớí lại bọn họ cũng rất thương Trầm Khê, mà Trầm Khê lại không thích làm ăn, cho nên tất cả thương nhân giới thượng lưu của thành phố S đều biết rằng, về sau ai cưới Trầm Khê, chẳng khác nào đạt được toàn bộ tập đoàn Trầm thị cả.",
+        "Vợ chồng Trầm thị luôn luôn nói đùa rằng, về sau Trầm Khê lấy chồng, hai người bọn họ nhất định phải tuyển chọn khắt khe mới được, nhưng chưa bao giờ nghĩ tới có một ngày bọn họ sẽ hoàn toàn không có lựa chọn nào khác đem Trầm Khê gả cho Tô Hàng.",
+        "Sáu năm trước, cha Trầm tại nước Mỹ đầu tư một hạng mục lớn, không ngờ lúc đó nước Mỹ lại xảy ra biến động, vì có chính sách hạn chế ngoại thương mới, dẫn đến việc đầu tư của cha Trầm mất đi giá trị, toàn bộ số tiền đầu tư đều biến mất. Cổ phiếu của Trầm thị tụt dốc không ngừng, công ty gặp khủng khoảng, ngân hàng lại không ngừng đòi nợ, cha Trầm nếu không gánh được sẽ phải tuyên bố phá sản, không ngờ một hôm Tô Hàng bỗng nhiên xuất hiện ở Trầm gia.",
+        "Đúng vậy, hắn không có đi đến tập đoàn Trầm thị, cũng không có mang đoàn đội gì theo, thậm chí ngay cả một bí thư cũng không có mang, mà là một mình tới Trầm gia. Ngày hôm đó Trầm Khê vừa vặn cũng ở nhà, bởi vì cô lo lắng trong nhà mình sẽ có biến cố xảy ra, cho nên cô liền trốn ở lầu hai lo lắng nghe lén.",
+        "'Trầm tổng, tôi có thể cho Trầm thị vay tiền.' Tô Hàng mở miệng nói.",
+        "'Tô tổng, anh không biết bao nhiêu cần bao nhiêu tiền mới có thể lấp đầy cái cái lỗ thủng này sao?' cha Trầm hỏi.",
+        "'Tôi biết, trước khi đến tôi đã cho người ta làm báo cáo rồi.' Dưới lầu truyền đến tiếng lật tài liệu, 'Trầm thị thâm hụt, cần 3 tỷ mới có thể lấp đầy.'",
+        "'3 tỷ chỉ có thể để Trầm thị khôi phục vận chuyển thôi.'",
+        "'Trừ lần đầu tư này ra, tập đoàn Trầm thị là một công ty có năng lực và lợi nhuận vô cùng tốt. Tôi tin tưởng chỉ cần cho ngài một cơ hội, Trầm thị nhất định sẽ Đông Sơn tái khởi.' Tô Hàng đáp",
+        "'Anh cho chúng tôi vay tiền, không phải thu mua chứ?' Giọng nói của cha Trầm đầy nghi hoặc.",
+        "'Đúng vậy, không thu mua, chỉ cho vay.' Tô Hàng xác nhận nói.",
+        "'Anh vì cái gì mà phải làm như vậy? Tôi không tin anh chỉ là tin tưởng năng lực kinh doanh của tôi.' Cha Trầm nói, ' 3 tỷ không phải là một con số nhỏ, nếu như công ty tôi không thể phát triển lại, mấy cái ngân hàng vừa thành lập của anh sẽ sụp đổ mất, thậm chí sẽ liên lụy Tô thị. Tôi cũng không có giao tình gì với anh, anh vì cái gì mà phải giúp tôi?'",
+        "'Tôi đúng là còn có một điều kiện nữa.' Phòng khách yên tĩnh một hồi lâu, Trầm Khê mới nghe thấy Tô Hàng nói như vậy.",
+        "'Anh nói đi.' Cha Trầm hỏi.",
+        "Tôi cần một người vợ.",
+        "Trầm Khê còn nhớ rằng lúc ấy mình nghe được câu này liền phản ứng, đầu óc trống rỗng, toàn thân cứng ngắc trốn ở sau cây cột, trong lỗ tai ong ong cái gì đều nghe không được. Lúc đó truyền đến tiếng bố cô đập đồ đạc mới khiến cô tỉnh lại."
       ]
     },
     {
@@ -534,12 +502,6 @@
       "chapterId": 2,
       "paragraph": [],
       "id": 2
-    },
-    {
-      "storyId": 9,
-      "chapterId": 16,
-      "paragraph": [],
-      "id": 3
     }
   ],
   "followStory": [
@@ -572,11 +534,6 @@
       "storyId": 5,
       "userId": 3,
       "id": 10
-    },
-    {
-      "storyId": 3,
-      "userId": 5,
-      "id": 11
     }
   ],
   "comments": [
@@ -587,14 +544,6 @@
       "date": "2023-08-30T16:20:27.735Z",
       "status": 1,
       "id": 1
-    },
-    {
-      "userId": 5,
-      "storyId": 9,
-      "comment": "beo d.t",
-      "date": "2024-01-18T16:35:01.298Z",
-      "status": 0,
-      "id": 2
     }
   ],
   "replies": [
@@ -605,32 +554,7 @@
       "date": "2023-08-30T16:37:45.936Z",
       "status": 1,
       "id": 1
-    },
-    {
-      "userId": 5,
-      "reply": "nngu",
-      "commentId": 1,
-      "date": "2024-01-18T15:45:24.169Z",
-      "status": 0,
-      "id": 2
     }
   ],
-  "feedback": [
-    {
-      "storyId": 9,
-      "userId": 5,
-      "feedback": "lỏ vl tính năng",
-      "timeFeedback": "2024-01-18T16:11:16.430Z",
-      "type": "normal",
-      "id": 1
-    },
-    {
-      "storyId": 9,
-      "userId": 5,
-      "feedback": "truyen m viet ngu vl",
-      "timeFeedback": "2024-01-18T16:30:10.281Z",
-      "type": "normal",
-      "id": 2
-    }
-  ]
+  "feedback": []
 }

@@ -6,12 +6,12 @@ import Header from "../components/Header";
 const DefaultTemplate = ({ children }) => {
 
   return (
-    <div> 
+    <> 
       <Header />
       <Container>
         {children}
       </Container>
-    </div>
+    </>
   );
 };
 export default DefaultTemplate;
