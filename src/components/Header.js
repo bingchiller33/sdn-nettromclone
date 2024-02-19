@@ -121,7 +121,7 @@ const Header = () => {
 
                         <NavDropdown className="fw-bold" title={<><Image className="rounded-5 border me-1" width={40} src={`${user.img === "" ? "https://cdn.landesa.org/wp-content/uploads/default-user-image.png" : user.img}`} alt={user.username} /> <span>{user.username}</span></>} id="basic-nav-dropdown">
                           <NavDropdown.Item as={Link} to="/author/addeditstory">Tạo truyện mới</NavDropdown.Item> 
-                          {user.role === 2 && (<NavDropdown.Item as={Link} to="/author/mystory">Truyện của tôi</NavDropdown.Item> )} 
+                          {user.role === 2 ? (<NavDropdown.Item as={Link} to="/author/mystory">Truyện của tôi</NavDropdown.Item> ) : ""} 
                           <NavDropdown.Item onClick={handleLogout}>
                             Logout
                           </NavDropdown.Item>
