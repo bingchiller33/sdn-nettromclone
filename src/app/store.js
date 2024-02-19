@@ -10,7 +10,10 @@ import listFeedbackReducer from "../components/common/data/dataBoxChat/dataSlice
 import listUserReducer from "../components/common/data/dataUser/dataSlice";
 import listChapterReducer from "../components/common/data/dataChapter/dataSlice";
 import contentReducer from "../components/common/data/dataContent/dataSlice"
+import storiesReducer from "./slices/storiesSlice"
+
 const rootReducer = {
+    stories:storiesReducer, 
     story: storyReducer,
     user: userReducer,
     listStory: listStoryReducer,

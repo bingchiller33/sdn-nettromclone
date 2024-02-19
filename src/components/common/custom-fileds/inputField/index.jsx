@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 
 const InputField = (props, ref) => {
     const inputValue = useRef();
-    const { type = "text", id = "", label = "", value = "", accept = "", placeholder = "", handleInputChange = () => { }, disabled = false, required = true, feedback = "Look good!", feedbackInvalid = "Bạn chưa nhập đúng giá trị", xs = 12, pattern = "^[a-zA-Z0-9_]*$", requiredValue = "*" } = props
+    const { type = "text", id = "", label = "", value = "", accept = "", placeholder = "", handleInputChange = () => { }, disabled = false, required = true, feedback = "Look good!", feedbackInvalid = "Bạn chưa nhập đúng giá trị", xs = 12, pattern = "^[a-zA-Z0-9_]*$", requiredValue = "*", className=""} = props
 
     const handleOnchangeValue = (e) => {
         handleInputChange(e)
@@ -15,7 +15,7 @@ const InputField = (props, ref) => {
         }
     }));
     return (
-        <Form.Group as={Col} xs={xs} className="p-0">
+        <Form.Group as={Col} xs={xs} className={`p-0 ${className}`}>
             {label && <Form.Label htmlFor={id} >{label} {requiredValue && <span className="text-danger">{requiredValue}</span>} </Form.Label>}
             <Form.Control
                 ref={inputValue}

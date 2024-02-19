@@ -556,5 +556,46 @@
       "id": 1
     }
   ],
-  "feedback": []
+  "feedback": [
+    {
+      "storyId": 1,
+      "userId": 3,
+      "feedback": "fbdfb",
+      "timeFeedback": "2024-01-19T16:39:18.086Z",
+      "type": "reject",
+      "id": 1
+    },
+    {
+      "storyId": 1,
+      "userId": 3,
+      "feedback": "dfbdb",
+      "timeFeedback": "2024-01-19T16:39:20.830Z",
+      "type": "reject",
+      "id": 2
+    },
+    {
+      "storyId": 1,
+      "userId": 3,
+      "feedback": "s",
+      "timeFeedback": "2024-01-19T18:19:53.476Z",
+      "type": "normal",
+      "id": 3
+    },
+    {
+      "storyId": 1,
+      "userId": 3,
+      "feedback": "s",
+      "timeFeedback": "2024-01-19T18:19:54.011Z",
+      "type": "normal",
+      "id": 4
+    },
+    {
+      "storyId": 1,
+      "userId": 3,
+      "feedback": "s",
+      "timeFeedback": "2024-01-19T18:19:54.400Z",
+      "type": "normal",
+      "id": 5
+    }
+  ]
 }
