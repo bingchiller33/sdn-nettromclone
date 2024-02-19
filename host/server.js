@@ -1,7 +1,7 @@
 // using module 'express' to initialize a web server
 import express, {json} from "express";
 import * as dotenv from "dotenv";
-import {productRouter} from "./routes/index.js";
+// import {productRouter} from "./routes/index.js";
 import connectDB from "./database.js";
 import cors from 'cors';
 dotenv.config();
@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
   res.send(`<h1 style="color:red">Welcome to homepage!</h1>`);
 });
 
-app.use("/products", productRouter);
+// app.use("/products", productRouter);
 
 const port = process.env.PORT || 9999;
 
