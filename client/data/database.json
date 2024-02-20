@@ -22,7 +22,7 @@
       "username": "author",
       "email": "Luongldhse163727@fpt.edu.vn",
       "phoneNumber": "0375497014",
-      "password": "26d9b0e9924f0b3d393dc68bbe59486719d3ef51854545a0bb056ef271ba6fba",
+      "password": "f4e98344541784f2eabcf6fcd1daf050afd9a1bfa2c59819356fe0543752f311",
       "img": "",
       "role": 2,
       "id": 3
@@ -35,6 +35,14 @@
       "img": "",
       "role": 2,
       "id": 4
+    },
+    {
+      "username": "admin",
+      "email": "luong6866@gmail.com",
+      "phoneNumber": "0347529714",
+      "password": "f4e98344541784f2eabcf6fcd1daf050afd9a1bfa2c59819356fe0543752f311",
+      "role": 1,
+      "id": 5
     }
   ],
   "Categories": [
@@ -556,5 +564,142 @@
       "id": 1
     }
   ],
-  "feedback": []
+  "feedback": [
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "cscsc",
+      "timeFeedback": "2024-02-20T15:09:47.355Z",
+      "type": "normal",
+      "id": 1
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "cscsc",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:24:02.599Z",
+      "id": 2
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "cscsccs",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:24:33.434Z",
+      "id": 3
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "cscsccscsc",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:24:36.618Z",
+      "id": 4
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "cscsccscscc",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:25:37.413Z",
+      "id": 5
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "cscs",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:25:44.741Z",
+      "id": 6
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "cscscsc",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:36:36.469Z",
+      "id": 7
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "ccscscc",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:36:41.329Z",
+      "id": 8
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "c",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:36:44.748Z",
+      "id": 9
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "jjjj",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:37:21.344Z",
+      "id": 10
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "cscsc",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:44:26.777Z",
+      "id": 11
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "cscsc",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:44:30.981Z",
+      "id": 12
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "c",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:44:38.665Z",
+      "id": 13
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "cc",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:44:53.401Z",
+      "id": 14
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "ccccsc",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:53:13.667Z",
+      "id": 15
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "ccccc x",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:53:59.532Z",
+      "id": 16
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "cscscv",
+      "type": "normal",
+      "timeFeedback": "2024-02-20T16:56:00.969Z",
+      "id": 17
+    }
+  ]
 }
