@@ -1,5 +1,3 @@
-const BASE_URL_STORY = 'http://localhost:9999/Stories';
+const BASE_URL = "http://localhost:9999/";
 
-export {
-    BASE_URL_STORY,
-}
+export { BASE_URL };

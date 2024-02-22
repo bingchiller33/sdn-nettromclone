@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 // import {productRouter} from "./routes/index.js";
 import connectDB from "./database.js";
 import cors from "cors";
-import { feedbackRouter } from "./routes/index.js";
+import { feedbackRouter, storyRouter } from "./routes/index.js";
 dotenv.config();
 
 // tạo 1 constant 'app' đại diện cho server express trong ứng dụng
@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/feedback", feedbackRouter);
+app.use("/story", storyRouter);
 
 // app.use("/products", productRouter);
 const port = process.env.PORT || 9999;
