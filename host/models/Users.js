@@ -30,6 +30,7 @@ const userSchema = new Schema(
       type: Number,
       required: true,
       unique: true,
+      default: 1,
     },
   },
   {
