@@ -2,28 +2,30 @@ import mongoose, { Schema } from "mongoose";
 import Story from "./Story.js";
 import User from "./Users.js";
 
-const feedbackSchema = new Schema({
+const feedbackSchema = new Schema(
+  {
     storyId: {
-        type: Schema.Types.ObjectId,
-        ref: Story,
-        required: true
+      type: Schema.Types.ObjectId,
+      ref: Story,
+      required: true,
     },
     userId: {
-        type: Schema.Types.ObjectId,
-        ref: User,
-        required: true
+      type: Schema.Types.ObjectId,
+      ref: User,
+      required: true,
     },
     feedback: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     status: {
-        type: String,
-        required: true
-    }
-}, {
-    timestamps: true 
-});
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const Feedback = mongoose.model("FeedBack", feedbackSchema);
 

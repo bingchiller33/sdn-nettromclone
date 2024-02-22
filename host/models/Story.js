@@ -8,7 +8,8 @@ const storySchema = new Schema(
       unique: true,
     },
     author: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "users",
       required: true,
     },
     description: {
@@ -37,12 +38,7 @@ const storySchema = new Schema(
     },
     categoryId: {
       type: Schema.Types.ObjectId,
-      ref: 'StoryCategory',
-      required: true,
-    },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "StoryCategory",
       required: true,
     },
   },

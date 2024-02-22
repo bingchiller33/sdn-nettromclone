@@ -124,12 +124,7 @@
       "id": 1,
       "name": "Naruto",
       "status": "Đang cập nhật",
-      "categoryId": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "categoryId": [1, 2, 3, 4],
       "author": "Akutami Gege",
       "description": "Tên khác: Blue Lock (FULL HD); Bluelock Yoichi Isagi đã bỏ lỡ cơ hội tham dự giải Cao Trung toàn quốc do đã chuyền cho đồng đội thay vì tự thân mình dứt điểm. Cậu là một trong 300 chân sút U-18 được tuyển chọn bởi Jinpachi Ego, người đàn ông được Hiệp Hội Bóng Đá Nhật Bản thuê sau hồi FIFA World Cup năm 2018, nhằm dẫn dắt Nhật Bản vô địch World Cup bằng cách tiêu diệt nền bóng đá Nhật Bản. Kế hoạch của Ego gồm việc cô lập 300 tay sút trong một nhà ngục - dưới một tổ chức với tên gọi là 'Blue Lock', với mục tiêu là tạo ra chân sút 'tự phụ' nhất thế giới, điều mà nền bóng đá Nhật Bản còn thiếu.",
       "userId": 3,
@@ -143,12 +138,7 @@
       "id": 2,
       "name": "Thiên Tài Bóng Đá, Tiền Đạo Số 1",
       "status": "Đang cập nhật",
-      "categoryId": [
-        1,
-        2,
-        5,
-        6
-      ],
+      "categoryId": [1, 2, 5, 6],
       "author": "Kaneshiro Muneyuki",
       "description": "Tên khác: Blue Lock (FULL HD); Bluelock Yoichi Isagi đã bỏ lỡ cơ hội tham dự giải Cao Trung toàn quốc do đã chuyền cho đồng đội thay vì tự thân mình dứt điểm. Cậu là một trong 300 chân sút U-18 được tuyển chọn bởi Jinpachi Ego, người đàn ông được Hiệp Hội Bóng Đá Nhật Bản thuê sau hồi FIFA World Cup năm 2018, nhằm dẫn dắt Nhật Bản vô địch World Cup bằng cách tiêu diệt nền bóng đá Nhật Bản. Kế hoạch của Ego gồm việc cô lập 300 tay sút trong một nhà ngục - dưới một tổ chức với tên gọi là 'Blue Lock', với mục tiêu là tạo ra chân sút 'tự phụ' nhất thế giới, điều mà nền bóng đá Nhật Bản còn thiếu.",
       "userId": 3,
@@ -162,12 +152,7 @@
       "id": 3,
       "name": "Naruto",
       "status": "Đang cập nhật",
-      "categoryId": [
-        1,
-        2,
-        4,
-        7
-      ],
+      "categoryId": [1, 2, 4, 7],
       "author": "Murata Yuusuke",
       "description": "Onepunch-Man là một Manga thể loại siêu anh hùng với đặc trưng phồng tôm đấm phát chết luôn… Lol!!!",
       "userId": 3,
@@ -181,12 +166,7 @@
       "id": 4,
       "name": "Boruto",
       "status": "Đang cập nhật",
-      "categoryId": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "categoryId": [1, 2, 3, 4],
       "author": "Akugami Mede",
       "description": "Từ một thế giới tu tiên đang trên đà xuống dốc , sự xuất hiện của hắn giống như thổi một làn sức sống mới ngăn chặn sự xuống dốc đó . Từ sau đại kiếp , Long môn , Địa Phủ...",
       "userId": 3,
@@ -200,12 +180,7 @@
       "id": 5,
       "name": "ĐẠI TƯỢNG VÔ HÌNH",
       "status": "Đang cập nhật",
-      "categoryId": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "categoryId": [1, 2, 3, 4],
       "author": "Phan Kỳ Động Mạn",
       "description": "Nữ chính trong một lần tai nạn xe bị sinh vật bí ẩn gá vào người, sau khi tỉnh lại đến một thế giới yêu linh. Trong lúc cô ấy sợ hãi, tuyệt vọng thì xuất hiện một thiếu niên cứu cô ta về hiện thế...",
       "userId": 3,
@@ -219,12 +194,7 @@
       "id": 6,
       "name": "VÕ LUYỆN ĐỈNH PHONG",
       "status": "Đang cập nhật",
-      "categoryId": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "categoryId": [1, 2, 3, 4],
       "author": "Akutami Gege",
       "description": "Võ đạo đỉnh phong, là cô độc, là tịch mịch, là dài đằng đẵng cầu tác, là cao xử bất thắng hàn Phát triển trong nghịch cảnh, cầu sinh nơi tuyệt địa, bất khuất không buông tha, mới có thể có thể phá võ chi cực....",
       "userId": 3,
@@ -238,12 +208,7 @@
       "id": 7,
       "name": "NGÃ LÃO MA THẦN",
       "status": "Đang cập nhật",
-      "categoryId": [
-        1,
-        4,
-        5,
-        6
-      ],
+      "categoryId": [1, 4, 5, 6],
       "author": "Akutami Gege",
       "description": "Một trong những Ma thần mạnh nhất lịch sử võ lâm xuất hiện, là kỳ tài võ học kinh người, nhưng khởi nguồn lại là do ...",
       "userId": 3,
@@ -257,12 +222,7 @@
       "id": 8,
       "name": "YÊU THẦN KÝ",
       "status": "Đang cập nhật",
-      "categoryId": [
-        1,
-        2,
-        3,
-        4
-      ],
+      "categoryId": [1, 2, 3, 4],
       "author": "Akutami Gege",
       "description": "Yêu Thần Vừa Xuất, Ai Dám Tranh Phong Yêu Linh Sư Mạnh Nhất Thánh Linh Đại Lục Nhiếp Li, bởi vì một cuốn sách thần bí Yêu Linh Thời Không mà trở về năm 13 tuổi, tu luyện mạnh nhất công pháp, mạnh....",
       "userId": 3,
@@ -276,12 +236,7 @@
       "id": 9,
       "name": "Luong",
       "status": "Đang cập nhật",
-      "categoryId": [
-        1,
-        3,
-        11,
-        15
-      ],
+      "categoryId": [1, 3, 11, 15],
       "author": "Luong ",
       "description": "scsc",
       "userId": 3,
@@ -569,137 +524,8 @@
       "storyId": 9,
       "userId": 3,
       "feedback": "cscsc",
-      "timeFeedback": "2024-02-20T15:09:47.355Z",
       "type": "normal",
       "id": 1
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "cscsc",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:24:02.599Z",
-      "id": 2
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "cscsccs",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:24:33.434Z",
-      "id": 3
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "cscsccscsc",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:24:36.618Z",
-      "id": 4
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "cscsccscscc",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:25:37.413Z",
-      "id": 5
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "cscs",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:25:44.741Z",
-      "id": 6
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "cscscsc",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:36:36.469Z",
-      "id": 7
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "ccscscc",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:36:41.329Z",
-      "id": 8
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "c",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:36:44.748Z",
-      "id": 9
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "jjjj",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:37:21.344Z",
-      "id": 10
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "cscsc",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:44:26.777Z",
-      "id": 11
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "cscsc",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:44:30.981Z",
-      "id": 12
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "c",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:44:38.665Z",
-      "id": 13
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "cc",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:44:53.401Z",
-      "id": 14
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "ccccsc",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:53:13.667Z",
-      "id": 15
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "ccccc x",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:53:59.532Z",
-      "id": 16
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "cscscv",
-      "type": "normal",
-      "timeFeedback": "2024-02-20T16:56:00.969Z",
-      "id": 17
     }
   ]
 }
