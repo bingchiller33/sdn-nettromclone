@@ -38,7 +38,7 @@ const storySchema = new Schema(
     },
     categoryId: {
       type: Schema.Types.ObjectId,
-      ref: "StoryCategory",
+      ref: "storyCategories",
       required: true,
     },
   },
