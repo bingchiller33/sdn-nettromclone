@@ -222,7 +222,9 @@ div.dropdown > a {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
+.enter:hover {
+  background-color: #eaeaea;
+}
 .bc_article-message_view::-webkit-scrollbar {
   /* display: none; */
   /* cho Chrome, Safari, and Opera */
@@ -280,4 +282,23 @@ div.dropdown > a {
 .bc-group_input > input.form-control {
   outline: none !important;
   border: none;
+}
+div.position-relative > svg.bi.bi-three-dots:hover + div.bc-action {
+  display: flex !important;
+}
+div.bc-action:hover {
+  display: flex !important;
+}
+div.bc-action {
+  font-size: 0.825rem;
+  padding: 10px 4px;
+  display: none !important;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+  background-color: #fff;
+  width: 100px;
+  box-shadow: 0.0235rem 0.0335rem 0.1825rem 0.0325rem #ccc,
+    0.0235rem 0.0335rem 0.1825rem 0.0325rem #ccc;
+  border-radius: 6px;
 }

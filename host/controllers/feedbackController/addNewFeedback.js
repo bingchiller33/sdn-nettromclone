@@ -3,7 +3,6 @@ import feedbackRepositories from "../../repositories/feedbackRepositories/index.
 const addNewFeedback = async (req, res, next) => {
   try {
     const { userId, storyId, feedback, status } = req.body;
-    console.log(feedback);
     res.status(200).json(
       await feedbackRepositories.addNewFeedback({
         userId,

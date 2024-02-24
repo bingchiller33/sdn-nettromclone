@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 // import {productRouter} from "./routes/index.js";
 import connectDB from "./database.js";
 import cors from "cors";
-import { feedbackRouter, userRouter } from "./routes/index.js";
+import { feedbackRouter, storyRouter, userRouter } from "./routes/index.js";
 dotenv.config();
 
 // tạo 1 constant 'app' đại diện cho server express trong ứng dụng
@@ -21,6 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/feedback", feedbackRouter);
+app.use("/story", storyRouter);
 app.use("/users", userRouter);
 
 // app.use("/products", productRouter);
