@@ -1,3 +1,3 @@
 import feedbackRouter from "./feedbackRouter/feedbackRouter.js";
-
-export { feedbackRouter };
+import userRouter from "./userRouter/userRouter.js";
+export { feedbackRouter, userRouter};
