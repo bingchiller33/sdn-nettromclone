@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { SHA256 } from 'crypto-js';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'react-bootstrap-icons';
@@ -152,7 +151,7 @@ function Register() {
         if (Object.keys(formError).length === 0) {
             const addUser = (Customer) => {
                 try {
-                    fetch('http://localhost:9999/Users', {
+                    fetch('http://localhost:9999/Users/register', {
                         method: "POST",
                         body: JSON.stringify(Customer),
                         headers: header
@@ -197,8 +196,7 @@ function Register() {
                                 username: formValue.username,
                                 email: formValue.email,
                                 phoneNumber: formValue.phoneNumber,
-                                password: SHA256(formValue.password).toString(),
-                                role: 1
+                                password: formValue.password,
                             })
                             return true
                         }

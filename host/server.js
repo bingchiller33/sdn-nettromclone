@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 
 app.use("/feedback", feedbackRouter);
 app.use("/story", storyRouter);
-app.use("/users", userRouter);
+app.use("/Users", userRouter);
 
 // app.use("/products", productRouter);
 const port = process.env.PORT || 9999;

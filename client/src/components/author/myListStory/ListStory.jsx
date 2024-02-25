@@ -6,7 +6,7 @@ import CheckBox from "../../common/custom-fileds/CheckboxField";
 import { completedStory } from "../../common/data/dataStory/dataSlice";
 import rateAvg from "../../common/utilities/rateAvg";
 import SplitNumber from "../../common/utilities/SplitNumber";
-import time from "../../updateTime";
+import time from "../../UpdateTime";
 import getTime from "../../common/utilities/getTime";
 
 const ListSotry = () => {
