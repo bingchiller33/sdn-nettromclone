@@ -20,14 +20,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/nettruyen.net" element={<Homepage />} />
-          {/* <Route path="/detail/:sid" element={<ViewDetail />} />
+          <Route path="/detail/:sid" element={<ViewDetail />} />
           <Route
             path="/detail/:sid/chapter/:cid"
             element={<ChapterContent />}
-          /> */}
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* <Route path="/search" element={<SearchStory />} />
+          <Route path="/search" element={<SearchStory />} />
           <Route path="/author/addeditstory" element={<AddEditStory />} />
           <Route path="/author/mystory" element={<MyListStory />} />
           <Route path="/author/mystory/boxchat/:sid" element={<BoxChat />} />
@@ -38,8 +38,8 @@ function App() {
           <Route
             path="/author/mystory/listchapter/:sid/content/:cid"
             element={<AddEditContent />}
-          /> */}
-          {/* <Route path="*" element={<Navigate to={"/nettruyen.net"} />} /> */}
+          />
+          <Route path="*" element={<Navigate to={"/nettruyen.net"} />} />
         </Routes>
       </BrowserRouter>
     </div>
