@@ -22,6 +22,7 @@ const userSchema = new Schema(
     status: {
       type: String,
       required: true,
+      default: "active",
     },
     img: {
       type: String,
@@ -29,7 +30,6 @@ const userSchema = new Schema(
     role: {
       type: Number,
       required: true,
-      unique: true,
       default: 1,
     },
   },

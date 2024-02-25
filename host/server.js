@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 // import {productRouter} from "./routes/index.js";
 import connectDB from "./database.js";
 import cors from "cors";
-import { feedbackRouter, storyRouter } from "./routes/index.js";
+import { feedbackRouter, storyRouter, userRouter } from "./routes/index.js";
 import http from "http";
 import { Server } from "socket.io";
 import connection from "./connection.js";
@@ -13,6 +13,9 @@ dotenv.config();
 
 // tạo 1 constant 'app' đại diện cho server express trong ứng dụng
 const app = express();
+
+const jwtSecret = process.env.JWT_SECRET;
+
 // thêm middleware
 app.use(json());
 app.use(cors());
@@ -28,6 +31,7 @@ const io = new Server(server, {
 io.on("connection", connection);
 app.use("/feedback", feedbackRouter);
 app.use("/story", storyRouter);
+app.use("/users", userRouter);
 
 // app.use("/products", productRouter);
 const port = process.env.PORT || 9999;
