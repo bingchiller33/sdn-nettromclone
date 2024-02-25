@@ -218,18 +218,28 @@ div.dropdown > a {
 .bc_article-message_view {
   height: 100%;
   overflow-y: auto;
-  overflow-x: hidden;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 .enter:hover {
   background-color: #eaeaea;
 }
 .bc_article-message_view::-webkit-scrollbar {
-  /* display: none; */
-  /* cho Chrome, Safari, and Opera */
+  width: 4px;
 }
 
+.bc_article-message_view::-webkit-scrollbar-thumb {
+  background-color: rgb(216, 213, 213);
+  border-radius: 6px;
+}
+.bc_article-message_view::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.bc_article-message_view::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.bc_article-message_view::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
 .img_32 {
   width: 32px;
 }
@@ -240,14 +250,11 @@ div.dropdown > a {
   overflow-x: hidden;
   overflow-y: auto;
   -ms-overflow-style: none;
-  /* khai báo sử dụng Internet Explorer, Edge */
   scrollbar-width: none;
-  /* sử dụng Firefox */
 }
 
 .new-content::-webkit-scrollbar {
   display: none;
-  /* cho Chrome, Safari, and Opera */
 }
 .flx-1 {
   flex: 1 1;
@@ -301,4 +308,7 @@ div.bc-action {
   box-shadow: 0.0235rem 0.0335rem 0.1825rem 0.0325rem #ccc,
     0.0235rem 0.0335rem 0.1825rem 0.0325rem #ccc;
   border-radius: 6px;
+}
+.flx {
+  flex: 1;
 }

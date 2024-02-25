@@ -9,7 +9,7 @@ const MyListStory = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     axios
-      .get(`${BASE_URL}story/get_list_stories/65d711fe44acd31351cfc507`)
+      .get(`${BASE_URL}/story/get_list_stories/65d711fe44acd31351cfc507`)
       .then((res) => dispatch(fetchStoriesSuccess(res.data)))
       .catch((e) => console.log(e.message));
   }, [dispatch]);
