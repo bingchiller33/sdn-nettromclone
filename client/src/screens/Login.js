@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap'
 import { ArrowLeft } from 'react-bootstrap-icons'
 import { toast } from 'react-toastify';
-import { SHA256 } from 'crypto-js';
 import { Link, useNavigate } from 'react-router-dom'
 import FormGroup from '../components/FormGroup'
 import '../styles/register.css'
@@ -118,50 +117,44 @@ function Login() {
         formErrorMessage.innerText = ''
         getParentElement(e.target).classList.remove('invalid')
     } 
-    useEffect(() => {
-        fetch('http://localhost:9999/Users')
-            .then(res => res.json())
-            .then(customers => setAcountExist(customers.some((c) => {
-                if (c.phoneNumber === inputPhoneNumber.current && c.password === inputPassword.current) {
-                    setCustomer(c)
-                    return true
-                } else if (c.phoneNumber === inputPhoneNumber.current && c.password === SHA256(password).toString()){
-                    setCustomer(c)
-                    return true
-                }
-                    return false
-            })))
-    }, [inputPassword.current, inputPhoneNumber.current])
+    
     const handleOnSubmit = (e) => {
-        e.preventDefault()
-        if (!inputPhoneNumber.current) {
-            validateForm(getParentElement(document.getElementById('phoneNumber')), document.getElementById('phoneNumber'))
+        e.preventDefault();
+        if (!inputPhoneNumber.current || !inputPassword.current) {
+            return;
         }
-        if (!inputPassword.current) {
-            validateForm(getParentElement(document.getElementById('password')), document.getElementById('password'))
-        }
-        if (Object.keys(formError).length === 0) {
-            if (acountExist) {
-                localStorage.setItem('loginTime', new Date().getTime());
-                localStorage.setItem('rem', rem);
-                localStorage.setItem('user', JSON.stringify(customer));
+        const requestBody = {
+            phoneNumber: formValue.phoneNumber,
+            password: formValue.password
+        };
+    
+        fetch('http://localhost:9999/Users/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
             } else {
-                e.preventDefault()
-                const formErrorMessage = getParentElement(document.getElementById('phoneNumber')).querySelector('.form-message')
-                formErrorMessage.innerText = 'Incorrect phone number or password'
+                throw new Error('Failed to log in');
             }
-        } else {
-            e.preventDefault()
-        }
-        if (acountExist) {
-            sessionStorage.setItem('login_success', 'login_success')
-            navigate('/')
-        }
-    }
-    if(localStorage.getItem('login_yet')!==null){
-        toast.warn('Please login to continue buying tickets.')
-        localStorage.removeItem('login_yet')
-    }
+        })
+        .then(data => {
+            setAcountExist(true); 
+            setCustomer(data.user); 
+            localStorage.setItem('token', data.token); 
+            sessionStorage.setItem('login_success', 'login_success');
+            navigate('/');
+        })
+        .catch(error => {
+            console.error('Login failed:', error);
+            toast.error('Login failed. Please check your credentials.');
+        });
+    };
+    
     return (
         <Container className='mt-5 pt-2' >
             <Row>
@@ -216,4 +209,3 @@ function Login() {
 }
 
 export default Login
-

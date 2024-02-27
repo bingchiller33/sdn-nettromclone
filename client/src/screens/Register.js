@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { SHA256 } from "crypto-js";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "react-bootstrap-icons";
@@ -107,174 +106,178 @@ function Register() {
         [name]: value,
       });
     }
-  };
-  const handleOnChangePasswordConfirm = (e) => {
-    setPasswordConfirm(e.target.value);
-  };
+    const handleOnChangePasswordConfirm = (e) => {
+      setPasswordConfirm(e.target.value);
+    };
 
-  const handleOnBlur = (e) => {
-    validateForm(getParentElement(e.target, ".form-group_register"), e.target);
-  };
-  const handleOnFocus = (e) => {
-    const formErrorMessage = getParentElement(
-      e.target,
-      ".form-group_register"
-    ).querySelector(".form-message");
-    formErrorMessage.innerText = "";
-    getParentElement(e.target, ".form-group_register").classList.remove(
-      "invalid"
+    const handleOnBlur = (e) => {
+      validateForm(
+        getParentElement(e.target, ".form-group_register"),
+        e.target
+      );
+    };
+    const handleOnFocus = (e) => {
+      const formErrorMessage = getParentElement(
+        e.target,
+        ".form-group_register"
+      ).querySelector(".form-message");
+      formErrorMessage.innerText = "";
+      getParentElement(e.target, ".form-group_register").classList.remove(
+        "invalid"
+      );
+    };
+    useEffect(() => {
+      fetch("http://localhost:9999/Users")
+        .then((res) => res.json())
+        .then((data) => setCheckExist(data));
+    }, []);
+    let emailExist = false;
+    let phoneExist = false;
+    checkExist.map((check) =>
+      check.email === inputEmail.current ? (emailExist = true) : false
     );
-  };
-  useEffect(() => {
-    fetch("http://localhost:9999/Users")
-      .then((res) => res.json())
-      .then((data) => setCheckExist(data));
-  }, []);
-  let emailExist = false;
-  let phoneExist = false;
-  checkExist.map((check) =>
-    check.email === inputEmail.current ? (emailExist = true) : false
-  );
-  checkExist.map((check) =>
-    check.phoneNumber === inputPhoneNumber.current ? (phoneExist = true) : false
-  );
-  var count = 0;
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    if (!inputUsername.current) {
-      validateForm(
-        getParentElement(
-          document.getElementById("username"),
-          ".form-group_register"
-        ),
-        document.getElementById("username")
-      );
-    }
-    if (!inputEmail.current) {
-      validateForm(
-        getParentElement(
-          document.getElementById("email"),
-          ".form-group_register"
-        ),
-        document.getElementById("email")
-      );
-    }
-    if (!inputPhoneNumber.current) {
-      validateForm(
-        getParentElement(
-          document.getElementById("phoneNumber"),
-          ".form-group_register"
-        ),
-        document.getElementById("phoneNumber")
-      );
-    }
-    if (!inputPassword.current) {
-      validateForm(
-        getParentElement(
-          document.getElementById("password"),
-          ".form-group_register"
-        ),
-        document.getElementById("password")
-      );
-    }
-    if (!inputPasswordConfirm.current) {
-      validateForm(
-        getParentElement(
-          document.getElementById("passwordConfirm"),
-          ".form-group_register"
-        ),
-        document.getElementById("passwordConfirm")
-      );
-    }
-    if (!inputCheck.current.checked) {
-      validateForm(
-        getParentElement(
-          document.getElementById("active"),
-          ".form-group_register"
-        ),
-        document.getElementById("active")
-      );
-    }
-    if (Object.keys(formError).length === 0) {
-      const addUser = (Customer) => {
-        try {
-          fetch("http://localhost:9999/Users", {
-            method: "POST",
-            body: JSON.stringify(Customer),
-            headers: header,
-          }).then((response) => {
-            if (response.status >= 200 && response.status < 300) {
-              localStorage.setItem("register_success", "register_success");
-              navigate("/login");
-            }
-          });
-        } catch (error) {
-          const errorMsg = Object.keys(formValue);
-          errorMsg.map(
-            (e) =>
-              (getParentElement(
-                document.getElementById(e),
-                ".form-group_register"
-              ).querySelector(".form-message").innerText =
-                "Error! An error occurred. Please try again later")
-          );
-          console.error("Lỗi khi thêm người dùng:", error);
-        }
-      };
-      if (emailExist && typeof formError.email === "undefined") {
-        e.preventDefault();
-        if (
-          typeof formError.email === "string" ||
-          typeof formError.email === "undefined"
-        ) {
-          const formErrorMessage = getParentElement(
+    checkExist.map((check) =>
+      check.phoneNumber === inputPhoneNumber.current
+        ? (phoneExist = true)
+        : false
+    );
+    var count = 0;
+    const handleOnSubmit = (e) => {
+      e.preventDefault();
+      if (!inputUsername.current) {
+        validateForm(
+          getParentElement(
+            document.getElementById("username"),
+            ".form-group_register"
+          ),
+          document.getElementById("username")
+        );
+      }
+      if (!inputEmail.current) {
+        validateForm(
+          getParentElement(
             document.getElementById("email"),
             ".form-group_register"
-          ).querySelector(".form-message");
-          formErrorMessage.innerText = "This email is exist";
-        }
+          ),
+          document.getElementById("email")
+        );
       }
-      if (phoneExist && typeof formError.phoneNumber === "undefined") {
-        e.preventDefault();
-        if (
-          typeof formError.phoneNumber === "string" ||
-          typeof formError.phoneNumber === "undefined"
-        ) {
-          const formErrorMessage = getParentElement(
+      if (!inputPhoneNumber.current) {
+        validateForm(
+          getParentElement(
             document.getElementById("phoneNumber"),
             ".form-group_register"
-          ).querySelector(".form-message");
-          formErrorMessage.innerText = "This phone number is exist";
-        }
+          ),
+          document.getElementById("phoneNumber")
+        );
       }
-      if (!emailExist && !phoneExist) {
-        const keys = Object.keys(formValue);
-        keys.some((id) => {
-          if (
-            id !== "customerId" &&
-            id !== "role" &&
-            document.getElementById(id).value !== ""
-          ) {
-            count++;
-            if (count === 4) {
-              addUser({
-                username: formValue.username,
-                email: formValue.email,
-                phoneNumber: formValue.phoneNumber,
-                password: SHA256(formValue.password).toString(),
-                role: 1,
-              });
-              return true;
-            }
-          } else {
-            e.preventDefault();
+      if (!inputPassword.current) {
+        validateForm(
+          getParentElement(
+            document.getElementById("password"),
+            ".form-group_register"
+          ),
+          document.getElementById("password")
+        );
+      }
+      if (!inputPasswordConfirm.current) {
+        validateForm(
+          getParentElement(
+            document.getElementById("passwordConfirm"),
+            ".form-group_register"
+          ),
+          document.getElementById("passwordConfirm")
+        );
+      }
+      if (!inputCheck.current.checked) {
+        validateForm(
+          getParentElement(
+            document.getElementById("active"),
+            ".form-group_register"
+          ),
+          document.getElementById("active")
+        );
+      }
+      if (Object.keys(formError).length === 0) {
+        const addUser = (Customer) => {
+          try {
+            fetch("http://localhost:9999/Users/register", {
+              method: "POST",
+              body: JSON.stringify(Customer),
+              headers: header,
+            }).then((response) => {
+              if (response.status >= 200 && response.status < 300) {
+                localStorage.setItem("register_success", "register_success");
+                navigate("/login");
+              }
+            });
+          } catch (error) {
+            const errorMsg = Object.keys(formValue);
+            errorMsg.map(
+              (e) =>
+                (getParentElement(
+                  document.getElementById(e),
+                  ".form-group_register"
+                ).querySelector(".form-message").innerText =
+                  "Error! An error occurred. Please try again later")
+            );
+            console.error("Lỗi khi thêm người dùng:", error);
           }
-          return false;
-        });
+        };
+        if (emailExist && typeof formError.email === "undefined") {
+          e.preventDefault();
+          if (
+            typeof formError.email === "string" ||
+            typeof formError.email === "undefined"
+          ) {
+            const formErrorMessage = getParentElement(
+              document.getElementById("email"),
+              ".form-group_register"
+            ).querySelector(".form-message");
+            formErrorMessage.innerText = "This email is exist";
+          }
+        }
+        if (phoneExist && typeof formError.phoneNumber === "undefined") {
+          e.preventDefault();
+          if (
+            typeof formError.phoneNumber === "string" ||
+            typeof formError.phoneNumber === "undefined"
+          ) {
+            const formErrorMessage = getParentElement(
+              document.getElementById("phoneNumber"),
+              ".form-group_register"
+            ).querySelector(".form-message");
+            formErrorMessage.innerText = "This phone number is exist";
+          }
+        }
+        if (!emailExist && !phoneExist) {
+          const keys = Object.keys(formValue);
+          keys.some((id) => {
+            if (
+              id !== "customerId" &&
+              id !== "role" &&
+              document.getElementById(id).value !== ""
+            ) {
+              count++;
+              if (count === 4) {
+                addUser({
+                  username: formValue.username,
+                  email: formValue.email,
+                  phoneNumber: formValue.phoneNumber,
+                  password: formValue.password,
+                });
+                return true;
+              }
+            } else {
+              e.preventDefault();
+            }
+            return false;
+          });
+        }
+      } else {
+        e.preventDefault();
       }
-    } else {
-      e.preventDefault();
-    }
+    };
   };
 
   return (
