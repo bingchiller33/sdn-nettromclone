@@ -7,7 +7,6 @@ import cors from "cors";
 import { feedbackRouter, storyRouter, userRouter } from "./routes/index.js";
 import http from "http";
 import { Server } from "socket.io";
-import connection from "./connection.js";
 
 dotenv.config();
 
@@ -28,7 +27,14 @@ const io = new Server(server, {
   },
 });
 
-io.on("connection", connection);
+io.on("connection", (socket) => {
+  socket.on("chat message", (msg) => {
+    io.emit("chat message", msg);
+  });
+  socket.on("disconnect", () => {
+    // console.log("User disconnected");
+  });
+});
 app.use("/feedback", feedbackRouter);
 app.use("/story", storyRouter);
 app.use("/users", userRouter);

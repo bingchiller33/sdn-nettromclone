@@ -66,7 +66,7 @@ const Feedback = () => {
       feedback: value,
       status: "normal",
     };
-    socket.emit("chat message", value);
+    socket.emit("chat message", feedback);
     axios
       .post("http://localhost:9999/feedback/add_new", feedback, {
         headers: header,
@@ -130,18 +130,15 @@ const Feedback = () => {
       .catch((e) => console.log(e.message));
   };
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("Đã kết nối với máy chủ Socket.IO");
-    });
-
+    // socket.on("connect", () => {
+    //   console.log("Đã kết nối với máy chủ Socket.IO");
+    // });
     socket.on("chat message", (msg) => {
-      console.log("Nhận tin nhắn mới:", msg);
-      getListFeedback(sid, limit);
+      dispatch(fetchFeedbackSuccess([...listFeedback, msg]));
     });
-
-    socket.on("connection_error", (errorMessage) => {
-      console.log("Socket.IO connection error:", errorMessage);
-    });
+    // socket.on("disconnect", () => {
+    //   console.log("A client disconnected");
+    // });
     return () => {
       socket.disconnect();
     };
@@ -214,7 +211,10 @@ const Feedback = () => {
                                   >
                                     <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
                                   </svg>
-                                  <div className="bc-action d-flex flex-column gap-1 position-absolute ">
+                                  <div
+                                    style={{ userSelect: "none" }}
+                                    className="bc-action d-flex flex-column gap-1 position-absolute "
+                                  >
                                     <div
                                       onClick={() => handleRecalMessage(f._id)}
                                       className="custom-cursor px-1 rounded enter"
