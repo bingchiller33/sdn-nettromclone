@@ -37,7 +37,7 @@ io.on("connection", (socket) => {
 });
 app.use("/feedback", feedbackRouter);
 app.use("/story", storyRouter);
-app.use("/Users", userRouter);
+app.use("/users", userRouter);
 
 // app.use("/products", productRouter);
 const port = process.env.PORT || 9999;

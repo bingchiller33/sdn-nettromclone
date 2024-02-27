@@ -130,19 +130,22 @@ const Feedback = () => {
       .catch((e) => console.log(e.message));
   };
   useEffect(() => {
-    // socket.on("connect", () => {
-    //   console.log("Đã kết nối với máy chủ Socket.IO");
-    // });
-    socket.on("chat message", (msg) => {
-      dispatch(fetchFeedbackSuccess([...listFeedback, msg]));
+    socket.on("connect", () => {
+      console.log("Đã kết nối với máy chủ Socket.IO");
     });
-    // socket.on("disconnect", () => {
-    //   console.log("A client disconnected");
-    // });
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+    socket.on("chat message", (msg) => {
+      axios
+        .get(`${BASE_URL}/feedback/${sid}?limit=${limit}&skip=${0}`)
+        .then((res) => dispatch(fetchFeedbackSuccess(res.data)))
+        .catch(() => navigation("/login"));
+    });
+    socket.on("disconnect", () => {
+      console.log("A client disconnected");
+    });
+    // return () => {
+    //   socket.disconnect();
+    // };
+  }, [dispatch, sid, limit, navigation]);
   return (
     <DefaultTemplate>
       <div
