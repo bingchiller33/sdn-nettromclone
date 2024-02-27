@@ -145,7 +145,7 @@ function Login() {
         .then(data => {
             setAcountExist(true); 
             setCustomer(data.user); 
-            localStorage.setItem('token', data.token); 
+            localStorage.setItem('token', data.user.token); 
             sessionStorage.setItem('login_success', 'login_success');
             navigate('/');
         })
