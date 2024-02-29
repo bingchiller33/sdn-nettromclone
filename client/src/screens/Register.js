@@ -197,7 +197,7 @@ function Register() {
     if (Object.keys(formError).length === 0) {
       const addUser = (Customer) => {
         try {
-          fetch("http://localhost:9999/Users/register", {
+          fetch("http://localhost:9999/users/register", {
             method: "POST",
             body: JSON.stringify(Customer),
             headers: header,

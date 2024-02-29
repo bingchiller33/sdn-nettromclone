@@ -30,7 +30,7 @@ function App() {
           <Route path="/search" element={<SearchStory />} />
           <Route path="/author/addeditstory" element={<AddEditStory />} />
           <Route path="/author/mystory" element={<MyListStory />} />
-          <Route path="/author/mystory/boxchat/:sid" element={<BoxChat />} />
+          <Route path="/author/mystory/:sid/boxchat" element={<BoxChat />} />
           <Route
             path="/author/mystory/listchapter/:sid"
             element={<MyListChapter />}

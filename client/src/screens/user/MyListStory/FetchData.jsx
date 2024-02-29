@@ -9,15 +9,15 @@ import axios from "axios";
 import { BASE_URL } from "../../../components/common/utilities/initials";
 
 const FetChData = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}story/get_list_stories/65d711fe44acd31351cfc507`)
-      .then((res) => dispatch(fetchStoriesSuccess(res.data)))
-      .catch(() => {
-        throw new Error("Network response was not ok");
-      });
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   axios
+  //     .get(`${BASE_URL}story/get_list_stories/65d711fe44acd31351cfc507`)
+  //     .then((res) => dispatch(fetchStoriesSuccess(res.data)))
+  //     .catch(() => {
+  //       throw new Error("Network response was not ok");
+  //     });
+  // }, [dispatch]);
   //   useEffect(() => {
   //     fetch("http://localhost:9999/Categories")
   //       .then((res) => res.json())

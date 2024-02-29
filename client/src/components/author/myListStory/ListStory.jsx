@@ -114,7 +114,7 @@ const ListSotry = () => {
               </Link>
             </td>
             <td className="text-center align-middle">
-              <Link to={`/author/mystory/boxchat/${story._id}`}>
+              <Link to={`/author/mystory/${story._id}/boxchat`}>
                 <Chat color="black" className="pb-1" size={22} />
               </Link>
             </td>
