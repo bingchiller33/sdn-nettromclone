@@ -81,4 +81,4 @@ const story = createSlice({
 
 const { reducer, actions } = story
 export const { addStory, setDesciption, setName, setAuthor, setImage, setCategoryId, setFormValue, updateStory } = actions
-export default reducer;
+export default reducer;  
