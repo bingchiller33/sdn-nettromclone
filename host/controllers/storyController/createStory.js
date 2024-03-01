@@ -1,4 +1,4 @@
-import { storyDAO } from "../../repositories";
+import { storyDAO } from "../../repositories/index.js";
 
 const createStory = async (req, res) => {
   try {
