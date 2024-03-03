@@ -13,6 +13,7 @@ import BoxChat from "./screens/user/boxChat/BoxChat";
 import MyListChapter from "./screens/user/Chapter/MyListChapter";
 import AddEditContent from "./screens/user/content/AddEditContent";
 import ChapterContent from "./screens/chapterContent/ChapterContent";
+import UserProfile from "./screens/user/profile/UserProfile";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             path="/author/mystory/listchapter/:sid/content/:cid"
             element={<AddEditContent />}
           />
+          <Route path="/profile" element={<UserProfile />}></Route>
           <Route path="*" element={<Navigate to={"/nettruyen.net"} />} />
         </Routes>
       </BrowserRouter>
