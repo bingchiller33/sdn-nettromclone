@@ -1,5 +1,5 @@
 {
-  "Users": [
+  "users": [
     {
       "username": "user",
       "email": "Luongldhe163727@fpt.edu.vn",
@@ -13,7 +13,7 @@
       "username": "admin2",
       "email": "Luonsgldhe163727@fpt.edu.vn",
       "phoneNumber": "0375397014",
-      "password": "26d9b0e9924f0b3d393dc68bbe59486719d3ef51854545a0bb056ef271ba6fba",
+      "password": "Ab123456",
       "img": "",
       "role": 3,
       "id": 2
