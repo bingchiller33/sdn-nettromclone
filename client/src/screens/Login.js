@@ -150,7 +150,7 @@ function Login() {
       .then((data) => {
         setAcountExist(true);
         setCustomer(data.user);
-        localStorage.setItem("token", data.user.token);
+        localStorage.setItem("token", data.user);
         sessionStorage.setItem("login_success", "login_success");
         navigate("/");
       })
