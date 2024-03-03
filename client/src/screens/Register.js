@@ -7,7 +7,7 @@ import "../styles/register.css";
 import getParentElement from "../components/common/utilities/getParentElement";
 
 const initFormValue = {
-  username: "",
+  userName: "",
   email: "",
   phoneNumber: "",
   password: "",
@@ -48,8 +48,8 @@ function Register() {
     const { name } = e;
     let formMessage;
     const error = {};
-    if (isEmptyValue(formValue.username)) {
-      error["username"] = "User name can not is empty";
+    if (isEmptyValue(formValue.userName)) {
+      error["userName"] = "User name can not is empty";
     }
     if (isEmptyValue(formValue.password)) {
       error["password"] = "Password can not is empty";
@@ -143,10 +143,10 @@ function Register() {
     if (!inputUsername.current) {
       validateForm(
         getParentElement(
-          document.getElementById("username"),
+          document.getElementById("userName"),
           ".form-group_register"
         ),
-        document.getElementById("username")
+        document.getElementById("userName")
       );
     }
     if (!inputEmail.current) {
@@ -257,7 +257,7 @@ function Register() {
             count++;
             if (count === 4) {
               addUser({
-                username: formValue.username,
+                userName: formValue.userName,
                 email: formValue.email,
                 phoneNumber: formValue.phoneNumber,
                 password: formValue.password,
@@ -304,8 +304,8 @@ function Register() {
                   inputRef={inputUsername}
                   label={"User name"}
                   placeholder={"abcd..."}
-                  name={"username"}
-                  value={formValue.username}
+                  name={"userName"}
+                  value={formValue.userName}
                   onBlur={handleOnBlur}
                   onFocus={handleOnFocus}
                   onChange={handleOnChange}
