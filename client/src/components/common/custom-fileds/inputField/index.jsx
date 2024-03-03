@@ -15,7 +15,7 @@ const InputField = (props, ref) => {
         }
     }));
     return (
-        <Form.Group as={Col} xs={xs} className={`p-0 ${className}`}>
+        <Form.Group as={Col} xs={xs} className={`p-0 mb-3 ${className}`}>
             {label && <Form.Label htmlFor={id} >{label} {requiredValue && <span className="text-danger">{requiredValue}</span>} </Form.Label>}
             <Form.Control
                 ref={inputValue}
