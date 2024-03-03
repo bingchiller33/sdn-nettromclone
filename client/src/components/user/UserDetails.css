@@ -254,3 +254,13 @@ img {
     opacity: .8;
     font-weight: 300;
 }
+
+.chevron-up {
+    position: absolute;
+    top: 40%;
+    right: 5px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+}

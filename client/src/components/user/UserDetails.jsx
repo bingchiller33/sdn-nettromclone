@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Table, Image, Figure } from "react-bootstrap";
 import "./UserDetails.css";
+import { ChevronDown, ChevronUp } from "react-bootstrap-icons";
 
 const UserDetails = ({ user }) => {
+  const [isChevronUp, setChevron] = useState(true);
+
   return (
     <Container>
       <Row>
@@ -21,6 +24,12 @@ const UserDetails = ({ user }) => {
                   <div className="user-name">hoangzteg</div>
                 </Figure.Caption>
               </Figure>
+              <div
+                className="chevron-up"
+                onClick={() => setChevron(!isChevronUp)}
+              >
+                {isChevronUp ? <ChevronUp /> : <ChevronDown />}
+              </div>
             </div>
           </section>
         </Col>
