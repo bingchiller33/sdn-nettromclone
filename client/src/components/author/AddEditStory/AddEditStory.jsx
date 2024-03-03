@@ -21,7 +21,7 @@ import DefaultTemplate from "../../../templates/DefaultTemplate";
 import { updateUser } from "../../user/userSlice";
 import getParameter from "../../common/utilities/getParameter";
 import FetchData from "./FetchData";
-import "./Add.css";
+// import "./Add.css";
 import CustomCheckBox from "../../common/custom-fileds/CheckboxField/customCheckBox";
 
 const AddStory = () => {
