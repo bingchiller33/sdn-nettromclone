@@ -1,6 +1,6 @@
 import Story from "../../models/Story.js";
 
-const getStoriesByUserId = async (userId) => {
+const getStoriesByUser = async (userId) => {
   try {
     const result = await Story.find({ author: userId });
     return result;
@@ -9,4 +9,4 @@ const getStoriesByUserId = async (userId) => {
   }
 };
 
-export default getStoriesByUserId;
+export default getStoriesByUser;

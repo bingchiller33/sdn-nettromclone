@@ -1,9 +1,11 @@
 import getStoryById from "./getStoryById.js";
-import getStoriesByUserId from "./getStoriesByUserId.js";
+import getStoriesByUser from "./getStoriesByUser.js";
 import createStory from "./createStory.js";
+import updateStory from "./updateStory.js";
 
 export default {
   getStoryById,
-  getStoriesByUserId,
+  getStoriesByUser,
   createStory,
+  updateStory,
 };
