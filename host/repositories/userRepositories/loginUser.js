@@ -12,11 +12,12 @@ const login = async ({ phoneNumber, password }) => {
     if (!isPasswordValid) {
       throw new Error("Invalid phone number or password");
     }
+
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "12h",
+      expiresIn: "1h",
     });
 
-    return { user, token };
+    return token;
   } catch (error) {
     throw new Error(error.toString());
   }
