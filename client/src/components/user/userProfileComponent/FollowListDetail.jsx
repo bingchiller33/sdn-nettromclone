@@ -86,7 +86,7 @@ const FollowListDetail = () => {
                   <br />
                   <time className="time">1 giờ trước</time>
                 </td>
-              </tr>{" "}
+              </tr>
               <tr className="unread">
                 <td>
                   <a

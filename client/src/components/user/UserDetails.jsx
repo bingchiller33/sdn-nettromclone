@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Figure,
-  Nav,
-} from "react-bootstrap";
+import { Container, Row, Col, Figure, Nav, Spinner } from "react-bootstrap";
 import "./UserDetails.css";
 import {
   BookmarkHeartFill,
@@ -20,10 +14,21 @@ import {
 import CommonDetail from "./userProfileComponent/CommonDetail";
 import FollowListDetail from "./userProfileComponent/FollowListDetail";
 import CommentDetail from "./userProfileComponent/CommentDetail";
+import ProfileDetail from "./userProfileComponent/ProfileDetail";
 
 const UserDetails = ({ user }) => {
   const [isNavVisible, setNavVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+
+  if (!user) {
+    return (
+      <div className="d-flex justify-content-center">
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      </div>
+    );
+  }
 
   return (
     <Container>
@@ -39,11 +44,11 @@ const UserDetails = ({ user }) => {
                   className="avatar user-name"
                   width={80}
                   alt="avatar"
-                  src="//st.nettruyenbb.com/data/sites/1/useravatars/32046.jpg?v=3781"
+                  src={user.img}
                 />
                 <Figure.Caption>
                   <div className="title">Tài khoản của</div>
-                  <div className="user-name">hoangzteg</div>
+                  <div className="user-name">{user.userName}</div>
                 </Figure.Caption>
               </Figure>
               <div
@@ -122,8 +127,8 @@ const UserDetails = ({ user }) => {
           )}
         </Col>
         <Col md={9} sm={8}>
-          {activeTab === 0 && <CommonDetail />}
-          {activeTab === 1 && <CommonDetail />}
+          {activeTab === 0 && <CommonDetail user={user} />}
+          {activeTab === 1 && <ProfileDetail user={user} />}
           {activeTab === 2 && <FollowListDetail />}
           {activeTab === 3 && <CommentDetail />}
         </Col>

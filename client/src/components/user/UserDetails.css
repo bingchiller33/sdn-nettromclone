@@ -297,3 +297,35 @@ img {
 }
 
 
+.account-edit-label {
+    align-self: center;
+    padding-bottom: 0;
+    padding-right: 10px;
+    text-align: right;
+    width: 160px;
+    color: hsl(var(--hsl-f1));
+    font-weight: 700;
+    order: -1;
+    line-height: 2.5;
+}
+
+.custom-file-label {
+    display: inline-block;
+    margin-left: 6px;
+    padding: .375rem .75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #ffffff;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #ee2c74;
+    border-radius: .5rem;
+    min-width: 128px;
+    overflow: hidden;
+    position: relative;
+    text-align: left;
+}

@@ -7,7 +7,7 @@ const CommentDetail = () => {
     <React.Fragment>
       <div className="position-relative">
         <h2 className="posttitle">Bình luận</h2>
-        <a class="link" href="https://www.nettruyenbb.com/Secure/Comments.aspx">
+        <a className="link" href="https://www.nettruyenbb.com/Secure/Comments.aspx">
           Xem tất cả
         </a>
       </div>
@@ -26,11 +26,11 @@ const CommentDetail = () => {
               <td>
                 <a
                   rel="nofollow"
-                  class="image"
+                  className="image"
                   href="https://www.nettruyenbb.com/truyen-tranh/kanojo-mo-kanojo-280221"
                 >
                   <img
-                    class="lazy"
+                    className="lazy"
                     data-original="//st.nettruyenbb.com/data/comics/118/kanojo-mo-kanojo-6298.jpg"
                     src="//st.nettruyenbb.com/data/comics/118/kanojo-mo-kanojo-6298.jpg"
                   />

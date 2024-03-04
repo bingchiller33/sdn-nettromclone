@@ -53,7 +53,7 @@ const Header = () => {
   }, [SearchStory]);
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/users/get_user`, config)
+      .get(`${BASE_URL}/users`, config)
       .then((res) => setUser(res.data))
       .catch((err) => console.log(err.message));
   }, []);

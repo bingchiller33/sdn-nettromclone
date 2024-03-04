@@ -1,9 +1,18 @@
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import "../UserDetails.css";
 import FollowListDetail from "./FollowListDetail";
 import CommentDetail from "./CommentDetail";
 
-const CommonDetail = () => {
+const CommonDetail = ({ user }) => {
+  if (!user) {
+    return (
+      <div className="d-flex justify-content-center">
+        <Spinner animation="border" role="status">
+          <span className="sr-only">...</span>
+        </Spinner>
+      </div>
+    );
+  }
   return (
     <div className="user-page">
       <h1 className="postname">thông tin chung</h1>
@@ -20,15 +29,15 @@ const CommonDetail = () => {
             <div className="info-detail">
               <div className="group">
                 <div className="label">Username</div>
-                <div className="detail">32</div>
+                <div className="detail">{user.userName}</div>
               </div>
               <div className="group">
                 <div className="label">Email</div>
-                <div className="detail">32</div>
+                <div className="detail">{user.email}</div>
               </div>
               <div className="group">
                 <div className="label">SĐT</div>
-                <div className="detail">32</div>
+                <div className="detail">{user.phoneNumber}</div>
               </div>
             </div>
           </div>
