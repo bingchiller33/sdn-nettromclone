@@ -9,5 +9,6 @@ storyRouter.get(
   storyController.getStoriesByUserId
 );
 storyRouter.post("/create_story", storyController.createStory);
+storyRouter.get('/get_stories', storyController.getStories)
 
 export default storyRouter;
