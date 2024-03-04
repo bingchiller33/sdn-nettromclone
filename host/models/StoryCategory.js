@@ -6,17 +6,12 @@ const storyCategorySchema = new Schema(
     categoryId: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: "Comments",
+      ref: "Categories",
     },
     storyId: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: "Stories",
-    },
-    name: {
-      type: String,
-      required: true,
-      unique: true,
+      ref: "Story",
     },
     isActive: {
       type: Boolean,
@@ -30,4 +25,4 @@ const storyCategorySchema = new Schema(
 
 const StoryCategories = mongoose.model("StoryCategories", storyCategorySchema);
 
-module.exports = StoryCategories;
+export default StoryCategories;

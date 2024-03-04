@@ -36,11 +36,6 @@ const storySchema = new Schema(
       enum: ["draft", "published", "archived"],
       default: "draft",
     },
-    categoryId: {
-      type: Schema.Types.ObjectId,
-      ref: "storyCategories",
-      required: true,
-    },
   },
   { timestamps: true }
 );

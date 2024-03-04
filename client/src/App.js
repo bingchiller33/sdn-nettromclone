@@ -7,13 +7,14 @@ import ViewDetail from "./screens/ViewDetail";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
 import SearchStory from "./screens/SearchStory";
-import AddEditStory from "./components/author/AddEditStory/AddEditStory";
+import AddStory from "./components/author/AddEditStory/AddStory";
 import MyListStory from "./screens/user/MyListStory/MyListStory";
 import BoxChat from "./screens/user/boxChat/BoxChat";
 import MyListChapter from "./screens/user/Chapter/MyListChapter";
 import AddEditContent from "./screens/user/content/AddEditContent";
 import ChapterContent from "./screens/chapterContent/ChapterContent";
 import UserProfile from "./screens/user/profile/UserProfile";
+import EditStory from "./components/author/AddEditStory/EditStory";
 
 function App() {
   return (
@@ -29,7 +30,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/search" element={<SearchStory />} />
-          <Route path="/author/addeditstory" element={<AddEditStory />} />
+          <Route path="/author/addstory" element={<AddStory />} />
+          <Route path="/author/editstory/:sid" element={<EditStory />} />
           <Route path="/author/mystory" element={<MyListStory />} />
           <Route path="/author/mystory/:sid/boxchat" element={<BoxChat />} />
           <Route

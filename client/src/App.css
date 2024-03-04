@@ -312,3 +312,11 @@ div.bc-action {
 .flx {
   flex: 1;
 }
+.lg_error_message,
+.rg_error_message {
+  font-size: 0.625rem;
+  color: #d70707;
+}
+.error {
+  border: 1.25px solid #d70707 !important;
+}

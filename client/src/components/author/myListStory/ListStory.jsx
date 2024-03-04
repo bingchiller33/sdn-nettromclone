@@ -13,7 +13,6 @@ const ListSotry = () => {
   const listStories = useSelector((state) => state.listStory.data);
   const listFollows = useSelector((state) => state.listFollow.data);
   const listRate = useSelector((state) => state.listRate.data);
-  console.log(listStories);
   return (
     <Table striped bordered size="sm">
       <thead>
@@ -84,15 +83,9 @@ const ListSotry = () => {
               />
             </td>
             <td className="text-center align-middle">
-              <Link
-                to={
-                  story.active === 0
-                    ? `/author/addeditstory?sid=${story._id}`
-                    : ""
-                }
-              >
+              <Link to={!story.active ? `/author/editstory/${story._id}` : ""}>
                 <PencilSquare
-                  color={story.active === 0 ? "black" : "grey"}
+                  color={!story.active ? "black" : "grey"}
                   className="pb-1"
                   size={22}
                 />
