@@ -7,9 +7,16 @@ import { fetchStoriesSuccess } from "../../../components/common/data/dataStory/d
 import { useDispatch } from "react-redux";
 const MyListStory = () => {
   const dispatch = useDispatch();
+  const jwt = localStorage.getItem("token");
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+  };
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/story/get_list_stories/65d711fe44acd31351cfc507`)
+      .get(`${BASE_URL}/story/get_list_stories`, config)
       .then((res) => dispatch(fetchStoriesSuccess(res.data)))
       .catch((e) => console.log(e.message));
   }, [dispatch]);

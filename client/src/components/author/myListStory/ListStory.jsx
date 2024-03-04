@@ -6,14 +6,13 @@ import CheckBox from "../../common/custom-fileds/CheckboxField";
 import { completedStory } from "../../common/data/dataStory/dataSlice";
 import rateAvg from "../../common/utilities/rateAvg";
 import SplitNumber from "../../common/utilities/SplitNumber";
-import time from "../../UpdateTime";
+import time from "../../updateTime";
 import getTime from "../../common/utilities/getTime";
 
 const ListSotry = () => {
   const listStories = useSelector((state) => state.listStory.data);
   const listFollows = useSelector((state) => state.listFollow.data);
   const listRate = useSelector((state) => state.listRate.data);
-  console.log(listStories);
   return (
     <Table striped bordered size="sm">
       <thead>
@@ -84,15 +83,9 @@ const ListSotry = () => {
               />
             </td>
             <td className="text-center align-middle">
-              <Link
-                to={
-                  story.active === 0
-                    ? `/author/addeditstory?sid=${story._id}`
-                    : ""
-                }
-              >
+              <Link to={!story.active ? `/author/editstory/${story._id}` : ""}>
                 <PencilSquare
-                  color={story.active === 0 ? "black" : "grey"}
+                  color={!story.active ? "black" : "grey"}
                   className="pb-1"
                   size={22}
                 />

@@ -4,7 +4,13 @@ import * as dotenv from "dotenv";
 // import {productRouter} from "./routes/index.js";
 import connectDB from "./database.js";
 import cors from "cors";
-import { feedbackRouter, storyRouter, userRouter } from "./routes/index.js";
+import {
+  categoriesRouter,
+  feedbackRouter,
+  storyCategoriesRouter,
+  storyRouter,
+  userRouter,
+} from "./routes/index.js";
 import http from "http";
 import { Server } from "socket.io";
 
@@ -38,6 +44,8 @@ io.on("connection", (socket) => {
 app.use("/feedback", feedbackRouter);
 app.use("/story", storyRouter);
 app.use("/users", userRouter);
+app.use("/categories", categoriesRouter);
+app.use("/story_categories", storyCategoriesRouter);
 
 // app.use("/products", productRouter);
 const port = process.env.PORT || 9999;
