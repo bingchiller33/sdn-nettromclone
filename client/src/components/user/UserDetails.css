@@ -264,3 +264,36 @@ img {
     font-weight: 700;
     cursor: pointer;
 }
+
+.user-sidelink {
+    background: #f2f2f2;
+    margin-bottom: 60px;
+}
+
+.user-sidelink ul li.active {
+    background: #e6e6e6;
+    border-left: 3px solid #ee2c74;
+    font-weight: bold;
+}
+
+.user-sidelink ul li {
+    width: 100%;
+}
+
+.hvr-sweep-to-right {
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: 0 0 1px transparent;
+    transition-property: color;
+    transition-duration: .3s;
+}
+
+.user-sidelink ul li a {
+    display: block;
+    color: #333;
+    padding: 9px 30px;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+
