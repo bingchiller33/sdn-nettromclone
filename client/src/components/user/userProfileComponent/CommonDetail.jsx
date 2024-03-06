@@ -49,7 +49,7 @@ const CommonDetail = ({ user, setActiveTab }) => {
                 <div className="detail">Đã liên kết</div>
               </div>
               <div className="group">
-                <div class="label hidden">3</div>
+                <div className="label hidden">3</div>
                 <div className="detail">
                   <a href="">Thay đổi</a>
                 </div>
