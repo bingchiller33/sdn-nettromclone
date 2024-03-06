@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../common/utilities/initials";
 
-const ProfileDetail = ({ user }) => {
+const ProfileDetail = ({ user, setUser }) => {
   const [username, setUsername] = useState(user.userName);
   const [email, setEmail] = useState(user.email);
   const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
@@ -41,22 +41,27 @@ const ProfileDetail = ({ user }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append("image", image);
-      console.log(formData.get("image"));
-      const response = await axios.post(`${BASE_URL}/users/upload`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response.data);
-
       const updatedUser = {
         userName: username,
         email: email,
         phoneNumber: phoneNumber,
-        image: response.data.image,
       };
+
+      if (image) {
+        const formData = new FormData();
+        formData.append("image", image);
+        const response = await axios.post(
+          `${BASE_URL}/users/upload`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        updatedUser.image = response.data.image;
+      }
+
       const updateResponse = await axios.put(
         `${BASE_URL}/users/update`,
         updatedUser,
@@ -66,7 +71,7 @@ const ProfileDetail = ({ user }) => {
           },
         }
       );
-      console.log(updateResponse.data);
+      setUser(updateResponse.data);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -120,6 +125,7 @@ const ProfileDetail = ({ user }) => {
                   placeholder="Enter phoneNumber"
                   value={phoneNumber}
                   onChange={handlePhoneNumberChange}
+                  disabled
                 />
               </Form.Group>
             </Col>

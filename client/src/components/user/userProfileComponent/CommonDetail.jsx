@@ -2,8 +2,9 @@ import { Col, Row, Spinner } from "react-bootstrap";
 import "../UserDetails.css";
 import FollowListDetail from "./FollowListDetail";
 import CommentDetail from "./CommentDetail";
+import { Link } from "react-router-dom";
 
-const CommonDetail = ({ user }) => {
+const CommonDetail = ({ user, setActiveTab }) => {
   if (!user) {
     return (
       <div className="d-flex justify-content-center">
@@ -20,12 +21,9 @@ const CommonDetail = ({ user }) => {
         <Col xs={12} md={6}>
           <div className="account-info clearfix">
             <h2 className="posttitle">Thông tin tài khoản</h2>
-            <a
-              className="link"
-              href="https://www.nettruyenbb.com/Secure/UserProfile.aspx"
-            >
+            <Link className="link" onClick={() => setActiveTab(1)}>
               Chỉnh sửa
-            </a>
+            </Link>
             <div className="info-detail">
               <div className="group">
                 <div className="label">Username</div>
@@ -53,23 +51,17 @@ const CommonDetail = ({ user }) => {
               <div className="group">
                 <div class="label hidden">3</div>
                 <div className="detail">
-                  <a
-                    onclick="return confirm('Đổi liên kết tài khoản Google sẽ thay đổi địa chỉ email. Bạn vẫn chắn chắn muốn thực hiện?');"
-                    id="ctl00_mainContent_lkbLinkGoogle"
-                    href=""
-                  >
-                    Thay đổi
-                  </a>
+                  <a href="">Thay đổi</a>
                 </div>
               </div>
             </div>
           </div>
         </Col>
         <Col xs={12}>
-          <FollowListDetail />
+          <FollowListDetail setActiveTab={setActiveTab} />
         </Col>
         <Col xs={12}>
-          <CommentDetail />
+          <CommentDetail setActiveTab={setActiveTab} />
         </Col>
       </Row>
     </div>

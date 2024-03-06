@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Container, Row, Col, Figure, Nav, Spinner } from "react-bootstrap";
 import "./UserDetails.css";
 import {
@@ -15,8 +15,11 @@ import CommonDetail from "./userProfileComponent/CommonDetail";
 import FollowListDetail from "./userProfileComponent/FollowListDetail";
 import CommentDetail from "./userProfileComponent/CommentDetail";
 import ProfileDetail from "./userProfileComponent/ProfileDetail";
+import UserContext from "../../contexts/UserContext";
 
-const UserDetails = ({ user }) => {
+const UserDetails = () => {
+  const { user, setUser } = useContext(UserContext);
+
   const [isNavVisible, setNavVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
 
@@ -127,8 +130,10 @@ const UserDetails = ({ user }) => {
           )}
         </Col>
         <Col md={9} sm={8}>
-          {activeTab === 0 && <CommonDetail user={user} />}
-          {activeTab === 1 && <ProfileDetail user={user} />}
+          {activeTab === 0 && (
+            <CommonDetail setActiveTab={setActiveTab} user={user} />
+          )}
+          {activeTab === 1 && <ProfileDetail user={user} setUser={setUser} />}
           {activeTab === 2 && <FollowListDetail />}
           {activeTab === 3 && <CommentDetail />}
         </Col>

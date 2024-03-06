@@ -1,15 +1,16 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 import "../UserDetails.css";
+import { Link } from "react-router-dom";
 
-const CommentDetail = () => {
+const CommentDetail = ({ setActiveTab }) => {
   return (
     <React.Fragment>
       <div className="position-relative">
         <h2 className="posttitle">Bình luận</h2>
-        <a className="link" href="https://www.nettruyenbb.com/Secure/Comments.aspx">
+        <Link className="link" onClick={() => setActiveTab(3)}>
           Xem tất cả
-        </a>
+        </Link>
       </div>
       <section className="user-table clearfix">
         <Table responsive>

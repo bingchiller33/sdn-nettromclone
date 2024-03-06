@@ -1,9 +1,13 @@
 import { userDAO } from "../../repositories/index.js";
-import { cloudinary } from '../../utils/cloudinary.js';
+import { cloudinary } from "../../utils/cloudinary.js";
 
 const uploadImage = async (req, res) => {
   try {
-    const result = await cloudinary.v2.uploader.upload(req.file.path);
+    console.log(req.user);
+    const result = await cloudinary.v2.uploader.upload(req.file.path, {
+      public_id: `Avatar_${req.user.userName}_${Date.now()}`,
+      folder: "Users Avatar",
+    });
     const imageUrl = result.secure_url;
     const updatedUser = await userDAO.updateUser(req.user.phoneNumber, {
       img: imageUrl,

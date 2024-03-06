@@ -1,18 +1,23 @@
 import React from "react";
 import "../UserDetails.css";
 import { Image, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const FollowListDetail = () => {
+const FollowListDetail = ({ setActiveTab }) => {
   return (
     <React.Fragment>
       <div className="position-relative">
         <h2 className="posttitle">Truyện theo dõi</h2>
-        <a
+        <Link
           className="link"
-          href="https://www.nettruyenbb.com/Secure/ComicFollowed.aspx"
+          to=""
+          onClick={(e) => {
+            e.preventDefault();
+            setActiveTab(2);
+          }}
         >
           Xem tất cả
-        </a>
+        </Link>
       </div>
       <section className="user-table ckearfix">
         <div className="alert alert-success">TRUYỆN ĐỌC XONG RA ĐÂY</div>
