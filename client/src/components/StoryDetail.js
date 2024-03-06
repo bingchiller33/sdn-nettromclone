@@ -4,8 +4,6 @@ import { Button, Col, Row } from "react-bootstrap";
 import {
   ExclamationCircleFill,
   EyeFill,
-  FileText,
-  List,
   PersonFill,
   RssFill,
 } from "react-bootstrap-icons";
@@ -13,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import FormRate from "./FormRate";
 import SplitNumber from "./common/utilities/SplitNumber";
-import time from "./UpdateTime";
+import time from "./time";
 import FormComment from "./FormComment";
 import { DELETE, header, POST, PUT } from "./common/utilities/type";
 import category from "./common/utilities/category";
