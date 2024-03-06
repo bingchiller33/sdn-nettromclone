@@ -212,7 +212,7 @@ const Header = () => {
                       }
                       id="basic-nav-dropdown"
                     >
-                      <NavDropdown.Item as={Link} to="/author/addeditstory">
+                      <NavDropdown.Item as={Link} to="/author/addstory">
                         Tạo truyện mới
                       </NavDropdown.Item>
                       {user.role === 2 ? (
