@@ -1,7 +1,7 @@
 import User from "../../models/Users.js";
 import bcrypt from "bcrypt";
 
-const register = async ({ userName, email, phoneNumber, password }) => {
+const register = async ({ userName, email, phoneNumber, password, img }) => {
   try {
     const existingUser = await User.findOne({
       $or: [{ email }, { phoneNumber }],
@@ -15,6 +15,7 @@ const register = async ({ userName, email, phoneNumber, password }) => {
       email,
       phoneNumber,
       password: hashedPassword,
+      img,
     });
     await newUser.save();
     return newUser;

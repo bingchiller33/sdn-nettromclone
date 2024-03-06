@@ -11,7 +11,7 @@ const initFormValue = {
   email: "",
   phoneNumber: "",
   password: "",
-  img: "",
+  img: "https://res.cloudinary.com/dnzy2vddm/image/upload/v1709534551/avatar-guest_2x_nbk1bw.png",
 };
 const isEmptyValue = (value) => {
   const regex = /^[\s]*$/;
@@ -261,6 +261,7 @@ function Register() {
                 email: formValue.email,
                 phoneNumber: formValue.phoneNumber,
                 password: formValue.password,
+                img: formValue.img,
               });
               return true;
             }

@@ -14,6 +14,12 @@ import {
 import http from "http";
 import { Server } from "socket.io";
 
+import fs from 'fs';
+const dir = "./uploads";
+
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir);
+}
 dotenv.config();
 
 // tạo 1 constant 'app' đại diện cho server express trong ứng dụng
@@ -29,7 +35,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT"],
   },
 });
 

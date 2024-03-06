@@ -13,6 +13,8 @@ import { EyeFill, HouseFill } from "react-bootstrap-icons";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "./common/utilities/initials";
+import UserContext from "../contexts/UserContext";
+import { useContext } from "react";
 
 const Header = () => {
   const navigate = useNavigate("");
@@ -22,6 +24,9 @@ const Header = () => {
   const [user, setUser] = useState({});
   const [chapteres, setChapteres] = useState([]);
   const jwt = localStorage.getItem("token");
+  const [isLoading, setIsLoading] = useState(true);
+  const { user: contextUser, setUser: setContextUser } =
+    useContext(UserContext);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -53,8 +58,12 @@ const Header = () => {
   }, [SearchStory]);
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/users/get_user`, config)
-      .then((res) => setUser(res.data))
+      .get(`${BASE_URL}/users`, config)
+      .then((res) => {
+        setUser(res.data);
+        setContextUser(res.data);
+        setIsLoading(false);
+      })
       .catch((err) => console.log(err.message));
   }, []);
   const handleLogout = () => {
@@ -68,6 +77,7 @@ const Header = () => {
   const handleSearchCat = (id) => {
     navigate(`/search?category=${id}`);
   };
+
   return (
     <>
       <Container className="">
@@ -192,7 +202,6 @@ const Header = () => {
                 ) : (
                   <>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-
                     <NavDropdown
                       className="fw-bold"
                       title={
@@ -200,18 +209,21 @@ const Header = () => {
                           <Image
                             className="rounded-5 border me-1"
                             width={40}
-                            src={`${
-                              user.img === ""
+                            src={
+                              contextUser && contextUser.img === ""
                                 ? "https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
-                                : user.img
-                            }`}
-                            alt={user.username}
-                          />{" "}
-                          <span>{user.username}</span>
+                                : contextUser && contextUser.img
+                            }
+                            alt={contextUser && contextUser.username}
+                          />
+                          <span>{user && user.username}</span>
                         </>
                       }
                       id="basic-nav-dropdown"
                     >
+                      <NavDropdown.Item as={Link} to="/profile">
+                        Trang cá nhân
+                      </NavDropdown.Item>
                       <NavDropdown.Item as={Link} to="/author/addstory">
                         Tạo truyện mới
                       </NavDropdown.Item>
