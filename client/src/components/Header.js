@@ -78,7 +78,6 @@ const Header = () => {
     navigate(`/search?category=${id}`);
   };
 
- 
   return (
     <>
       <Container className="">
@@ -225,7 +224,7 @@ const Header = () => {
                       <NavDropdown.Item as={Link} to="/profile">
                         Trang cá nhân
                       </NavDropdown.Item>
-                      <NavDropdown.Item as={Link} to="/author/addeditstory">
+                      <NavDropdown.Item as={Link} to="/author/addstory">
                         Tạo truyện mới
                       </NavDropdown.Item>
                       {user.role === 2 ? (
