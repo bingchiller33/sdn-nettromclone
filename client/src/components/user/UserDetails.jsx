@@ -16,12 +16,13 @@ import FollowListDetail from "./userProfileComponent/FollowListDetail";
 import CommentDetail from "./userProfileComponent/CommentDetail";
 import ProfileDetail from "./userProfileComponent/ProfileDetail";
 import UserContext from "../../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const UserDetails = () => {
   const { user, setUser } = useContext(UserContext);
-
   const [isNavVisible, setNavVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const navigate = useNavigate();
 
   if (!user) {
     return (
@@ -119,7 +120,10 @@ const UserDetails = () => {
                   className={`hvr-sweep-to-right ${
                     activeTab === 5 ? "active" : ""
                   }`}
-                  onClick={() => setActiveTab(5)}
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    navigate("/");
+                  }}
                 >
                   <a href="#">
                     <BoxArrowLeft></BoxArrowLeft> Đăng xuất
