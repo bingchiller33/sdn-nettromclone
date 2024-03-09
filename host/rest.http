@@ -1,0 +1,43 @@
+GET http://localhost:9999/story
+
+###
+GET http://localhost:9999/categories/
+
+###
+POST http://localhost:9999/users/register/
+Content-Type: application/json
+
+{
+  "userName": "sad",
+  "phoneNumber": "021510",
+  "password": "Pass1111",
+  "email": "dsa@gmail.com"
+}
+
+###
+POST http://localhost:9999/story/create_story
+Content-Type: application/json
+
+{
+  "name": "story 1",
+  "author": "author 1",
+  "description": "des 1",
+  "categories": [
+
+  ]
+}
+
+###
+GET http://localhost:9999/comment
+
+###
+Post http://localhost:9999/comment
+Content-Type: application/json
+
+{
+  "userId": "sad",
+  "storyId": "sas",
+  "comment": "safas"
+
+}
+
