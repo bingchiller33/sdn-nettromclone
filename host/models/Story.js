@@ -10,7 +10,6 @@ const storySchema = new Schema(
     author: {
       type: Schema.Types.ObjectId,
       ref: "users",
-      required: true,
     },
     description: {
       type: String,

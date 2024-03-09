@@ -12,7 +12,7 @@ const authenticate = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    res.status(401).json({ error: 'Not authenticated' });
+    res.status(401).json({ error: 'Unauthorized' });
   }
 };
 

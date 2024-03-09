@@ -17,6 +17,9 @@ import { Server } from "socket.io";
 import fs from 'fs';
 const dir = "./uploads";
 
+import { swaggerUi, swaggerDocs } from "./swagger.js";
+
+
 if (!fs.existsSync(dir)) {
   fs.mkdirSync(dir);
 }
@@ -25,9 +28,11 @@ dotenv.config();
 // tạo 1 constant 'app' đại diện cho server express trong ứng dụng
 const app = express();
 
+
 const jwtSecret = process.env.JWT_SECRET;
 
 // thêm middleware
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(json());
 app.use(cors());
 // kích hoạt hoạt động định tuyến (routing) cho các request của client
