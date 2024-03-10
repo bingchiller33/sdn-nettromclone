@@ -61,8 +61,12 @@ const swaggerOptions = {
     servers: [{ url: "http://localhost:9999" }],
   },
   apis: [
-    "./routes/userRouter/userRouter.js",
+    "./routes/feedbackRouter/feedbackRouter.js",
     "./routes/storyRouter/storyRouter.js",
+    "./routes/userRouter/userRouter.js",
+    "./routes/categoriesRouter/categoriesRouter.js",
+    "./routes/storyCategoriesRouter/storyCategories.js",
+    "./routes/commentRouter/commentRouter.js",
   ],
 };
 

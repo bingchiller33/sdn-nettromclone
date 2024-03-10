@@ -1,7 +1,15 @@
-GET http://localhost:9999/story
+GET http://localhost:9999/story/get_stories
 
 ###
-GET http://localhost:9999/categories/
+GET http://localhost:9999/categories/all_catergories
+
+###
+POST http://localhost:9999/categories/
+Content-Type: application/json
+
+{
+  "name": "cate 2"
+}
 
 ###
 POST http://localhost:9999/users/register/
@@ -19,26 +27,24 @@ POST http://localhost:9999/story/create_story
 Content-Type: application/json
 
 {
-  "name": "story 1",
-  "author": "author 1",
+  "name": "story 2",
+  "author": "65e5ac14eff5d175cb7f6d8a",
   "description": "des 1",
   "categories": [
-
+    { "value": "65ed2cf0192796d14aa79099" },
+    {"value": "65ed2cfe192796d14aa7909b"}
   ]
 }
 
 ###
-GET http://localhost:9999/comment
+DELETE  http://localhost:9999/comment/65ed37f8313fc3a01fa281f0
 
 ###
-Post http://localhost:9999/comment
+PUT  http://localhost:9999/comment/65ed6556d21a1d2d1b38cf03
 Content-Type: application/json
 
 {
-  "userId": "sad",
-  "storyId": "sas",
-  "comment": "safas"
-
+  "comment": "comment 4"
 }
 
 
