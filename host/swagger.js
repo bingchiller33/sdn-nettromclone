@@ -27,10 +27,54 @@ const swaggerOptions = {
             'For authorized routes, please enter the JWT Bearer token in the field below. Make sure to include the word "Bearer" before your token.',
         },
       },
+      schemas: {
+        Comment: {
+          type: 'object',
+          properties: {
+            _id: {
+              type: 'string',
+              description: 'The unique identifier for the comment',
+            },
+            userId: {
+              type: 'string',
+              description: 'The ID of the user who made the comment',
+            },
+            storyId: {
+              type: 'string',
+              description: 'The ID of the story the comment is associated with',
+            },
+            comment: {
+              type: 'string',
+              description: 'The content of the comment',
+            },
+            isActive: {
+              type: 'boolean',
+              description: 'The status of the comment',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+              description: 'The date and time when the comment was created',
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time',
+              description: 'The date and time when the comment was last updated',
+            },
+          },
+        },
+      },
     },
     servers: [{ url: "http://localhost:9999" }],
   },
-  apis: ["./routes/userRouter/userRouter.js"],
+  apis: [
+    "./routes/feedbackRouter/feedbackRouter.js",
+    "./routes/storyRouter/storyRouter.js",
+    "./routes/userRouter/userRouter.js",
+    "./routes/categoriesRouter/categoriesRouter.js",
+    "./routes/storyCategoriesRouter/storyCategories.js",
+    "./routes/commentRouter/commentRouter.js",
+  ],
 };
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
