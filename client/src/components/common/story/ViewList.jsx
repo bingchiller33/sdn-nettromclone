@@ -16,7 +16,7 @@ const ViewList = ({ sort, categoryValue, statusValue }) => {
     const [categoryId, setCategoryId] = useState('0');
     const [statusId, setStatusId] = useState('1');
     useEffect(() => {
-        fetch("http://localhost:9999/Stories")
+        fetch("http://localhost:9999/get_stories")
             .then(res => res.json())
             .then(data => dispatch(fetchStoriesSuccess(data.filter(d => {
                 if (categoryId === '0' || typeof categoryValue === "undefined" || statusId === "0") {

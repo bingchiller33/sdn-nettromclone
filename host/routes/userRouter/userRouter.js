@@ -8,7 +8,7 @@ const userRouter = express.Router();
 
 /**
  * @swagger
- * /:
+ * /user:
  *  get:
  *    tags: ['User and Authentication']
  *    description: Use to request a user by token
@@ -23,7 +23,7 @@ userRouter.get("/", verifyToken, userController.getUserByToken);
 
 /**
  * @swagger
- * /login:
+ * /user/login:
  *  post:
  *    tags: ['User and Authentication']
  *    description: Use to login a user
@@ -46,7 +46,7 @@ userRouter.post("/login", userController.login);
 
 /**
  * @swagger
- * /register:
+ * /user/register:
  *  post:
  *    tags: ['User and Authentication']
  *    description: Use to register a new user
@@ -69,7 +69,7 @@ userRouter.post("/register", userController.register);
 
 /**
  * @swagger
- * /update:
+ * /user/update:
  *  put:
  *    tags: ['User and Authentication']
  *    description: Use to update a user
@@ -94,7 +94,7 @@ userRouter.put("/update", userController.updateUser);
 
 /**
  * @swagger
- * /upload:
+ * /user/upload:
  *  post:
  *    tags: ['User and Authentication']
  *    description: Use to upload a user image

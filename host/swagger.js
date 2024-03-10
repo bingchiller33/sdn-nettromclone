@@ -1,12 +1,28 @@
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import {
+  Categories,
+  Chapter,
+  ChapterContent,
+  Comment,
+  Feedback,
+  FollowStory,
+  RateStory,
+  Replies,
+  Story,
+  StoryCategory,
+  Users,
+  UsersType,
+} from "./schemas/index.js";
+
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
       title: "NETTROM API",
       version: "1.0.0",
-      description: "This is the comprehensive API documentation for the NETTROM service. Here you will find detailed information about all the endpoints, including request parameters, request bodies, and response formats.",
+      description:
+        "This is the comprehensive API documentation for the NETTROM service. Here you will find detailed information about all the endpoints, including request parameters, request bodies, and response formats.",
       contact: {
         name: "NETTROM",
         url: "http://localhost:3000/nettruyen.net",
@@ -18,19 +34,36 @@ const swaggerOptions = {
       },
     },
     components: {
+      schemas: {
+        Categories,
+        Chapter,
+        ChapterContent,
+        Comment,
+        Feedback,
+        FollowStory,
+        RateStory,
+        Replies,
+        Story,
+        StoryCategory,
+        Users,
+        UsersType,
+      },
       securitySchemes: {
         BearerAuth: {
           type: "http",
           scheme: "bearer",
           bearerFormat: "JWT",
           description:
-            'For authorized routes, please enter the JWT Bearer token in the field below. Make sure to include the word "Bearer" before your token.',
+            'For authorized routes, please enter the JWT Bearer token in the field below. The word "Bearer" will be automatically added before your token. ',
         },
       },
     },
     servers: [{ url: "http://localhost:9999" }],
   },
-  apis: ["./routes/userRouter/userRouter.js"],
+  apis: [
+    "./routes/userRouter/userRouter.js",
+    "./routes/storyRouter/storyRouter.js",
+  ],
 };
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
