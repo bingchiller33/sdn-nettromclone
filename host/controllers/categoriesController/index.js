@@ -1,5 +1,6 @@
-import getAllCategories from "./getAllCategory.js";
+import getAllCategories from "./getAllCategory.js"
+import createCategory from './createCategory.js'
 
 export default {
-  getAllCategories,
+  getAllCategories, createCategory
 };
