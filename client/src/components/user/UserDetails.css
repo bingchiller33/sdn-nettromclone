@@ -335,3 +335,18 @@ img {
     color: #ff9601;
     text-decoration: none;
 }
+
+.following-btn {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.follow-btn {
+    color: green;
+}
+
+.unfollow-btn {
+    color: red
+}

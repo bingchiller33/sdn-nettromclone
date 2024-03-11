@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "../UserDetails.css";
-import { Button, Image, Table } from "react-bootstrap";
+import { Image, Table } from "react-bootstrap";
+import { BookmarkHeart, BookmarkHeartFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../common/utilities/initials";
 
 const FollowListDetail = ({ setActiveTab }) => {
   const [followList, setFollowList] = useState([]);
-  const [followed, setFollowed] = useState(followList.map(() => true));
+  const [followed, setFollowed] = useState("");
   useEffect(() => {
     const jwt = localStorage.getItem("token");
     const config = {
@@ -20,14 +21,15 @@ const FollowListDetail = ({ setActiveTab }) => {
       .get(`${BASE_URL}/story/follows`, config)
       .then((response) => {
         setFollowList(response.data);
-        console.log(response.data);
+        setFollowed(response.data.map(() => true));
       })
 
       .catch((e) => console.log(e.message));
   }, []);
 
-  const handleUnfollow = (storyId, index) => {
+  const handleFollow = (storyId, index) => {
     const jwt = localStorage.getItem("token");
+    console.log(jwt);
     const url = followed[index]
       ? `${BASE_URL}/story/unfollow/${storyId}`
       : `${BASE_URL}/story/follow/${storyId}`;
@@ -38,7 +40,7 @@ const FollowListDetail = ({ setActiveTab }) => {
       },
     };
     axios
-      .post(`${BASE_URL}/story/unfollow/${storyId}`, config)
+      .post(url, {}, config)
       .then((response) => {
         setFollowed((prevFollowed) => {
           const newFollowed = [...prevFollowed];
@@ -98,12 +100,19 @@ const FollowListDetail = ({ setActiveTab }) => {
                         >
                           Đã đọc
                         </a>
-                        <Button
-                          className="follow-btn"
-                          onClick={() => handleUnfollow(story.storyId._id, index)}
+                        <button
+                          className={`following-btn   ${
+                            followed[index] ? "unfollow-btn" : "follow-btn"
+                          }`}
+                          onClick={() => handleFollow(story.storyId._id, index)}
                         >
+                          {followed[index] ? (
+                            <BookmarkHeartFill />
+                          ) : (
+                            <BookmarkHeart />
+                          )}
                           {followed[index] ? "Unfollow" : "Follow"}
-                        </Button>
+                        </button>
                       </div>
                     </td>
                     <td className="nowrap chapter">
