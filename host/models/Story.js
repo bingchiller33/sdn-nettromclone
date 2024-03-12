@@ -5,7 +5,6 @@ const storySchema = new Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
     },
     author: {
       type: Schema.Types.ObjectId,
