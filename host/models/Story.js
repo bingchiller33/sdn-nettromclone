@@ -5,7 +5,6 @@ const storySchema = new Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
     },
     author: {
       type: Schema.Types.ObjectId,
@@ -42,4 +41,3 @@ const storySchema = new Schema(
 const Story = mongoose.model("Story", storySchema);
 
 export default Story;
-

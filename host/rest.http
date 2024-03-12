@@ -30,6 +30,7 @@ Content-Type: application/json
   "name": "story 2",
   "author": "65e5ac14eff5d175cb7f6d8a",
   "description": "des 1",
+  "image":"https://th.bing.com/th/id/R.3f361912e92ef1e00a301b1c5981e72e?rik=GOY0haWuhsYqyg&pid=ImgRaw&r=0",
   "categories": [
     { "value": "65ed2cf0192796d14aa79099" },
     {"value": "65ed2cfe192796d14aa7909b"}
