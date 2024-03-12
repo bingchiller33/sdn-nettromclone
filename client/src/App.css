@@ -371,3 +371,7 @@ div.bc-action {
 .no-padding {
   padding: 0 !important;
 }
+
+.light-grey {
+  color: rgb(209 213 219) !important;
+}

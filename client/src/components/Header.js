@@ -85,12 +85,14 @@ const Header = () => {
           <Col xs={4}>
             <Row className="d-flex justify-content-center align-items-center">
               <Col>
-                <img
-                  width="30%"
-                  fluid
-                  src="https://res.cloudinary.com/dnzy2vddm/image/upload/v1710159093/ucmibn4gkzjbwujaj2xi.png"
-                  alt="dozo-novelhub-logo"
-                />
+                <Link to="/">
+                  <img
+                    width="30%"
+                    fluid
+                    src="https://res.cloudinary.com/dnzy2vddm/image/upload/v1710159093/ucmibn4gkzjbwujaj2xi.png"
+                    alt="dozo-novelhub-logo"
+                  />
+                </Link>
               </Col>
             </Row>
           </Col>
@@ -199,12 +201,16 @@ const Header = () => {
               <Navbar.Collapse id="responsive-navbar-nav">
                 {!user._id ? (
                   <Nav>
-                    <Nav.Link as={Link} className="fw-bold" to="/login">
+                    <Nav.Link
+                      as={Link}
+                      className="fw-bold light-grey"
+                      to="/login"
+                    >
                       Đăng nhập
                     </Nav.Link>
                     <Nav.Link
                       as={Link}
-                      className="fw-bold"
+                      className="fw-bold light-grey"
                       eventKey={2}
                       to="/register"
                     >
@@ -220,7 +226,7 @@ const Header = () => {
                         <>
                           <Image
                             className="rounded-2 me-1"
-                            width={65}
+                            height={35}
                             src={
                               contextUser && contextUser.img === ""
                                 ? "https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
