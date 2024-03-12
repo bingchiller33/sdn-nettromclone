@@ -11,6 +11,7 @@ import DefaultTemplate from "../../../templates/DefaultTemplate";
 import * as Yup from "yup";
 import axios from "axios";
 import { BASE_URL } from "../../common/utilities/initials";
+import { useNavigate } from "react-router-dom";
 
 const animatedComponents = makeAnimated();
 const AddStory = () => {
@@ -18,6 +19,7 @@ const AddStory = () => {
   const [categoriesChoice, setCategoriesChoice] = useState([]);
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formValues = {
     name: "",
     description: "",
@@ -53,6 +55,11 @@ const AddStory = () => {
         },
         config
       )
+      .then((response) => {
+        if (response.status === 201) {
+          navigate("/");
+        }
+      })
       .catch((e) => console.log(e.message));
   };
   const initialValues = Yup.object().shape({

@@ -45,12 +45,12 @@ const StoryDetail = () => {
     fetch("http://localhost:9999/Categories")
       .then((res) => res.json())
       .then((data) => dispatch(fetchCategorySuccess(data)));
-  }, [sid]);
+  }, [dispatch]);
   useEffect(() => {
     fetch("http://localhost:9999/chapter?storyId=" + sid)
       .then((res) => res.json())
       .then((data) => dispatch(fetchChapterSuccess(data)));
-  }, [sid]);
+  }, [dispatch, sid]);
   useEffect(() => {
     fetch("http://localhost:9999/rateStory?rateStoryId=" + sid)
       .then((res) => res.json())
