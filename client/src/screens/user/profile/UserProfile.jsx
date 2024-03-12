@@ -26,9 +26,7 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <DefaultTemplate>
       <UserDetails />
-    </DefaultTemplate>
   );
 };
 

@@ -9,22 +9,24 @@ import {
   Col,
   Image,
 } from "react-bootstrap";
-import { EyeFill, HouseFill } from "react-bootstrap-icons";
+import { EyeFill, HouseFill, Lightbulb } from "react-bootstrap-icons";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "./common/utilities/initials";
 import UserContext from "../contexts/UserContext";
 import { useContext } from "react";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 const Header = () => {
   const navigate = useNavigate("");
   const [stories, setStories] = useState([]);
+  const { toggleTheme, theme } = useContext(ThemeContext);
   const [categories, setCategories] = useState([]);
   const [SearchStory, setSearchStory] = useState("");
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [chapteres, setChapteres] = useState([]);
   const jwt = localStorage.getItem("token");
-  const [isLoading, setIsLoading] = useState(true);
+  const [activeKey, setActiveKey] = useState("/");
   const { user: contextUser, setUser: setContextUser } =
     useContext(UserContext);
   const config = {
@@ -57,18 +59,20 @@ const Header = () => {
       );
   }, [SearchStory]);
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/users`, config)
-      .then((res) => {
-        setUser(res.data);
-        setContextUser(res.data);
-        setIsLoading(false);
-      })
-      .catch((err) => console.log(err.message));
-  }, []);
+    if (jwt) {
+      axios
+        .get(`${BASE_URL}/users`, config)
+        .then((res) => {
+          setUser(res.data);
+          setContextUser(res.data);
+        })
+        .catch((err) => console.log(err.message));
+    }
+  }, [jwt]);
   const handleLogout = () => {
-    setUser({});
-    navigate("/login");
+    setUser(null);
+    localStorage.removeItem("token");
+    navigate("/");
   };
   const handleOnclickTop = (e, id) => {
     navigate(`/detail/${id}`);
@@ -79,7 +83,7 @@ const Header = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#1E2937" }}>
+    <div>
       <Container>
         <Row className="p-2">
           <Col xs={4}>
@@ -195,11 +199,17 @@ const Header = () => {
               )}
             </ul>
           </Col>
-          <Col xs={2}></Col>
+          <Col xs={2} className="d-flex justify-content-end align-items-center">
+            <Lightbulb
+              onClick={toggleTheme}
+              size={40}
+              style={{ cursor: "pointer" }}
+            />
+          </Col>
           <Col xs={2} className="ml-auto">
             <Navbar collapseOnSelect expand="lg" className="">
               <Navbar.Collapse id="responsive-navbar-nav">
-                {!user._id ? (
+                {!user ? (
                   <Nav>
                     <Nav.Link
                       as={Link}
@@ -263,17 +273,39 @@ const Header = () => {
           </Col>
         </Row>
       </Container>
-      <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+      <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary-custom">
         <Container className="">
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav>
-              <Nav.Link as={Link} to="/">
-                <HouseFill className="pb-1" size={19} />
-                <span className="ms-1 mt-1 fw-bold">Trang Chủ</span>
-              </Nav.Link>
+            <Nav
+              variant="underline"
+              activeKey={activeKey}
+              onSelect={setActiveKey}
+              className="me-3"
+            >
+              <Nav.Item>
+                <Nav.Link
+                  as={Link}
+                  to="/"
+                  eventKey="/"
+                  className={theme === "light" ? "light" : "dark"}
+                >
+                  <HouseFill className="pb-1" size={25} />
+                  <span className="ms-1 mt-1 fw-bold">Trang Chủ</span>
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  as={Link}
+                  to="/search"
+                  eventKey="/search"
+                  className={theme === "light" ? "light" : "dark"}
+                >
+                  <span className="fw-bold">Tìm Truyện</span>
+                </Nav.Link>
+              </Nav.Item>
             </Nav>
-            <Nav className="">
+            <Nav className="ms-3">
               <NavDropdown
                 title="Thể loại"
                 id="collasible-nav-dropdown"
@@ -314,7 +346,7 @@ const Header = () => {
                           >
                             <Link
                               to={"/"}
-                              className="text-decoration-none text-dảktext-decoration-none text-dark"
+                              className="text-decoration-none text-dark text-decoration-none text-dark"
                             >
                               {category.name}
                             </Link>{" "}
@@ -349,11 +381,6 @@ const Header = () => {
                   </Col>
                 </Row>
               </NavDropdown>
-            </Nav>
-            <Nav className="me-auto">
-              <Nav.Link as={Link} to="/search">
-                <span className="fw-bold">Tìm Truyện</span>
-              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
