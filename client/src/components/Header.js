@@ -79,16 +79,27 @@ const Header = () => {
   };
 
   return (
-    <>
-      <Container className="">
-        <Row>
-          <Col xs={4}></Col>
-          <Col xs={4} className="position-relative mt-2">
+    <div style={{ backgroundColor: "#1E2937" }}>
+      <Container>
+        <Row className="p-2">
+          <Col xs={4}>
+            <Row className="d-flex justify-content-center align-items-center">
+              <Col>
+                <img
+                  width="30%"
+                  fluid
+                  src="https://res.cloudinary.com/dnzy2vddm/image/upload/v1710159093/ucmibn4gkzjbwujaj2xi.png"
+                  alt="dozo-novelhub-logo"
+                />
+              </Col>
+            </Row>
+          </Col>
+          <Col xs={4} className="position-relative">
             <Form.Group className="d-flex">
               <Form.Control
                 type="search"
                 placeholder="Tìm kiếm truyện"
-                className="me-2"
+                className="me-2 square-input placeholder-color"
                 aria-label="Search"
                 value={SearchStory}
                 onChange={(e) => setSearchStory(e.target.value)}
@@ -182,7 +193,8 @@ const Header = () => {
               )}
             </ul>
           </Col>
-          <Col xs={4}>
+          <Col xs={2}></Col>
+          <Col xs={2} className="ml-auto">
             <Navbar collapseOnSelect expand="lg" className="">
               <Navbar.Collapse id="responsive-navbar-nav">
                 {!user._id ? (
@@ -207,8 +219,8 @@ const Header = () => {
                       title={
                         <>
                           <Image
-                            className="rounded-5 border me-1"
-                            width={40}
+                            className="rounded-2 me-1"
+                            width={65}
                             src={
                               contextUser && contextUser.img === ""
                                 ? "https://cdn.landesa.org/wp-content/uploads/default-user-image.png"
@@ -340,7 +352,7 @@ const Header = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </>
+    </div>
   );
 };
 

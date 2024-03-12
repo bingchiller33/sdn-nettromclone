@@ -9,7 +9,6 @@ const storySchema = new Schema(
     author: {
       type: Schema.Types.ObjectId,
       ref: "users",
-      required: true,
     },
     description: {
       type: String,
@@ -42,3 +41,4 @@ const storySchema = new Schema(
 const Story = mongoose.model("Story", storySchema);
 
 export default Story;
+

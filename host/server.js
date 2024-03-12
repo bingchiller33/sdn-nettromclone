@@ -10,12 +10,16 @@ import {
   storyCategoriesRouter,
   storyRouter,
   userRouter,
+  commentRouter
 } from "./routes/index.js";
 import http from "http";
 import { Server } from "socket.io";
 
 import fs from 'fs';
 const dir = "./uploads";
+
+import { swaggerUi, swaggerDocs } from "./swagger.js";
+
 
 if (!fs.existsSync(dir)) {
   fs.mkdirSync(dir);
@@ -25,9 +29,11 @@ dotenv.config();
 // tạo 1 constant 'app' đại diện cho server express trong ứng dụng
 const app = express();
 
+
 const jwtSecret = process.env.JWT_SECRET;
 
 // thêm middleware
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(json());
 app.use(cors());
 // kích hoạt hoạt động định tuyến (routing) cho các request của client
@@ -52,6 +58,7 @@ app.use("/story", storyRouter);
 app.use("/users", userRouter);
 app.use("/categories", categoriesRouter);
 app.use("/story_categories", storyCategoriesRouter);
+app.use('/comment', commentRouter);
 
 // app.use("/products", productRouter);
 const port = process.env.PORT || 9999;
