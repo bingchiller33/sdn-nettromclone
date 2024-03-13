@@ -18,11 +18,11 @@ const ViewList = () => {
     filter,
   } = useSelector((state) => state.listStory);
   const { filterCat } = useSelector((state) => state.listCategory);
-  console.log(
-    `${BASE_URL}/story/get_stories?status=${filter || ""}&categoryId=${
-      filterCat || ""
-    }&item=${sort.type}&order=${sort.payload}`
-  );
+  // console.log(
+  //   `${BASE_URL}/story/get_stories?status=${filter || ""}&categoryId=${
+  //     filterCat || ""
+  //   }&item=${sort.type}&order=${sort.payload}`
+  // );
   useEffect(() => {
     axios
       .get(
@@ -31,7 +31,7 @@ const ViewList = () => {
         }&item=${sort.type}&order=${sort.payload}`
       )
       .then((res) => dispatch(fetchStoriesSuccess(res.data)))
-      .catch((err) => console.log(err.message));
+      .catch((err) => console.log(err.message)); 
   }, [filterCat, dispatch, sort, filter]);
   return (
     <Row>
@@ -39,7 +39,7 @@ const ViewList = () => {
         <Col key={story._id} xs={3}>
           <Card className="card_slider">
             <Card.Body className="body_card_item">
-              <Link to={`/detail/${story._id}`}>
+              <Link to={`/get_story/${story._id}`}>
                 <Card.Img
                   className="img_card_item border border-dark"
                   src={story.image}
@@ -54,7 +54,7 @@ const ViewList = () => {
                   <li key={chapter._id} className={`mx-0 lh-1`}>
                     <span onClick={() => dispatch(updateViewStory(story))}>
                       <Link
-                        to={`/detail/${story.id}/chapter/${chapter.id}`}
+                        to={`/get_story/${story.id}/chapter/${chapter.id}`}
                         className="m-0 pe-2 text-decoration-none text-dark chapter_list_view name_chapter"
                       >
                         Chương {chapter.chapterNo}

@@ -42,7 +42,7 @@ const StoryDetail = () => {
     setRateNo(value);
   };
   useEffect(() => {
-    fetch("http://localhost:9999/Categories")
+    fetch("http://localhost:9999/categories/all_catergories")
       .then((res) => res.json())
       .then((data) => dispatch(fetchCategorySuccess(data)));
   }, [dispatch]);
@@ -57,12 +57,12 @@ const StoryDetail = () => {
       .then((data) => setRateStories(data));
   }, [sid, rateNo]);
   useEffect(() => {
-    fetch("http://localhost:9999/Stories/" + sid)
+    fetch("http://localhost:9999/story/get_story/" + sid) 
       .then((res) => res.json())
       .then((data) => setStory(data));
   }, [sid]);
   useEffect(() => {
-    fetch("http://localhost:9999/followStory")
+    fetch("http://localhost:9999/follows")
       .then((res) => res.json())
       .then((data) =>
         setFollowQuantity(data.filter((d) => d.storyId === parseInt(sid)))
@@ -96,9 +96,9 @@ const StoryDetail = () => {
         headers: header,
       });
       if (e.target.innerText === "Đọc từ đầu") {
-        navigate(`/detail/${sid}/chapter/${1}`);
+        navigate(`/get_story/${sid}/chapter/${1}`);
       } else if (e.target.innerText === "Đọc mới nhất") {
-        navigate(`/detail/${sid}/chapter/${number}`);
+        navigate(`/get_story/${sid}/chapter/${number}`);
         dispatch(setChapterNo(number));
       }
     }

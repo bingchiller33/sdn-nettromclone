@@ -1,5 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  redirect,
+} from "react-router-dom";
 import "./App.css";
 import "./styles/formRate.css";
 import Homepage from "./screens/Homepage";
@@ -20,6 +26,8 @@ import { ThemeContext, ThemeProvider } from "./contexts/ThemeContext";
 import axios from "axios";
 import { BASE_URL } from "./components/common/utilities/initials";
 import Header from "./components/Header";
+import AdminDashboard from "./screens/admin/AdminDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -35,6 +43,7 @@ function App() {
       .get(`${BASE_URL}/users`, config)
       .then((res) => {
         setUser(res.data);
+        console.log(!!res.data && res.data.role === 3);
       })
       .catch((err) => console.log(err.message));
   }, []);
@@ -49,13 +58,22 @@ function App() {
                 <Header />
                 <Routes>
                   <Route path="/" element={<Homepage />} />
-                  <Route path="/detail/:sid" element={<ViewDetail />} />
+                  <Route path="/get_story/:sid" element={<ViewDetail />} />
                   <Route
-                    path="/detail/:sid/chapter/:cid"
+                    path="/get_story/:sid/chapter/:cid"
                     element={<ChapterContent />}
                   />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
+                  <Route
+                    element={
+                      <ProtectedRoute
+                        redirectPath="/"
+                        isAllowed={!user}
+                      ></ProtectedRoute>
+                    }
+                  >
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                  </Route>
                   <Route path="/search" element={<SearchStory />} />
                   <Route path="/author/addstory" element={<AddStory />} />
                   <Route
@@ -76,10 +94,20 @@ function App() {
                     element={<AddEditContent />}
                   />
                   <Route path="/profile" element={<UserProfile />}></Route>
+                  <Route path="*" element={<Navigate to={"/"} />} />
                   <Route
-                    path="*"
-                    element={<Navigate to={"/nettruyen.net"} />}
-                  />
+                    element={
+                      <ProtectedRoute
+                        redirectPath="/"
+                        isAllowed={!!user && user.role === 3}
+                      />
+                    }
+                  >
+                    <Route
+                      path="/admin/dashboard"
+                      element={<AdminDashboard />}
+                    ></Route>
+                  </Route>
                 </Routes>
               </BrowserRouter>
             </div>
