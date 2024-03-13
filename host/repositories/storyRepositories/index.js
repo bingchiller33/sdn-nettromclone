@@ -8,6 +8,7 @@ import deleteFollow from "./deleteFollow.js";
 import getFollowList from "./getFollowList.js";
 import activeStory from "./activeStory.js";
 import finishStory from "./finishStory.js";
+import findHistoryStory from "./viewHistory.js";
 import topViewStories from "./topViewStories.js";
 
 export default {
@@ -22,4 +23,5 @@ export default {
   activeStory,
   finishStory,
   topViewStories,
+  findHistoryStory,
 };

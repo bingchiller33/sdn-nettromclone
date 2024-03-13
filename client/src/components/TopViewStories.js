@@ -15,7 +15,7 @@ const TopViewStories = () => {
       .then((res) => setStories(res.data));
   }, []);
   const handleOnclickTop = (e, id) => {
-    navigate(`/detail/${id}`);
+    navigate(`/get_story/${id}`);
   };
 
   return (
