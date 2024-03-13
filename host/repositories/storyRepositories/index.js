@@ -8,6 +8,7 @@ import deleteFollow from "./deleteFollow.js";
 import getFollowList from "./getFollowList.js";
 import activeStory from "./activeStory.js";
 import finishStory from "./finishStory.js";
+import findHistoryStory from "./viewHistory.js";
 
 export default {
   getStoryById,
@@ -20,4 +21,5 @@ export default {
   getFollowList,
   activeStory,
   finishStory,
+  findHistoryStory,
 };

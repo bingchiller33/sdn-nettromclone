@@ -166,5 +166,5 @@ storyRouter.get("/:id/active", authenticate, storyController.activeStory);
  *         description: An error occurred while trying to get the follow list
  */
 storyRouter.get("/:id/finished", authenticate, storyController.finished);
-
+storyRouter.get("/content/:chapterId", storyController.findHistoryStory);
 export default storyRouter;
