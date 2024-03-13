@@ -11,6 +11,7 @@ const createStory = async (data) => {
       storyId: savedStory._id,
       categoryId: c.value,
     }));
+    console.log(data);
     await StoryCategories.insertMany(storyCategories);
     await User.findByIdAndUpdate(author, { $set: { role: 2 } });
     return savedStory;

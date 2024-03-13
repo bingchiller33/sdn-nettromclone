@@ -7,6 +7,7 @@ const uploadImage = async (req, res) => {
     const result = await cloudinary.v2.uploader.upload(req.file.path, {
       public_id: `Avatar_${req.user.userName}_${Date.now()}`,
       folder: "Users Avatar",
+      transformation: [{ width: 500, height: 500, crop: "fill" }],
     });
     const imageUrl = result.secure_url;
     const updatedUser = await userDAO.updateUser(req.user.phoneNumber, {

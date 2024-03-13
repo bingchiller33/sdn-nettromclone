@@ -30,6 +30,7 @@ Content-Type: application/json
   "name": "story 2",
   "author": "65e5ac14eff5d175cb7f6d8a",
   "description": "des 1",
+  "image":"https://th.bing.com/th/id/R.3f361912e92ef1e00a301b1c5981e72e?rik=GOY0haWuhsYqyg&pid=ImgRaw&r=0",
   "categories": [
     { "value": "65ed2cf0192796d14aa79099" },
     {"value": "65ed2cfe192796d14aa7909b"}
@@ -55,9 +56,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU1N
 
 
 ### Follow Story
-Post http://localhost:9999/story/follow/65ec57031b16e9468e67a227
+Post http://localhost:9999/story/follow/65efb9aa244382a1b79a54e9
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU1NzY0NjVlNjlhMGJkYzZhMTE4MGYiLCJpYXQiOjE3MTAxMjI3MTMsImV4cCI6MTcxMDEyNjMxM30.9RJVJgwKSxTIYRR2Y8X9el9hA2QRsjCnTR7UNroacBE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU1NzY0NjVlNjlhMGJkYzZhMTE4MGYiLCJpYXQiOjE3MTAyMDc1OTgsImV4cCI6MTcxMDIxMTE5OH0.cgDmLx5Vt9tgPK6EHFq7HyaSAkNHGtFDPGlRfumu_-0
 
 
 ### Unfollow Story
