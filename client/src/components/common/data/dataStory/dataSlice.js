@@ -8,7 +8,7 @@ const initialState = {
   error: null,
   sort: {
     type: "",
-    payload: 1,
+    payload: true,
   },
   filter: "",
 };

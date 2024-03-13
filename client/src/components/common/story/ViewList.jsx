@@ -10,23 +10,29 @@ import CalTime from "../utilities/calTime";
 import axios from "axios";
 import { BASE_URL } from "../utilities/initials";
 
-const ViewList = ({ categoryValue }) => {
+const ViewList = () => {
   const dispatch = useDispatch();
   const {
     data: listStory,
     sort,
     filter,
   } = useSelector((state) => state.listStory);
+  const { filterCat } = useSelector((state) => state.listCategory);
+  console.log(
+    `${BASE_URL}/story/get_stories?status=${filter || ""}&categoryId=${
+      filterCat || ""
+    }&item=${sort.type}&order=${sort.payload}`
+  );
   useEffect(() => {
     axios
       .get(
         `${BASE_URL}/story/get_stories?status=${filter || ""}&categoryId=${
-          categoryValue || ""
+          filterCat || ""
         }&item=${sort.type}&order=${sort.payload}`
       )
       .then((res) => dispatch(fetchStoriesSuccess(res.data)))
       .catch((err) => console.log(err.message));
-  }, [categoryValue, dispatch, sort, filter]);
+  }, [filterCat, dispatch, sort, filter]);
   return (
     <Row>
       {listStory.map((story) => (

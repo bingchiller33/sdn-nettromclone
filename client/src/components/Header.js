@@ -16,11 +16,15 @@ import { BASE_URL } from "./common/utilities/initials";
 import UserContext from "../contexts/UserContext";
 import { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { setFilterCate } from "./common/data/dataCategory/dataSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
   const navigate = useNavigate("");
+  const dispatch = useDispatch();
   const [stories, setStories] = useState([]);
   const { toggleTheme, theme } = useContext(ThemeContext);
+  const { filterCat } = useSelector((state) => state.listCategory);
   const [categories, setCategories] = useState([]);
   const [SearchStory, setSearchStory] = useState("");
   const [user, setUser] = useState(null);
@@ -35,10 +39,12 @@ const Header = () => {
       Authorization: `Bearer ${jwt}`,
     },
   };
+  let lengthCat = Math.ceil(categories.length / 3);
+  let countCat = 0;
   useEffect(() => {
-    fetch("http://localhost:9999/Categories")
-      .then((res) => res.json())
-      .then((data) => setCategories(data));
+    axios
+      .get(`${BASE_URL}/categories/all_catergories`)
+      .then((res) => setCategories(res.data));
   }, []);
   useEffect(() => {
     fetch("http://localhost:9999/chapter")
@@ -79,7 +85,8 @@ const Header = () => {
     setSearchStory("");
   };
   const handleSearchCat = (id) => {
-    navigate(`/search?category=${id}`);
+    navigate(`/search`);
+    dispatch(setFilterCate(id));
   };
 
   return (
@@ -276,7 +283,7 @@ const Header = () => {
       <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary-custom">
         <Container className="">
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
+          <Navbar.Collapse id="responsive-navbar-nav" className="gap-4">
             <Nav
               variant="underline"
               activeKey={activeKey}
@@ -305,81 +312,46 @@ const Header = () => {
                 </Nav.Link>
               </Nav.Item>
             </Nav>
-            <Nav className="ms-3">
+            <Nav className="flex-1">
               <NavDropdown
                 title="Thể loại"
                 id="collasible-nav-dropdown"
                 className="fw-bold"
               >
-                <Row>
-                  <Col xs={4} className="">
-                    <ul className="list-unstyled m-0 p-0 header_dropdown_width">
-                      {categories.map((category, index) =>
-                        parseInt(categories.length / 3) > index ? (
-                          <li
-                            key={category.id}
-                            onClick={() => handleSearchCat(category.id)}
-                            className="px-3 pt-1 pb-1 fw-normal name_chapter"
-                          >
-                            <Link
-                              to={"/"}
-                              className="text-decoration-none text-dark"
-                            >
-                              {category.name}
-                            </Link>{" "}
-                          </li>
-                        ) : (
-                          ""
-                        )
-                      )}
-                    </ul>
-                  </Col>
-                  <Col xs={4} className="">
-                    <ul className="list-unstyled m-0 p-0">
-                      {categories.map((category, index) =>
-                        parseInt(categories.length / 3) <= index &&
-                        index < parseInt(categories.length / 3) * 2 ? (
-                          <li
-                            key={category.id}
-                            onClick={() => handleSearchCat(category.id)}
-                            className="px-3 pt-1 pb-1 fw-normal name_chapter"
-                          >
-                            <Link
-                              to={"/"}
-                              className="text-decoration-none text-dark text-decoration-none text-dark"
-                            >
-                              {category.name}
-                            </Link>{" "}
-                          </li>
-                        ) : (
-                          ""
-                        )
-                      )}
-                    </ul>
-                  </Col>
-                  <Col xs={4} className="">
-                    <ul className="list-unstyled m-0 p-0">
-                      {categories.map((category, index) =>
-                        parseInt(categories.length / 3) * 2 <= index ? (
-                          <li
-                            key={category.id}
-                            onClick={() => handleSearchCat(category.id)}
-                            className="px-3 pt-1 pb-1 fw-normal name_chapter"
-                          >
-                            <Link
-                              to={"/"}
-                              className="text-decoration-none text-dảktext-decoration-none text-dark"
-                            >
-                              {category.name}
-                            </Link>{" "}
-                          </li>
-                        ) : (
-                          ""
-                        )
-                      )}
-                    </ul>
-                  </Col>
-                </Row>
+                <div className="m-0 p-0 header_dropdown_width d-flex flex-row justify-content-around">
+                  {Array.from({ length: lengthCat }, (_, i) => {
+                    let index = countCat;
+                    countCat = 0;
+                    return (
+                      <div className={`d-flex flex-column`}>
+                        {categories.map((category, j) => {
+                          if (lengthCat + index > j && j >= index) {
+                            countCat += 1;
+                            return (
+                              <div
+                                key={category._id}
+                                onClick={() => handleSearchCat(category._id)}
+                                className={`p-1 fw-normal name_chapter  ${
+                                  filterCat === category._id
+                                    ? "fw-bold text-info"
+                                    : ""
+                                }`}
+                              >
+                                <Link
+                                  to={"/"}
+                                  className="text-decoration-none text-dark"
+                                >
+                                  {category.name}
+                                </Link>{" "}
+                              </div>
+                            );
+                          }
+                          return false;
+                        })}
+                      </div>
+                    );
+                  })}
+                </div>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>

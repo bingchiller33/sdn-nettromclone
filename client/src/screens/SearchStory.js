@@ -10,7 +10,6 @@ const SearchStory = () => {
   const getCategory = (value) => {
     setCategory(value);
   };
-  console.log("sss");
   return (
     <DefaultTemplate>
       <Row className="d-flex justify-content-center mt-4">
