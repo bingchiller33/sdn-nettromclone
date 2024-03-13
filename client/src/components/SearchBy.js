@@ -63,7 +63,7 @@ const SearchBy = () => {
       <Col xs={9}>
         <Button
           onClick={() =>
-            dispatch(setSortStory({ type: "updatedAt", payload: sort ? 0 : 1 }))
+            dispatch(setSortStory({ type: "updatedAt", payload: !sort }))
           }
           className={`${
             sort.type === "updatedAt"
@@ -74,7 +74,10 @@ const SearchBy = () => {
           <ArrowRepeat
             onClick={() =>
               dispatch(
-                setSortStory({ type: "updatedAt", payload: sort ? 0 : 1 })
+                setSortStory({
+                  type: "updatedAt",
+                  payload: !sort,
+                })
               )
             }
           />{" "}
@@ -83,7 +86,10 @@ const SearchBy = () => {
         <Button
           onClick={() =>
             dispatch(
-              setSortStory({ type: "publishedDate", payload: sort ? 0 : 1 })
+              setSortStory({
+                type: "publishedDate",
+                payload: !sort,
+              })
             )
           }
           className={`${
@@ -95,7 +101,10 @@ const SearchBy = () => {
           <CloudArrowUpFill
             onClick={() =>
               dispatch(
-                setSortStory({ type: "publishedDate", payload: sort ? 0 : 1 })
+                setSortStory({
+                  type: "publishedDate",
+                  payload: !sort,
+                })
               )
             }
           />{" "}
@@ -103,7 +112,7 @@ const SearchBy = () => {
         </Button>
         <Button
           onClick={() =>
-            dispatch(setSortStory({ type: "viewCount", payload: sort ? 0 : 1 }))
+            dispatch(setSortStory({ type: "viewCount", payload: !sort }))
           }
           className={`${
             sort.type === "viewCount"
@@ -114,7 +123,10 @@ const SearchBy = () => {
           <EyeFill
             onClick={() =>
               dispatch(
-                setSortStory({ type: "viewCount", payload: sort ? 0 : 1 })
+                setSortStory({
+                  type: "viewCount",
+                  payload: !sort,
+                })
               )
             }
           />{" "}
@@ -122,7 +134,7 @@ const SearchBy = () => {
         </Button>
         <Button
           onClick={() =>
-            dispatch(setSortStory({ type: "followQtt", payload: sort ? 0 : 1 }))
+            dispatch(setSortStory({ type: "followQtt", payload: !sort }))
           }
           className={`${
             sort.type === "followQtt"
@@ -133,7 +145,10 @@ const SearchBy = () => {
           <HeartFill
             onClick={() =>
               dispatch(
-                setSortStory({ type: "followQtt", payload: sort ? 0 : 1 })
+                setSortStory({
+                  type: "followQtt",
+                  payload: !sort,
+                })
               )
             }
           />{" "}
@@ -141,7 +156,7 @@ const SearchBy = () => {
         </Button>
         <Button
           onClick={() =>
-            dispatch(setSortStory({ type: "comment", payload: sort ? 0 : 1 }))
+            dispatch(setSortStory({ type: "comment", payload: !sort }))
           }
           className={`${
             sort.type === "comment"
@@ -151,16 +166,14 @@ const SearchBy = () => {
         >
           <ChatFill
             onClick={() =>
-              dispatch(setSortStory({ type: "comment", payload: sort ? 0 : 1 }))
+              dispatch(setSortStory({ type: "comment", payload: !sort }))
             }
           />{" "}
           Bình luận
         </Button>
         <Button
           onClick={() =>
-            dispatch(
-              setSortStory({ type: "chapterQtt", payload: sort ? 0 : 1 })
-            )
+            dispatch(setSortStory({ type: "chapterQtt", payload: !sort }))
           }
           className={`${
             sort.type === "chapterQtt"
@@ -171,7 +184,10 @@ const SearchBy = () => {
           <ListUl
             onClick={() =>
               dispatch(
-                setSortStory({ type: "chapterQtt", payload: sort ? 0 : 1 })
+                setSortStory({
+                  type: "chapterQtt",
+                  payload: !sort,
+                })
               )
             }
           />{" "}

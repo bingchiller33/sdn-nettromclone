@@ -10,30 +10,36 @@ import CalTime from "../utilities/calTime";
 import axios from "axios";
 import { BASE_URL } from "../utilities/initials";
 
-const ViewList = ({ categoryValue }) => {
+const ViewList = () => {
   const dispatch = useDispatch();
   const {
     data: listStory,
     sort,
     filter,
   } = useSelector((state) => state.listStory);
+  const { filterCat } = useSelector((state) => state.listCategory);
+  console.log(
+    `${BASE_URL}/story/get_stories?status=${filter || ""}&categoryId=${
+      filterCat || ""
+    }&item=${sort.type}&order=${sort.payload}`
+  );
   useEffect(() => {
     axios
       .get(
         `${BASE_URL}/story/get_stories?status=${filter || ""}&categoryId=${
-          categoryValue || ""
+          filterCat || ""
         }&item=${sort.type}&order=${sort.payload}`
       )
       .then((res) => dispatch(fetchStoriesSuccess(res.data)))
-      .catch((err) => console.log(err.message));
-  }, [categoryValue, dispatch, sort, filter]);
+      .catch((err) => console.log(err.message)); 
+  }, [filterCat, dispatch, sort, filter]);
   return (
     <Row>
       {listStory.map((story) => (
         <Col key={story._id} xs={3}>
           <Card className="card_slider">
             <Card.Body className="body_card_item">
-              <Link to={`/detail/${story._id}`}>
+              <Link to={`/get_story/${story._id}`}>
                 <Card.Img
                   className="img_card_item border border-dark"
                   src={story.image}
@@ -48,7 +54,7 @@ const ViewList = ({ categoryValue }) => {
                   <li key={chapter._id} className={`mx-0 lh-1`}>
                     <span onClick={() => dispatch(updateViewStory(story))}>
                       <Link
-                        to={`/detail/${story.id}/chapter/${chapter.id}`}
+                        to={`/get_story/${story.id}/chapter/${chapter.id}`}
                         className="m-0 pe-2 text-decoration-none text-dark chapter_list_view name_chapter"
                       >
                         Chương {chapter.chapterNo}

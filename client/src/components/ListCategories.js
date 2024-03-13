@@ -1,32 +1,24 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { BASE_URL } from "./common/utilities/initials";
+import { setFilterCate } from "./common/data/dataCategory/dataSlice";
 
-const ListCategories = ({ handlecategory }) => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const category = searchParams.get("category");
+const ListCategories = () => {
   const [categories, setCategories] = useState([]);
-  const [categoryId, setCategoryId] = useState("0");
+  const dispatch = useDispatch();
+  const { filterCat } = useSelector((state) => state.listCategory);
+  let lengthCat = Math.ceil(categories.length / 2);
+  let countCat = 0;
   useEffect(() => {
-    if (category !== null) {
-      setCategoryId(parseInt(category));
-      handlecategory(parseInt(category));
-    } else {
-      setCategoryId("0");
-      handlecategory("");
-    }
-  }, [category]);
-  useEffect(() => {
-    fetch("http://localhost:9999/Categories")
-      .then((res) => res.json())
-      .then((data) => setCategories(data));
+    axios
+      .get(`${BASE_URL}/categories/all_catergories`)
+      .then((res) => setCategories(res.data))
+      .catch((err) => console.log(err.message));
   }, []);
   const handleOnclickCategory = (e, id) => {
-    setCategoryId(id);
-    handlecategory(id);
-    // const newURL = window.location.href.replace(`?category=${category}`, "");
-    // window.history.replaceState({}, "", newURL);
+    dispatch(setFilterCate(id));
   };
   return (
     <Row>
@@ -36,44 +28,37 @@ const ListCategories = ({ handlecategory }) => {
             <h4 className="text-danger fw-bold">Tất Cả</h4>
           </Col>
           <Col xs={12} className={"d-flex"}>
-            <div className="w-50">
-              <ul className="m-0 p-0 list-unstyled">
-                {categories.map((category, index) =>
-                  parseInt(categories.length / 2) > index ? (
-                    <li
-                      onClick={(e) => handleOnclickCategory(e, category.id)}
-                      className={`px-3 pt-2 pb-2 border-bottom cursor-pointer custom-cursor name_chapter ${
-                        categoryId === category.id ? "fw-bold text-info" : ""
-                      }`}
-                      key={category.id}
-                    >
-                      {category.name}
-                    </li>
-                  ) : (
-                    ""
-                  )
-                )}
-              </ul>
-            </div>
-            <div className="w-50">
-              <ul className="m-0 p-0 list-unstyled">
-                {categories.map((category, index) =>
-                  parseInt(categories.length / 2) <= index &&
-                  parseInt(categories.length / 2) * 2 > index ? (
-                    <li
-                      onClick={(e) => handleOnclickCategory(e, category.id)}
-                      className={`px-3 pt-2 pb-2 border-bottom fw-normal cursor-pointer custom-cursor name_chapter ${
-                        categoryId === category.id ? "fw-bold text-info" : ""
-                      }`}
-                      key={category.id}
-                    >
-                      {category.name}
-                    </li>
-                  ) : (
-                    ""
-                  )
-                )}
-              </ul>
+            <div className="w-100">
+              <div className="m-0 p-0 d-flex flex-row">
+                {Array.from({ length: lengthCat }, (_, i) => {
+                  let index = countCat;
+                  countCat = 0;
+                  return (
+                    <div className={`d-flex flex-column`}>
+                      {categories.map((category, j) => {
+                        if (lengthCat + index > j && j >= index) {
+                          countCat += 1;
+                          return (
+                            <div
+                              onClick={(e) =>
+                                handleOnclickCategory(e, category._id)
+                              }
+                              className={`px-3 pt-2 pb-2 border-bottom cursor-pointer custom-cursor name_chapter ${
+                                filterCat === category._id
+                                  ? "fw-bold text-info"
+                                  : ""
+                              }`}
+                              key={category._id}
+                            >
+                              {category.name}
+                            </div>
+                          );
+                        }
+                      })}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </Col>
         </Row>

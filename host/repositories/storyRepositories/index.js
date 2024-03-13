@@ -9,6 +9,7 @@ import getFollowList from "./getFollowList.js";
 import activeStory from "./activeStory.js";
 import finishStory from "./finishStory.js";
 import findHistoryStory from "./viewHistory.js";
+import topViewStories from "./topViewStories.js";
 
 export default {
   getStoryById,
@@ -21,5 +22,6 @@ export default {
   getFollowList,
   activeStory,
   finishStory,
+  topViewStories,
   findHistoryStory,
 };

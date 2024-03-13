@@ -8,6 +8,7 @@ import unfollowStory from "./unfollowStory.js";
 import getFollowingStories from "./getFollowingStories.js";
 import activeStory from "./activeStory.js";
 import finished from "./finishStory.js";
+import topViewStories from "./topViewStories.js";
 import findHistoryStory from "./viewHistory.js";
 
 export default {
@@ -21,5 +22,6 @@ export default {
   getFollowingStories,
   activeStory,
   finished,
+  topViewStories,
   findHistoryStory,
 };
