@@ -6,6 +6,8 @@ import updateStory from "./updateStory.js";
 import createFollow from "./createFollow.js";
 import deleteFollow from "./deleteFollow.js";
 import getFollowList from "./getFollowList.js";
+import activeStory from "./activeStory.js";
+import finishStory from "./finishStory.js";
 
 export default {
   getStoryById,
@@ -15,5 +17,7 @@ export default {
   updateStory,
   createFollow,
   deleteFollow,
-  getFollowList
+  getFollowList,
+  activeStory,
+  finishStory,
 };

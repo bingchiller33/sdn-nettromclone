@@ -31,7 +31,7 @@ const storySchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["draft", "published", "archived"],
+      enum: ["draft", "published", "archived", "finished", "ongoing"],
       default: "draft",
     },
   },
@@ -41,4 +41,3 @@ const storySchema = new Schema(
 const Story = mongoose.model("Story", storySchema);
 
 export default Story;
-

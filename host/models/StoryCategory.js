@@ -13,9 +13,8 @@ const storyCategorySchema = new Schema(
       required: true,
       ref: "Story",
     },
-    isActive: {
-      type: Boolean,
-      default: false,
+    status: {
+      type: String,
     },
   },
   {

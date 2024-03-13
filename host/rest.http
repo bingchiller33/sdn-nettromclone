@@ -65,3 +65,13 @@ Post http://localhost:9999/story/unfollow/65ec57031b16e9468e67a227
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU1NzY0NjVlNjlhMGJkYzZhMTE4MGYiLCJpYXQiOjE3MTAxMjI3MTMsImV4cCI6MTcxMDEyNjMxM30.9RJVJgwKSxTIYRR2Y8X9el9hA2QRsjCnTR7UNroacBE
 
+###
+GET  http://localhost:9999/story/65e48b32ea15f34d88d855c4/finished
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU0NTk0ZTA3OTAzYTQ4MDM3ZGRhNjIiLCJpYXQiOjE3MTAyNTYyNjUsImV4cCI6MTcxMDI1OTg2NX0.XTpWQrbgITUkZd7yBoFwgybOk2Er-pwseyGZSc3EqbQ
+
+###
+GET  http://localhost:9999/story/get_stories?status=&categoryId=
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU0NTk0ZTA3OTAzYTQ4MDM3ZGRhNjIiLCJpYXQiOjE3MTAyNTYyNjUsImV4cCI6MTcxMDI1OTg2NX0.XTpWQrbgITUkZd7yBoFwgybOk2Er-pwseyGZSc3EqbQ
+###
+GET  http://localhost:9999/story/get_stories?status=&categoryId=0&item=&order=0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU0NTk0ZTA3OTAzYTQ4MDM3ZGRhNjIiLCJpYXQiOjE3MTAyNTYyNjUsImV4cCI6MTcxMDI1OTg2NX0.XTpWQrbgITUkZd7yBoFwgybOk2Er-pwseyGZSc3EqbQ
