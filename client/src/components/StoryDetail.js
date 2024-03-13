@@ -26,7 +26,7 @@ import ListChapter from "./common/listChapter/ListChapter";
 import { fetchCategorySuccess } from "./common/data/dataCategory/dataSlice";
 
 const StoryDetail = () => {
-  const { sid } = useParams("");
+  const { sid } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate("");
   const [story, setStory] = useState({});
