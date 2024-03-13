@@ -49,9 +49,9 @@ function App() {
                 <Header />
                 <Routes>
                   <Route path="/" element={<Homepage />} />
-                  <Route path="/detail/:sid" element={<ViewDetail />} />
+                  <Route path="/get_story/:sid" element={<ViewDetail />} />
                   <Route
-                    path="/detail/:sid/chapter/:cid"
+                    path="/get_story/:sid/chapter/:cid"
                     element={<ChapterContent />}
                   />
                   <Route path="/login" element={<Login />} />
