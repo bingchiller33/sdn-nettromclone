@@ -114,13 +114,17 @@ const ListSotry = () => {
             <td className="text-center align-middle">
               <Link
                 to={
-                  story.status === "Đang cập nhật"
+                  story.status === "ongoing" || story.status === "draf"
                     ? `/author/mystory/listchapter/${story._id}`
                     : ""
                 }
               >
                 <List
-                  color={story.status === "Đang cập nhật" ? "black" : "grey"}
+                  color={
+                    story.status === "ongoing" || story.status === "draf"
+                      ? "black"
+                      : "grey"
+                  }
                   className="pb-1"
                   size={22}
                 />
