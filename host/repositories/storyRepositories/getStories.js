@@ -1,9 +1,73 @@
-import storyModel from '../../models/Story.js'
+import mongoose from "mongoose";
+import Story from "../../models/Story.js";
 
-export default async function getStories(){
+const getStories = async ({ status, categoryId }) => {
   try {
-    return await storyModel.find({})
+    const pipeline = [
+      { $match: { isActive: true } },
+      {
+        $lookup: {
+          from: "chapters",
+          localField: "_id",
+          foreignField: "storyId",
+          as: "chapters",
+        },
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "_id",
+          foreignField: "storyId",
+          as: "comment",
+        },
+      },
+      {
+        $lookup: {
+          from: "followstories",
+          localField: "_id",
+          foreignField: "storyId",
+          as: "followQtt",
+        },
+      },
+      {
+        $addFields: {
+          comment: { $size: "$comment" },
+          followQtt: { $size: "$followQtt" },
+          chapterQtt: { $size: "$chapters" },
+        },
+      },
+      { $match: { isActive: true } },
+      { $sort: { "chapters.publishedDate": -1 } },
+      {
+        $addFields: {
+          chapters: { $slice: ["$chapters", 3] },
+        },
+      },
+    ];
+    if (status !== undefined && status.length > 0) {
+      pipeline[0].$match.status = status;
+    }
+
+    if (categoryId !== undefined && categoryId.length > 0) {
+      pipeline.push({
+        $lookup: {
+          from: "storycategories",
+          localField: "_id",
+          foreignField: "storyId",
+          as: "category",
+        },
+      });
+      pipeline.push({
+        $match: {
+          "category.categoryId": new mongoose.Types.ObjectId(categoryId),
+        },
+      });
+    }
+    const result = await Story.aggregate(pipeline);
+    return result;
   } catch (error) {
     throw new Error(error.message);
   }
-}
+};
+
+export default getStories;

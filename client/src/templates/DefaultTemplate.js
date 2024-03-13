@@ -1,16 +1,11 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import Header from "../components/Header"; 
-
+import Header from "../components/Header";
 
 const DefaultTemplate = ({ children }) => {
-
   return (
-    <> 
-      <Header />
-      <Container>
-        {children}
-      </Container>
+    <>
+      <Container className="mt-3">{children}</Container>
     </>
   );
 };

@@ -1,18 +1,40 @@
 import { Table } from "react-bootstrap";
 import { Chat, List, PencilSquare } from "react-bootstrap-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CheckBox from "../../common/custom-fileds/CheckboxField";
-import { completedStory } from "../../common/data/dataStory/dataSlice";
 import rateAvg from "../../common/utilities/rateAvg";
 import SplitNumber from "../../common/utilities/SplitNumber";
 import time from "../../time";
 import getTime from "../../common/utilities/getTime";
+import axios from "axios";
+import { BASE_URL } from "../../common/utilities/initials";
+import { fetchStoriesSuccess } from "../../common/data/dataStory/dataSlice";
 
 const ListSotry = () => {
   const listStories = useSelector((state) => state.listStory.data);
   const listFollows = useSelector((state) => state.listFollow.data);
   const listRate = useSelector((state) => state.listRate.data);
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("token");
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+  };
+
+  const completedStory = (id) => {
+    axios
+      .get(`${BASE_URL}/story/${id}/finished`, config)
+      .then(() => {
+        axios
+          .get(`${BASE_URL}/story/get_list_stories`, config)
+          .then((res) => dispatch(fetchStoriesSuccess(res.data)))
+          .catch((e) => console.log(e.message));
+      })
+      .catch((err) => console.log(err.message));
+  };
   return (
     <Table striped bordered size="sm">
       <thead>
@@ -66,12 +88,10 @@ const ListSotry = () => {
               <CheckBox
                 name="status"
                 required={false}
-                disabled={
-                  story.status === "Đã hoàn thành" || story.active === 0
-                }
-                checked={story.status === "Đã hoàn thành"}
+                disabled={story.status === "finished"}
+                checked={story.status === "finished"}
                 id={story}
-                handleOnchange={completedStory}
+                handleOnchange={() => completedStory(story?._id)}
               />
             </td>
             <td className="text-center align-middle">

@@ -2,6 +2,15 @@ body,
 html {
   margin: 0;
   padding: 0;
+  height: 100;
+}
+
+.App {
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .card_slider {
@@ -374,4 +383,20 @@ div.bc-action {
 
 .light-grey {
   color: rgb(209 213 219) !important;
+}
+
+.light {
+  background-color: white;
+  color: #4b535e;
+}
+
+
+.dark {
+  background-color: #1E2937;
+  color: rgb(209 213 219) !important;
+}
+
+
+.bg-body-tertiary-custom {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }

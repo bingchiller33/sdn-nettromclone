@@ -10,7 +10,6 @@ storyRouter.get("/get_list_stories", storyController.getStoriesByUser);
 storyRouter.post("/create_story", storyController.createStory);
 storyRouter.get("/get_stories", storyController.getStories);
 
-
 /**
  * @swagger
  * /story/follow/{storyId}:
@@ -29,7 +28,7 @@ storyRouter.get("/get_stories", storyController.getStories);
  *         required: true
  *         schema:
  *           type: string
-*     responses:
+ *     responses:
  *       '200':
  *         description: Followed the story successfully
  *         content:
@@ -112,10 +111,60 @@ storyRouter.post(
  *       '500':
  *         description: An error occurred while trying to get the follow list
  */
-storyRouter.get(
-  "/follows",
-  authenticate,
-  storyController.getFollowingStories
-);
+storyRouter.get("/follows", authenticate, storyController.getFollowingStories);
+
+/**
+ * @swagger
+ * /story/{id}/active:
+ *   get:
+ *     tags:
+ *       - Story
+ *     summary: Get the list of stories the user is following
+ *     description: This can only be done by the logged in user.
+ *     operationId: getFollowingStories
+ *     security:
+ *       - BearerAuth: []   # use the security scheme named 'BearerAuth'
+ *     responses:
+ *       '200':
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Story'
+ *       '401':
+ *         description: User is not authenticated
+ *       '500':
+ *         description: An error occurred while trying to get the follow list
+ */
+storyRouter.get("/:id/active", authenticate, storyController.activeStory);
+
+/**
+ * @swagger
+ * /story/{id}/finished:
+ *   get:
+ *     tags:
+ *       - Story
+ *     summary: Get the list of stories the user is following
+ *     description: This can only be done by the logged in user.
+ *     operationId: getFollowingStories
+ *     security:
+ *       - BearerAuth: []   # use the security scheme named 'BearerAuth'
+ *     responses:
+ *       '200':
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Story'
+ *       '401':
+ *         description: User is not authenticated
+ *       '500':
+ *         description: An error occurred while trying to get the follow list
+ */
+storyRouter.get("/:id/finished", authenticate, storyController.finished);
 
 export default storyRouter;

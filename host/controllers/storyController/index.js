@@ -6,8 +6,8 @@ import updateStory from "./updateStory.js";
 import followStory from "./followStory.js";
 import unfollowStory from "./unfollowStory.js";
 import getFollowingStories from "./getFollowingStories.js";
-
-
+import activeStory from "./activeStory.js";
+import finished from "./finishStory.js";
 
 export default {
   getStoriesByUser,
@@ -17,5 +17,7 @@ export default {
   updateStory,
   followStory,
   unfollowStory,
-  getFollowingStories
+  getFollowingStories,
+  activeStory,
+  finished,
 };

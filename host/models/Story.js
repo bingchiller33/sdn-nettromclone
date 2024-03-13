@@ -31,7 +31,7 @@ const storySchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["draft", "published", "archived"],
+      enum: ["draft", "published", "archived", "finished", "ongoing"],
       default: "draft",
     },
   },
