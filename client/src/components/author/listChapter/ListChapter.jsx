@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { Pen } from "react-bootstrap-icons";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import FetchData from "./FetchData";
 import CheckBox from "../../common/custom-fileds/CheckboxField";
@@ -10,21 +10,32 @@ import userLogedIn from "../../user/userLogedIn";
 import calTime from "../../common/utilities/calTime";
 import {
   activeChapter,
+  fetchChapterSuccess,
   setChapterNo,
   updateNameChapter,
 } from "../../common/data/dataChapter/dataSlice";
 import { createContent } from "../../common/data/dataContent/dataSlice";
+import axios from "axios";
+import { BASE_URL } from "../../common/utilities/initials";
 
-const ListChapter = ({ sid }) => {
+const ListChapter = () => {
   const dispatch = useDispatch();
   const inputRef = useRef("");
+  const { sid } = useParams();
   const listChapter = useSelector((state) => state.listChapter.data);
   const chapter = useSelector((state) => state.listChapter.chapter);
   const story = useSelector((state) => state.listStory.story);
   const listContent = useSelector((state) => state.content.data);
   const [chapterId, setChapterId] = useState(0);
   const [value, setValue] = useState("");
+  let limit = 10;
   const user = userLogedIn();
+  useEffect(() => {
+    axios
+      .get(`${BASE_URL}/chapter/${sid}/story?limit=${limit}`)
+      .then((res) => dispatch(fetchChapterSuccess(res.data)))
+      .catch((err) => console.log(err.message));
+  }, [sid]);
   const listChapterCopy = [...listChapter];
   const newListChapter = listChapterCopy.sort((a, b) => b["id"] - a["id"]);
   FetchData(sid, chapterId);
