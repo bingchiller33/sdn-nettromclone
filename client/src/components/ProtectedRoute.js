@@ -3,14 +3,14 @@ import { Navigate, Outlet } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
 import { Spinner } from "react-bootstrap";
 
-const ProtectedRoute = ({ redirectPath, isAllowed }) => {
+const ProtectedRoute = ({ redirectPath, isAllowed, requiresUser = true }) => {
   const { user } = useContext(UserContext);
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
-    if (user !== null) {
+    if (!requiresUser || user !== null) {
       setLoading(false);
     }
-  }, [user]);
+  }, [user, requiresUser]);
   if (isLoading) {
     return (
       <div

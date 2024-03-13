@@ -57,44 +57,68 @@ function App() {
               <BrowserRouter>
                 <Header />
                 <Routes>
+                  {/* Common Routes */}
                   <Route path="/" element={<Homepage />} />
                   <Route path="/get_story/:sid" element={<ViewDetail />} />
                   <Route
                     path="/get_story/:sid/chapter/:cid"
                     element={<ChapterContent />}
                   />
+                  <Route path="/search" element={<SearchStory />} />
+
+                  {/* Login/Register Routes */}
                   <Route
                     element={
                       <ProtectedRoute
                         redirectPath="/"
                         isAllowed={!user}
-                      ></ProtectedRoute>
+                        requiresUser={false}
+                      />
                     }
                   >
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                   </Route>
-                  <Route path="/search" element={<SearchStory />} />
-                  <Route path="/author/addstory" element={<AddStory />} />
+
+                  {/* Author Routes */}
                   <Route
-                    path="/author/editstory/:sid"
-                    element={<EditStory />}
-                  />
-                  <Route path="/author/mystory" element={<MyListStory />} />
+                    element={
+                      <ProtectedRoute
+                        redirectPath="/"
+                        isAllowed={!!user && user.role === 2}
+                      />
+                    }
+                  >
+                    <Route path="/author/mystory" element={<MyListStory />} />
+                    <Route
+                      path="/author/mystory/:sid/boxchat"
+                      element={<BoxChat />}
+                    />
+                    <Route
+                      path="/author/mystory/listchapter/:sid"
+                      element={<MyListChapter />}
+                    />
+                    <Route
+                      path="/author/mystory/listchapter/:sid/content/:cid"
+                      element={<AddEditContent />}
+                    />
+                    <Route path="/author/addstory" element={<AddStory />} />
+                    <Route
+                      path="/author/editstory/:sid"
+                      element={<EditStory />}
+                    />
+                  </Route>
+
+                  {/* User Routes */}
                   <Route
-                    path="/author/mystory/:sid/boxchat"
-                    element={<BoxChat />}
-                  />
-                  <Route
-                    path="/author/mystory/listchapter/:sid"
-                    element={<MyListChapter />}
-                  />
-                  <Route
-                    path="/author/mystory/listchapter/:sid/content/:cid"
-                    element={<AddEditContent />}
-                  />
-                  <Route path="/profile" element={<UserProfile />}></Route>
-                  <Route path="*" element={<Navigate to={"/"} />} />
+                    element={
+                      <ProtectedRoute redirectPath="/" isAllowed={!!user} />
+                    }
+                  >
+                    <Route path="/profile" element={<UserProfile />} />
+                  </Route>
+
+                  {/* Admin Routes */}
                   <Route
                     element={
                       <ProtectedRoute
@@ -106,8 +130,11 @@ function App() {
                     <Route
                       path="/admin/dashboard"
                       element={<AdminDashboard />}
-                    ></Route>
+                    />
                   </Route>
+
+                  {/* 404 Route */}
+                  <Route path="*" element={<Navigate to={"/"} />} />
                 </Routes>
               </BrowserRouter>
             </div>
