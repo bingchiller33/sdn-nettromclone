@@ -38,6 +38,9 @@ Content-Type: application/json
 }
 
 ###
+GET  http://localhost:9999/comment/story/65f3df2266cc7c4a6b836fc5
+
+###
 DELETE  http://localhost:9999/comment/65ed37f8313fc3a01fa281f0
 
 ###
@@ -48,6 +51,20 @@ Content-Type: application/json
   "comment": "comment 4"
 }
 
+###
+POST  http://localhost:9999/comment
+Content-Type: application/json
+
+{
+  "userId": "",
+  "storyId": "",
+  "comment": "comment 1"
+}
+
+###
+GET http://localhost:9999/users/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU1YWMxNGVmZjVkMTc1Y2I3ZjZkOGEiLCJpYXQiOjE3MTA0ODc5OTMsImV4cCI6MTcxMDQ5MTU5M30.cvb7vdH_Z_HoEVwYh_v9W3TlM67Cjvd6rfiDbEqZjns
 
 ### Get following Story
 GET http://localhost:9999/story/follows

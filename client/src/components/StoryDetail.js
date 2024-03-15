@@ -24,6 +24,7 @@ import {
 } from "./common/data/dataChapter/dataSlice";
 import ListChapter from "./common/listChapter/ListChapter";
 import { fetchCategorySuccess } from "./common/data/dataCategory/dataSlice";
+import Comment from './Comment'
 
 const StoryDetail = () => {
   const { sid } = useParams();
@@ -57,7 +58,7 @@ const StoryDetail = () => {
       .then((data) => setRateStories(data));
   }, [sid, rateNo]);
   useEffect(() => {
-    fetch("http://localhost:9999/story/get_story/" + sid) 
+    fetch("http://localhost:9999/story/get_story/" + sid)
       .then((res) => res.json())
       .then((data) => setStory(data));
   }, [sid]);
@@ -195,6 +196,7 @@ const StoryDetail = () => {
               </li>
               <li className="d-flex ">
                 <FormRate sid={sid} onchangeRateNo={getRateNo} story={story} />
+                {/* Rate */}
               </li>
               <li className="d-flex ">
                 {user === null ? (
@@ -252,7 +254,9 @@ const StoryDetail = () => {
         </Row>
         <Row>
           <Col xs={12}>
-            <FormComment sid={sid} />
+            {/* <FormComment sid={sid} /> */}
+            {/* comment */}
+            <Comment sid={sid} />
           </Col>
         </Row>
       </Col>
