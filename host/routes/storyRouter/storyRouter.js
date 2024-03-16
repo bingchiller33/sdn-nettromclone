@@ -168,4 +168,10 @@ storyRouter.get("/:id/active", authenticate, storyController.activeStory);
  */
 storyRouter.get("/:id/finished", authenticate, storyController.finished);
 storyRouter.get("/content/:chapterId", storyController.findHistoryStory);
+storyRouter.get(
+  "/chapterContent/:chapterId",
+  storyController.getChapterContent
+);
+storyRouter.get("/chapters/:storyId", storyController.getAllChapter);
+storyRouter.put("/update_view_count/:id", storyController.updateViewCount);
 export default storyRouter;
