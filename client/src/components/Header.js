@@ -77,6 +77,7 @@ const Header = () => {
   }, [jwt]);
   const handleLogout = () => {
     setUser(null);
+    setContextUser(null);
     localStorage.removeItem("token");
     navigate("/");
   };

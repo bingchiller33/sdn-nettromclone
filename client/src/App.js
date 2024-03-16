@@ -1,5 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  redirect,
+} from "react-router-dom";
 import "./App.css";
 import "./styles/formRate.css";
 import Homepage from "./screens/Homepage";
@@ -20,6 +26,8 @@ import { ThemeContext, ThemeProvider } from "./contexts/ThemeContext";
 import axios from "axios";
 import { BASE_URL } from "./components/common/utilities/initials";
 import Header from "./components/Header";
+import AdminDashboard from "./screens/admin/AdminDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -35,6 +43,7 @@ function App() {
       .get(`${BASE_URL}/users`, config)
       .then((res) => {
         setUser(res.data);
+        console.log(!!res.data && res.data.role === 3);
       })
       .catch((err) => console.log(err.message));
   }, []);
@@ -48,38 +57,84 @@ function App() {
               <BrowserRouter>
                 <Header />
                 <Routes>
+                  {/* Common Routes */}
                   <Route path="/" element={<Homepage />} />
                   <Route path="/get_story/:sid" element={<ViewDetail />} />
                   <Route
                     path="/get_story/:sid/chapter/:cid"
                     element={<ChapterContent />}
                   />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
                   <Route path="/search" element={<SearchStory />} />
-                  <Route path="/author/addstory" element={<AddStory />} />
+
+                  {/* Login/Register Routes */}
                   <Route
-                    path="/author/editstory/:sid"
-                    element={<EditStory />}
-                  />
-                  <Route path="/author/mystory" element={<MyListStory />} />
+                    element={
+                      <ProtectedRoute
+                        redirectPath="/"
+                        isAllowed={!user}
+                        requiresUser={false}
+                      />
+                    }
+                  >
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                  </Route>
+
+                  {/* Author Routes */}
                   <Route
-                    path="/author/mystory/:sid/boxchat"
-                    element={<BoxChat />}
-                  />
+                    element={
+                      <ProtectedRoute
+                        redirectPath="/"
+                        isAllowed={!!user && user.role === 2}
+                      />
+                    }
+                  >
+                    <Route path="/author/mystory" element={<MyListStory />} />
+                    <Route
+                      path="/author/mystory/:sid/boxchat"
+                      element={<BoxChat />}
+                    />
+                    <Route
+                      path="/author/mystory/listchapter/:sid"
+                      element={<MyListChapter />}
+                    />
+                    <Route
+                      path="/author/mystory/listchapter/:sid/content/:cid"
+                      element={<AddEditContent />}
+                    />
+                    <Route path="/author/addstory" element={<AddStory />} />
+                    <Route
+                      path="/author/editstory/:sid"
+                      element={<EditStory />}
+                    />
+                  </Route>
+
+                  {/* User Routes */}
                   <Route
-                    path="/author/mystory/listchapter/:sid"
-                    element={<MyListChapter />}
-                  />
+                    element={
+                      <ProtectedRoute redirectPath="/" isAllowed={!!user} />
+                    }
+                  >
+                    <Route path="/profile" element={<UserProfile />} />
+                  </Route>
+
+                  {/* Admin Routes */}
                   <Route
-                    path="/author/mystory/listchapter/:sid/content/:cid"
-                    element={<AddEditContent />}
-                  />
-                  <Route path="/profile" element={<UserProfile />}></Route>
-                  <Route
-                    path="*"
-                    element={<Navigate to={"/nettruyen.net"} />}
-                  />
+                    element={
+                      <ProtectedRoute
+                        redirectPath="/"
+                        isAllowed={!!user && user.role === 3}
+                      />
+                    }
+                  >
+                    <Route
+                      path="/admin/dashboard"
+                      element={<AdminDashboard />}
+                    />
+                  </Route>
+
+                  {/* 404 Route */}
+                  <Route path="*" element={<Navigate to={"/"} />} />
                 </Routes>
               </BrowserRouter>
             </div>

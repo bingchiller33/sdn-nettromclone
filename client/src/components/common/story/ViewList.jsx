@@ -18,11 +18,11 @@ const ViewList = () => {
     filter,
   } = useSelector((state) => state.listStory);
   const { filterCat } = useSelector((state) => state.listCategory);
-  console.log(
-    `${BASE_URL}/story/get_stories?status=${filter || ""}&categoryId=${
-      filterCat || ""
-    }&item=${sort.type}&order=${sort.payload}`
-  );
+  // console.log(
+  //   `${BASE_URL}/story/get_stories?status=${filter || ""}&categoryId=${
+  //     filterCat || ""
+  //   }&item=${sort.type}&order=${sort.payload}`
+  // );
   useEffect(() => {
     axios
       .get(

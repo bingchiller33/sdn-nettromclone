@@ -11,6 +11,7 @@ const RateStorySchema = new Schema(
     status: {
       type: String,
       required: true,
+      default: false,
     },
     userId: {
       type: Schema.Types.ObjectId,
