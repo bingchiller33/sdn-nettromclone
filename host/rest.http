@@ -38,7 +38,17 @@ Content-Type: application/json
 }
 
 ###
-GET  http://localhost:9999/comment/story/65f3df2266cc7c4a6b836fc5
+POST  http://localhost:9999/rate
+Content-Type: application/json
+
+{
+  "rateNo": 1,
+  "userId": "65e5ac14eff5d175cb7f6d8a",
+  "rateStoryId": "65f3df2266cc7c4a6b836fc5"
+}
+
+###
+GET  http://localhost:9999/rate?userId=65e5ac14eff5d175cb7f6d8a&storyId=65f3df2266cc7c4a6b836fc5
 
 ###
 DELETE  http://localhost:9999/comment/65ed37f8313fc3a01fa281f0

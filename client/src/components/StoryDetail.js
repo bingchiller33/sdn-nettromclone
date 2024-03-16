@@ -25,6 +25,7 @@ import {
 import ListChapter from "./common/listChapter/ListChapter";
 import { fetchCategorySuccess } from "./common/data/dataCategory/dataSlice";
 import Comment from './Comment'
+import Rate from "./Rate";
 
 const StoryDetail = () => {
   const { sid } = useParams();
@@ -195,7 +196,8 @@ const StoryDetail = () => {
                 </p>
               </li>
               <li className="d-flex ">
-                <FormRate sid={sid} onchangeRateNo={getRateNo} story={story} />
+                {/* <FormRate sid={sid} onchangeRateNo={getRateNo} story={story} /> */}
+                <Rate sid={sid}/>
                 {/* Rate */}
               </li>
               <li className="d-flex ">
