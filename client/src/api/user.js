@@ -7,9 +7,9 @@ export async function fetchUserByToken(token) {
       'Authorization': `Bearer ${token}`
     }
   })
-  const user = response
+  const user = response.json()
   return user
   } catch (error) {
-    return undefined
+    throw error
   }
 }

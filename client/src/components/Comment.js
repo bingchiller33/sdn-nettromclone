@@ -32,10 +32,6 @@ export default function Comment({ sid }) {
       const user = await fetchUserByToken(token)
       // console.log(user)
       comment.userId = user._id || undefined
-      if (!comment.userId) {
-        toast.warn('Bạn cần đăng nhập để bình luận')
-        return
-      }
       console.log(comment)
       //add to database
       async function createComment(comment) {
@@ -53,7 +49,7 @@ export default function Comment({ sid }) {
       await createComment(comment)
       e.target.reset()
     } catch (error) {
-      console.log(error)
+      toast.warn('Bạn cần đăng nhập để bình luận')
     }
   }
 
