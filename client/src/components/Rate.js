@@ -3,6 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons';
 import { Container } from 'react-bootstrap';
+import { toast } from "react-toastify"
+import { fetchUserByToken } from '../api/user.js'
+
 
 function Star({ selected = false, onClick = () => { } }) {
   return (
@@ -20,15 +23,7 @@ export default function Rate({ sid }) {
     async function fetchRating() {
       const token = localStorage.getItem("token");
       try {
-        const response = await fetch('http://localhost:9999/users', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        });
-  
-        const user = await response.json();
+        const user = await fetchUserByToken(token)
         const userId = user._id || undefined;
         
         const response2 = await fetch(`http://localhost:9999/rate?userId=${userId}&storyId=${sid}`);
@@ -51,15 +46,12 @@ export default function Rate({ sid }) {
   async function starHandler(e, i) {
     setRating(i + 1)
     const token = localStorage.getItem("token")
-    const response = await fetch('http://localhost:9999/users', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    const user = await response.json()
+    const user = await fetchUserByToken(token)
     const userId = user._id || undefined
+    if (!userId) {
+      toast.warning('Bạn cần đăng nhập để lưu đánh giá truyện')
+      return
+    }
     const storyId = sid
     console.log(userId, storyId, i + 1)
     async function createRate() {
@@ -91,7 +83,7 @@ export default function Rate({ sid }) {
         ))}
       </div>
       <div>
-        {`Bạn đã đánh giá ${rating} sao.`}
+        {rating === 0 ? 'Bạn cảm thấy truyện như nào?': `Bạn đã đánh giá ${rating} sao.`}
       </div>
     </Container>
   );

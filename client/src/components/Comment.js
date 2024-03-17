@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Container, InputGroup, Form, Button, ListGroup, Image, Pagination } from "react-bootstrap";
 import { Chat } from "react-bootstrap-icons";
+import { toast } from "react-toastify"
+import { fetchUserByToken } from '../api/user.js'
 
 export default function Comment({ sid }) {
   const [comments, setComments] = useState([]);
@@ -21,37 +23,38 @@ export default function Comment({ sid }) {
   }, [sid, currentPage, changed]);
 
   async function commentHandler(e) {
-    //check expired jwt
-    e.preventDefault()
-    const fd = new FormData(e.target)
-    const comment = Object.fromEntries(fd.entries())
-    comment.storyId = sid
-    const token = localStorage.getItem("token")
-    const response = await fetch('http://localhost:9999/users', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+    try {
+      e.preventDefault()
+      const fd = new FormData(e.target)
+      const comment = Object.fromEntries(fd.entries())
+      comment.storyId = sid
+      const token = localStorage.getItem("token")
+      const user = await fetchUserByToken(token)
+      // console.log(user)
+      comment.userId = user._id || undefined
+      if (!comment.userId) {
+        toast.warn('Bạn cần đăng nhập để bình luận')
+        return
       }
-    })
-    const user = await response.json()
-    comment.userId = user._id || undefined
-    console.log(comment)
-    //add to database
-    async function createComment(comment) {
-      const response = await fetch('http://localhost:9999/comment', {
-        method: 'POST',
-        body: JSON.stringify(comment),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const resData = await response.json()
-      setChanged(!changed)
-      return resData
+      console.log(comment)
+      //add to database
+      async function createComment(comment) {
+        const response = await fetch('http://localhost:9999/comment', {
+          method: 'POST',
+          body: JSON.stringify(comment),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        const resData = await response.json()
+        setChanged(!changed)
+        return resData
+      }
+      await createComment(comment)
+      e.target.reset()
+    } catch (error) {
+      console.log(error)
     }
-    await createComment(comment)
-    e.target.reset()
   }
 
   // Pagination change handler
@@ -81,7 +84,9 @@ export default function Comment({ sid }) {
               <Image src={comment.userId.img} style={{ height: '30px', width: '30px', objectFit: 'cover' }} roundedCircle />
               <div>
                 <strong>{comment.userId.userName}</strong>
-                <p>{comment.comment}</p>
+                <p className="mb-0">{comment.comment}</p>
+                {/* reply */}
+                <Button variant="link" className="ps-0">Trả lời</Button>
               </div>
             </div>
           </ListGroup.Item>
