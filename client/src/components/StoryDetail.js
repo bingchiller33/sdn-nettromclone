@@ -49,7 +49,7 @@ const StoryDetail = () => {
       .then((data) => dispatch(fetchCategorySuccess(data)));
   }, [dispatch]);
   useEffect(() => {
-    fetch("http://localhost:9999/chapter?storyId=" + sid)
+    fetch(`http://localhost:9999/story/chapters/${sid}`)
       .then((res) => res.json())
       .then((data) => dispatch(fetchChapterSuccess(data)));
   }, [dispatch, sid]);
@@ -83,28 +83,47 @@ const StoryDetail = () => {
         );
     }
   }, [followStatus, sid]);
-  const handleOnclickRead = (e) => {
-    const number = chapteres.length;
-    if (number === 0) {
-      toast.warning("Truyện hiện đang cập nhật xin chờ thêm.");
-    } else {
-      const newViewStory = {
-        ...story,
-        view: (story.view += 1),
-      };
-      fetch("http://localhost:9999/Stories/" + sid, {
-        method: PUT,
-        body: JSON.stringify(newViewStory),
-        headers: header,
-      });
-      if (e.target.innerText === "Đọc từ đầu") {
-        navigate(`/get_story/${sid}/chapter/${1}`);
-      } else if (e.target.innerText === "Đọc mới nhất") {
-        navigate(`/get_story/${sid}/chapter/${number}`);
-        dispatch(setChapterNo(number));
+
+  useEffect(() => {
+    const fetchStoryDetails = async () => {
+      const storyResponse = await fetch(
+        `http://localhost:9999/story/get_story/${sid}`
+      );
+      if (storyResponse.ok) {
+        const storyData = await storyResponse.json();
+        setStory(storyData);
       }
-    }
+    };
+
+    fetchStoryDetails();
+  }, [sid]);
+
+  const handleOnclickRead = (e) => {
+    const firstChapterNo = 1;
+    const newViewCount = story.view + 1;
+
+    fetch(`http://localhost:9999/story/update_view_count/${sid}`, {
+      method: PUT,
+      body: JSON.stringify({ view: newViewCount }),
+      headers: header,
+    })
+      .then(() => {
+        if (e.target.innerText === "Đọc từ đầu") {
+          navigate(`/get_story/${sid}/chapter/${firstChapterNo}`);
+          dispatch(setChapterNo(firstChapterNo));
+        } else {
+          // Đọc chương mới nhất dựa vào số lượng chương
+          const latestChapterNo = chapteres.length;
+          navigate(`/get_story/${sid}/chapter/${latestChapterNo}`);
+          dispatch(setChapterNo(latestChapterNo));
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating view count:", error);
+        toast.error("Có lỗi xảy ra khi cập nhật số lượt xem.");
+      });
   };
+
   const handleFollow = (e) => {
     if (user === null) {
       navigate("/login");
@@ -250,7 +269,7 @@ const StoryDetail = () => {
           </Col>
           <Col xs={12}>
             <Row>
-              <ListChapter sid={sid} />
+              <ListChapter storyId={sid} />
             </Row>
           </Col>
         </Row>
