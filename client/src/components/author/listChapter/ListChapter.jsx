@@ -30,6 +30,7 @@ const ListChapter = () => {
   const [value, setValue] = useState("");
   let limit = 10;
   const user = userLogedIn();
+  console.log(listChapter);
   useEffect(() => {
     axios
       .get(`${BASE_URL}/chapter/${sid}/story?limit=${limit}`)

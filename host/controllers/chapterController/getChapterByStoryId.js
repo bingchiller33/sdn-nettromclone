@@ -4,8 +4,8 @@ export default async function getAllComments(req, res, next) {
   try {
     const { sid } = req.params;
     const { limit } = req.query;
-    res.send(await chapterDAO.getChapterByStoryId(sid, limit));
+    res.status(201).json(await chapterDAO.getChapterByStoryId(sid, limit));
   } catch (error) {
-    // next(error);
+    res.status(500).json(error);
   }
 }

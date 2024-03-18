@@ -1,11 +1,12 @@
 import Chapter from "../../models/Chapter.js";
 
-export default async function getChapterByStoryId(sid) {
+export default async function getChapterByStoryId(sid, limit) {
   try {
     return await Chapter.find({ storyId: sid })
       .sort({ createdAt: -1 })
-      .limit(limit);
+      .limit(limit)
+      .exec();
   } catch (error) {
-    next(error);
+    throw new Error(error);
   }
 }
