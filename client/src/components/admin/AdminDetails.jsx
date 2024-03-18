@@ -1,6 +1,7 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Container, Row, Col, Figure, Nav, Spinner } from "react-bootstrap";
-import "./UserDetails.css";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
 import {
   BookmarkHeartFill,
   BoxArrowLeft,
@@ -11,16 +12,10 @@ import {
   ListUl,
   Speedometer,
 } from "react-bootstrap-icons";
-import CommonDetail from "./userProfileComponent/CommonDetail";
-import FollowListDetail from "./userProfileComponent/FollowListDetail";
-import CommentDetail from "./userProfileComponent/CommentDetail";
-import ProfileDetail from "./userProfileComponent/ProfileDetail";
-import UserContext from "../../contexts/UserContext";
-import { Link, useNavigate } from "react-router-dom";
 
-const UserDetails = () => {
+const AdminDetails = () => {
   const { user, setUser } = useContext(UserContext);
-  const [isNavVisible, setNavVisible] = useState(true);
+  const [isNavVisible, setNavVisible] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const navigate = useNavigate();
 
@@ -73,9 +68,9 @@ const UserDetails = () => {
                   }`}
                   onClick={() => setActiveTab(0)}
                 >
-                  <Link>
+                  <a href="#">
                     <Speedometer></Speedometer> Thông tin chung
-                  </Link>
+                  </a>
                 </li>
                 <li
                   className={`hvr-sweep-to-right ${
@@ -83,9 +78,9 @@ const UserDetails = () => {
                   }`}
                   onClick={() => setActiveTab(1)}
                 >
-                  <Link>
+                  <a href="#">
                     <InfoCircle></InfoCircle> Thông tin tài khoản
-                  </Link>
+                  </a>
                 </li>
                 <li
                   className={`hvr-sweep-to-right ${
@@ -93,9 +88,9 @@ const UserDetails = () => {
                   }`}
                   onClick={() => setActiveTab(2)}
                 >
-                  <Link>
+                  <a href="#">
                     <BookmarkHeartFill></BookmarkHeartFill> Truyện theo dõi
-                  </Link>
+                  </a>
                 </li>
                 <li
                   className={`hvr-sweep-to-right ${
@@ -103,9 +98,9 @@ const UserDetails = () => {
                   }`}
                   onClick={() => setActiveTab(3)}
                 >
-                  <Link>
+                  <a href="#">
                     <ChatLeftDots></ChatLeftDots> Bình luận
-                  </Link>
+                  </a>
                 </li>
                 <li
                   className={`hvr-sweep-to-right ${
@@ -113,21 +108,20 @@ const UserDetails = () => {
                   }`}
                   onClick={() => setActiveTab(4)}
                 >
-                  <Link>
+                  <a href="#">
                     <ListUl></ListUl> Truyện đã đăng
-                  </Link>
+                  </a>
                 </li>
                 <li
                   className={`hvr-sweep-to-right ${
                     activeTab === 5 ? "active" : ""
                   }`}
                   onClick={() => {
-                    setUser(null);
                     localStorage.removeItem("token");
                     navigate("/");
                   }}
                 >
-                  <a href="/">
+                  <a href="#">
                     <BoxArrowLeft></BoxArrowLeft> Đăng xuất
                   </a>
                 </li>
@@ -136,16 +130,14 @@ const UserDetails = () => {
           )}
         </Col>
         <Col md={9} sm={8}>
-          {activeTab === 0 && (
-            <CommonDetail setActiveTab={setActiveTab} user={user} />
-          )}
-          {activeTab === 1 && <ProfileDetail user={user} setUser={setUser} />}
-          {activeTab === 2 && <FollowListDetail />}
-          {activeTab === 3 && <CommentDetail />}
+          {activeTab === 0}
+          {activeTab === 1}
+          {activeTab === 2}
+          {activeTab === 3}
         </Col>
       </Row>
     </Container>
   );
 };
 
-export default UserDetails;
+export default AdminDetails;
