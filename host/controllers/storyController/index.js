@@ -15,7 +15,7 @@ import getAllChapter from "./getAllChapter.js";
 import updateViewCount from "./updateViewCount.js";
 import getActivatedStories from './getActivatedStories.js';
 import getInactivedStories from './getInactivatedStories.js';
-
+import uploadStoryImage from "./uploadStoryImage.js";
 
 export default {
   getStoriesByUser,
@@ -34,5 +34,6 @@ export default {
   getAllChapter,
   updateViewCount,
   getActivatedStories,
-  getInactivedStories
+  getInactivedStories,
+  uploadStoryImage
 };

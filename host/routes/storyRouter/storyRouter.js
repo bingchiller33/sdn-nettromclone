@@ -1,6 +1,7 @@
 import express from "express";
 import storyController from "../../controllers/storyController/index.js";
 import authenticate from "../../middleware/authenticate.js";
+import upload from "../../middleware/multer.js";
 
 const storyRouter = express.Router();
 
@@ -175,7 +176,32 @@ storyRouter.get(
 storyRouter.get("/chapters/:storyId", storyController.getAllChapter);
 storyRouter.put("/update_view_count/:id", storyController.updateViewCount);
 
-storyRouter.get('/activated', authenticate, storyController.getActivatedStories);
-storyRouter.get('/inactivated', authenticate, storyController.getInactivedStories);
+storyRouter.get(
+  "/activated",
+  authenticate,
+  storyController.getActivatedStories
+);
+storyRouter.get(
+  "/inactivated",
+  authenticate,
+  storyController.getInactivedStories
+);
+
+storyRouter.post(
+  "/upload",
+  authenticate,
+  upload.single("image"),
+  (req, res, next) => {
+    if (!req.file) {
+      return res.status(404).send("please select img");
+    }
+    next();
+  },
+  storyController.uploadStoryImage,
+  (error, req, res, next) => {
+    console.error(error);
+    res.status(500).send({ error: "Something went wrong." });
+  }
+);
 
 export default storyRouter;
