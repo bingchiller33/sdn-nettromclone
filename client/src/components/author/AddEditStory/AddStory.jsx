@@ -42,7 +42,6 @@ const AddStory = () => {
       .catch((e) => console.log(e.message));
     axios
       .get(`${BASE_URL}/users`, config)
-      .get(`${BASE_URL}/users`, config)
       .then((res) => setUser(res.data))
       .catch((err) => console.log(err.message));
   }, []);

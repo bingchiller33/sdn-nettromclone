@@ -23,7 +23,6 @@ const ListSotry = () => {
       Authorization: `Bearer ${jwt}`,
     },
   };
-
   const completedStory = (id) => {
     axios
       .get(`${BASE_URL}/story/${id}/finished`, config)
@@ -59,7 +58,9 @@ const ListSotry = () => {
           <tr key={story._id}>
             <td className="align-middle text-center">{index + 1}</td>
             <td className="align-middle text-center">{story.name}</td>
-            <td className="align-middle text-center">chưa có</td>
+            <td className="align-middle text-center">
+              {story.category?.map((c) => c.name).join(", ") || "chưa có"}
+            </td>
             <td className="align-middle text-center">
               {getTime(story.createdAt)}
             </td>
@@ -114,14 +115,14 @@ const ListSotry = () => {
             <td className="text-center align-middle">
               <Link
                 to={
-                  story.status === "ongoing" || story.status === "draf"
+                  story.status === "ongoing" || story.status === "draft"
                     ? `/author/mystory/listchapter/${story._id}`
                     : ""
                 }
               >
                 <List
                   color={
-                    story.status === "ongoing" || story.status === "draf"
+                    story.status === "ongoing" || story.status === "draft"
                       ? "black"
                       : "grey"
                   }

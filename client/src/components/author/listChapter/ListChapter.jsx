@@ -1,17 +1,16 @@
 import React, { memo, useEffect, useRef, useState } from "react";
-import { Button, Col, Row, Table } from "react-bootstrap";
+import { Button, Col, Form, Row, Table } from "react-bootstrap";
 import { Pen } from "react-bootstrap-icons";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import FetchData from "./FetchData";
 import CheckBox from "../../common/custom-fileds/CheckboxField";
-import InputFiled from "../../common/custom-fileds/inputField";
 import calTime from "../../common/utilities/calTime";
 import {
   activeChapter,
   fetchChapterSuccess,
+  getChapter,
   setChapterNo,
-  updateNameChapter,
 } from "../../common/data/dataChapter/dataSlice";
 import { createContent } from "../../common/data/dataContent/dataSlice";
 import axios from "axios";
@@ -27,8 +26,7 @@ const ListChapter = () => {
   const chapter = useSelector((state) => state.listChapter.chapter);
   const story = useSelector((state) => state.listStory.story);
   const listContent = useSelector((state) => state.content.data);
-  const [chapterId, setChapterId] = useState(0);
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
   let limit = 10;
   const jwt = localStorage.getItem("token");
   const config = {
@@ -37,7 +35,6 @@ const ListChapter = () => {
       Authorization: `Bearer ${jwt}`,
     },
   };
-  console.log({ story, user });
   useEffect(() => {
     axios
       .get(`${BASE_URL}/users`, config)
@@ -46,35 +43,42 @@ const ListChapter = () => {
   }, []);
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/story/get_story/${sid}`)
+      .get(`${BASE_URL}/story/get_story/${sid}`, config)
       .then((res) => dispatch(fetchStorySuccess(res.data)))
       .catch((err) => console.log(err.message));
     axios
-      .get(`${BASE_URL}/chapter/${sid}/story?limit=${limit}`)
+      .get(`${BASE_URL}/chapter/${sid}/story?limit=${limit}`, config)
       .then((res) => dispatch(fetchChapterSuccess(res.data)))
       .catch((err) => console.log(err.message));
   }, [sid]);
-  FetchData(sid, chapterId);
+  // FetchData(sid, chapterId);
   const handleInputChange = (e) => {
-    setValue(e.target.value);
+    dispatch(getChapter({ ...chapter, name: e.target.value }));
+    // setValue(e.target.value);
   };
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [chapterId]);
-  const handleNewName = (id, name) => {
-    setChapterId(id);
-    setValue(name);
+  }, [chapter]);
+  const handleNewName = (chapter, name) => {
+    dispatch(getChapter(chapter));
   };
   const handleSubmit = () => {
-    setChapterId(0);
-    dispatch(
-      updateNameChapter({
-        ...chapter,
-        name: value,
-      })
-    );
+    dispatch(getChapter({}));
+    axios
+      .put(
+        `${BASE_URL}/chapter/${chapter?._id}/update`,
+        { chapter: chapter },
+        config
+      )
+      .then(() =>
+        axios
+          .get(`${BASE_URL}/chapter/${sid}/story?limit=${limit}`, config)
+          .then((res) => dispatch(fetchChapterSuccess(res.data)))
+          .catch((err) => console.log(err.message))
+      )
+      .catch((err) => console.log(err.message));
   };
   const handleCreateContetChapter = (chapter) => {
     let count = listContent.reduce((acc, content) => {
@@ -106,7 +110,7 @@ const ListChapter = () => {
                     {user.role === 3 ? <th>Mã truyện</th> : ""}
                     <th>Tên chương</th>
                     <th>Ngày phát hành</th>
-                    {user._id === story.uploader && (
+                    {user._id === story.uploader?._id && (
                       <>
                         <th>Kích hoạt</th>
                         <th>Hành động</th>
@@ -115,9 +119,9 @@ const ListChapter = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {listChapter.map((chapter, index) => (
+                  {listChapter.map((c, index) => (
                     <tr
-                      key={chapter.id}
+                      key={c._id}
                       className={`Content_header_List_item pt-2 pb-2 mx-4 px-2 ${
                         index === listChapter?.length - 1 ? "last_item" : ""
                       }`}
@@ -126,80 +130,71 @@ const ListChapter = () => {
                       <td>
                         <Link
                           className="name_chapter text-dark"
-                          onClick={() =>
-                            dispatch(setChapterNo(chapter.chapterNo))
-                          }
-                          to={`/detail/${sid}/chapter/${chapter.id}`}
+                          onClick={() => dispatch(setChapterNo(c.chapterNo))}
+                          to={`/detail/${sid}/chapter/${c._id}`}
                         >
-                          Chương {chapter.chapterNo}
+                          Chương {c.chapterNo}
                         </Link>
                       </td>
-                      {user.role === 3 && <td>{chapter._id}</td>}
+                      {user.role === 3 && <td>{c._id}</td>}
                       <td
-                        onClick={() => handleNewName(chapter._id, chapter.name)}
+                        onClick={() => handleNewName(c, c.name)}
                         className={`${
-                          chapterId === chapter._id &&
-                          user._id === story.uploader &&
-                          !chapter.active &&
+                          chapter?._id === c._id &&
+                          user._id === story.uploader?._id &&
+                          !c.active &&
                           "d-none"
                         } ${
-                          user._id === story.uploader && !chapter.active
+                          user._id === story.uploader?._id && !c.active
                             ? "custom-cursor text-primary"
                             : ""
                         }`}
                       >
-                        {chapter.name?.length === 0 &&
-                        user._id === story.uploader
+                        {c.name?.length === 0 &&
+                        user._id === story.uploader?._id
                           ? "+"
-                          : chapter.name}
+                          : c.name}
                       </td>
-                      {chapterId === chapter._id &&
-                      user._id === story.uploader &&
-                      !chapter.isActive ? (
-                        <td className={`d-flex justify-content-center`}>
-                          <InputFiled
-                            handleInputChange={handleInputChange}
+                      {chapter?._id === c._id &&
+                      user._id === story.uploader?._id &&
+                      !c.isActive ? (
+                        <td className={`d-flex justify-content-center gap-3`}>
+                          <Form.Control
                             placeholder="Aa"
-                            value={value}
                             xs={9}
+                            value={chapter?.name}
+                            onChange={handleInputChange}
                             ref={inputRef}
                           />
-                          <Button
-                            onClick={() => handleSubmit()}
-                            className="ms-2"
-                          >
-                            Lưu
-                          </Button>
+                          <Button onClick={handleSubmit}>Lưu</Button>
                         </td>
                       ) : (
                         ""
                       )}
                       <td>
-                        {!chapter.active
+                        {!c.active
                           ? "Chưa được phát hành"
-                          : calTime(chapter.publishedDate)}
+                          : calTime(c.publishedDate)}
                       </td>
-                      {user._id === story.uploader ? (
+                      {user._id === story.uploader?._id ? (
                         <>
                           <td>
                             <CheckBox
                               name="active"
                               required={false}
-                              disabled={chapter.active}
-                              checked={chapter.active}
-                              id={chapter}
+                              disabled={c.active}
+                              checked={c.active}
+                              id={c}
                               handleOnchange={activeChapter}
                             />
                           </td>
                           <td>
-                            {chapter.active ? (
+                            {c.active ? (
                               ""
                             ) : (
                               <Link
-                                onClick={() =>
-                                  handleCreateContetChapter(chapter)
-                                }
-                                to={`/author/mystory/listchapter/${sid}/content/${chapter.id}`}
+                                onClick={() => handleCreateContetChapter(c)}
+                                to={`/author/mystory/listchapter/${sid}/content/${c._id}`}
                               >
                                 <Pen color="black" className="pb-1" size={22} />
                               </Link>

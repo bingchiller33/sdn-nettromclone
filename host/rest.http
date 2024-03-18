@@ -119,3 +119,18 @@ GET http://localhost:9999/story/get_story/65e48b32ea15f34d88d855c4
 ###
 GET  http://localhost:9999/story/actived
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWVmYmU3NTI0NDM4MmExYjc5YTU1NDIiLCJpYXQiOjE3MTA3NTY3NjMsImV4cCI6MTcxMDc2MDM2M30.KPVSMBE5ML496vVPJG1TMXb_bi8xvogfRSuaSA2X7Cc
+ 
+###
+GET http://localhost:9999/story/get_list_stories
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU0NTk0ZTA3OTAzYTQ4MDM3ZGRhNjIiLCJpYXQiOjE3MTA3ODQyMDQsImV4cCI6MTcxMDc4NzgwNH0.C0jFYtQoza_pPzZ_q16NYUOZmixAmSkSTNOM7FZvWVE
+
+###
+POST http://localhost:9999/chapter
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU0NTk0ZTA3OTAzYTQ4MDM3ZGRhNjIiLCJpYXQiOjE3MTA3ODQyMDQsImV4cCI6MTcxMDc4NzgwNH0.C0jFYtQoza_pPzZ_q16NYUOZmixAmSkSTNOM7FZvWVE
+
+{
+  "isActive": false,
+  "chapterNo": 0,
+  "name": "",
+  "storyId": "65e48b32ea15f34d88d855c4"
+}

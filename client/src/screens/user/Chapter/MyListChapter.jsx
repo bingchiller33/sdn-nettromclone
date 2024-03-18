@@ -1,46 +1,66 @@
 import { Col, Row } from "react-bootstrap";
 import { ArrowLeftCircle, Chat, PlusCircle } from "react-bootstrap-icons";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import ListChapter from "../../../components/author/listChapter/ListChapter";
-import { createChapter } from "../../../components/common/data/dataChapter/dataSlice";
 import DefaultTemplate from "../../../templates/DefaultTemplate";
+import axios from "axios";
+import { BASE_URL } from "../../../components/common/utilities/initials";
+import { fetchChapterSuccess } from "../../../components/common/data/dataChapter/dataSlice";
 
 const MyListChapter = () => {
   const { sid } = useParams();
   const dispatch = useDispatch();
-  const listChapter = useSelector((state) => state.listChapter.data);
-  const story = useSelector((state) => state.listStory.story);
+  const jwt = localStorage.getItem("token");
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+  };
+  const handleCreateChapter = () => {
+    axios
+      .post(
+        `${BASE_URL}/chapter`,
+        { storyId: sid, name: "", chapterNo: 0, isActive: false },
+        config
+      )
+      .then(() => {
+        axios
+          .get(`${BASE_URL}/chapter/${sid}/story?limit=${10}`, config)
+          .then((res) => dispatch(fetchChapterSuccess(res.data)))
+          .catch((err) => console.log(err.message));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <DefaultTemplate>
       <Row>
-        <Col xs={12}>
-          <span>
-            <Link to={`/author/mystory`}>
-              <ArrowLeftCircle color="black" className="pb-1" size={22} />
-            </Link>
-          </span>
-          {story.active ? (
-            <span
-              onClick={() =>
-                dispatch(
-                  createChapter({
-                    storyId: +sid,
-                    chapterNo: listChapter.length + 1,
-                  })
-                )
-              }
-            >
-              <PlusCircle color={"black"} className="pb-1" size={22} />
+        <Col xs={12} className="d-flex justify-content-between px-5">
+          <div>
+            <span>
+              <Link to={`/author/mystory`}>
+                <ArrowLeftCircle color="black" className="pb-1" size={22} />
+              </Link>
             </span>
-          ) : (
-            ""
-          )}
-          <span>
-            <Link to={`/author/mystory/boxchat/${sid}`}>
-              <Chat color="black" className="pb-1" size={22} />
-            </Link>
-          </span>
+            <span>
+              <Link to={`/author/mystory/${sid}/boxchat`}>
+                <Chat color="black" className="pb-1" size={22} />
+              </Link>
+            </span>
+          </div>
+          <div>
+            <span>
+              <PlusCircle
+                color={"black"}
+                onClick={handleCreateChapter}
+                className="pb-1"
+                size={22}
+              />
+            </span>
+          </div>
         </Col>
         <Col xs={12}>
           <ListChapter sid={sid} />

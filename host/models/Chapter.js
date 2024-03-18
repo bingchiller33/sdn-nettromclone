@@ -4,18 +4,15 @@ const chapterSchema = new Schema(
   {
     storyId: {
       type: Schema.Types.ObjectId,
-      ref: 'Story',
+      ref: "Story",
       required: true,
     },
     chapterNo: {
       type: Number,
       required: true,
-      unique: true,
     },
     name: {
       type: String,
-      required: true,
-      unique: true,
     },
     publishedDate: {
       type: Date,
@@ -27,8 +24,8 @@ const chapterSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['draft', 'published', 'archived'],
-      default: 'draft',
+      enum: ["draft", "published", "archived"],
+      default: "draft",
     },
   },
   { timestamps: true }
