@@ -106,7 +106,7 @@ const ListChapter = () => {
                     {user.role === 3 ? <th>Mã truyện</th> : ""}
                     <th>Tên chương</th>
                     <th>Ngày phát hành</th>
-                    {user._id === story.author && (
+                    {user._id === story.uploader && (
                       <>
                         <th>Kích hoạt</th>
                         <th>Hành động</th>
@@ -139,21 +139,22 @@ const ListChapter = () => {
                         onClick={() => handleNewName(chapter._id, chapter.name)}
                         className={`${
                           chapterId === chapter._id &&
-                          user._id === story.author &&
+                          user._id === story.uploader &&
                           !chapter.active &&
                           "d-none"
                         } ${
-                          user._id === story.author && !chapter.active
+                          user._id === story.uploader && !chapter.active
                             ? "custom-cursor text-primary"
                             : ""
                         }`}
                       >
-                        {chapter.name?.length === 0 && user._id === story.author
+                        {chapter.name?.length === 0 &&
+                        user._id === story.uploader
                           ? "+"
                           : chapter.name}
                       </td>
                       {chapterId === chapter._id &&
-                      user._id === story.author &&
+                      user._id === story.uploader &&
                       !chapter.isActive ? (
                         <td className={`d-flex justify-content-center`}>
                           <InputFiled
@@ -178,7 +179,7 @@ const ListChapter = () => {
                           ? "Chưa được phát hành"
                           : calTime(chapter.publishedDate)}
                       </td>
-                      {user._id === story.author ? (
+                      {user._id === story.uploader ? (
                         <>
                           <td>
                             <CheckBox

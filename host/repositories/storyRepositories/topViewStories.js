@@ -3,6 +3,7 @@ import Story from "../../models/Story.js";
 const topViewStories = async () => {
   try {
     return await Story.aggregate([
+      { $match: { isActive: true } },
       {
         $lookup: {
           from: "chapters",

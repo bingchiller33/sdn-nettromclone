@@ -6,7 +6,7 @@ const storySchema = new Schema(
       type: String,
       required: true,
     },
-    author: {
+    uploader: {
       type: Schema.Types.ObjectId,
       ref: "users",
     },

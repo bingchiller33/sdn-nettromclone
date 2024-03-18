@@ -5,7 +5,7 @@ const initialState = {
   name: "",
   status: "Đang cập nhật",
   categoryId: [],
-  author: "",
+  uploader: "",
   description: "",
   userId: "",
   image: "",
@@ -51,7 +51,7 @@ const story = createSlice({
     setFormValue: (state, action) => {
       state.name = action.payload.name;
       state.categoryId = action.payload.categoryId;
-      state.author = action.payload.author;
+      state.uploader = action.payload.uploader;
       state.description = action.payload.description;
       state.userId = action.payload.userId;
     },
@@ -65,7 +65,7 @@ const story = createSlice({
       state.name = action.payload;
     },
     setAuthor: (state, action) => {
-      state.author = action.payload;
+      state.uploader = action.payload;
     },
     setImage: (state, action) => {
       state.image = action.payload;
