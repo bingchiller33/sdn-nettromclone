@@ -257,6 +257,21 @@ const Header = () => {
                       }
                       id="basic-nav-dropdown"
                     >
+                      <NavDropdown.Item disabled>
+                        Role:
+                        <span className="fw-bold text-danger">
+                          {user &&
+                            { 1: "User", 2: "Author", 3: "Admin" }[user.role]}
+                        </span>
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      {user.role === 3 ? (
+                        <NavDropdown.Item as={Link} to="/admin/dashboard">
+                          Admin Dashboard
+                        </NavDropdown.Item>
+                      ) : (
+                        ""
+                      )}
                       <NavDropdown.Item as={Link} to="/profile">
                         Trang cá nhân
                       </NavDropdown.Item>
@@ -270,6 +285,7 @@ const Header = () => {
                       ) : (
                         ""
                       )}
+                      <NavDropdown.Divider />
                       <NavDropdown.Item onClick={handleLogout}>
                         Logout
                       </NavDropdown.Item>

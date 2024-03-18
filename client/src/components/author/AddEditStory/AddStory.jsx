@@ -18,6 +18,7 @@ const AddStory = () => {
   const { categories } = useSelector((state) => state.story);
   const [categoriesChoice, setCategoriesChoice] = useState([]);
   const [user, setUser] = useState({});
+  const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formValues = {
@@ -44,29 +45,58 @@ const AddStory = () => {
       .then((res) => setUser(res.data))
       .catch((err) => console.log(err.message));
   }, []);
-  const handleSubmit = (values) => {
-    axios
-      .post(
-        `${BASE_URL}/story/create_story`,
+  const handleSubmit = async (values) => {
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    try {
+      // Upload the image
+      const uploadResponse = await axios.post(
+        `${BASE_URL}/story/upload`,
+        formData,
         {
-          ...values,
-          author: user._id,
-          categories: categoriesChoice,
-        },
-        config
-      )
-      .then((response) => {
-        if (response.status === 201) {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      console.log(uploadResponse.data);
+
+      if (uploadResponse.status === 200) {
+        const storyResponse = await axios.post(
+          `${BASE_URL}/story/create_story`,
+          {
+            ...values,
+            author: user._id,
+            categories: categoriesChoice,
+            image: uploadResponse.data,
+          },
+          config
+        );
+
+        if (storyResponse.status === 201) {
           navigate("/");
         }
-      })
-      .catch((e) => console.log(e.message));
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
   };
   const initialValues = Yup.object().shape({
     name: Yup.string().required("Vui lòng nhập tên"),
     description: Yup.string().required("Vui lòng nhập mô tả"),
-    image: Yup.string().required("Vui lòng nhập mô gắn ảnh"),
   });
+
+  const handleStoryImageUpload = async (event) => {
+    const file = event.target.files[0];
+    const maxSize = 2 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert("File is too large. Please select a file smaller than 2MB.");
+      return;
+    }
+    setSelectedFile(file);
+  };
+
   return (
     <DefaultTemplate>
       <Row className="justify-content-center">
@@ -93,11 +123,6 @@ const AddStory = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  <ErrorMessage
-                    name="name"
-                    component="div"
-                    className="lg_error_message"
-                  />
                 </div>
                 <div>
                   <label>Mô tả truyện</label>
@@ -119,22 +144,15 @@ const AddStory = () => {
                   />
                 </div>
                 <div>
-                  <label>Gắn liên kết ảnh truyện</label>
-                  <Field
-                    type="text"
+                  <label>Upload Story Image</label>
+                  <input
+                    type="file"
                     name="image"
-                    className={`${
-                      touched.image && errors.image ? "error" : ""
-                    } form-control`}
+                    className={`form-control`}
                     id="image"
+                    accept="image/jpeg, image/png"
                     fullWidth
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  <ErrorMessage
-                    name="image"
-                    component="div"
-                    className="lg_error_message"
+                    onChange={(e) => handleStoryImageUpload(e)}
                   />
                 </div>
                 <div>

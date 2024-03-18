@@ -13,6 +13,9 @@ import topViewStories from "./topViewStories.js";
 import getStoryDetail from "./getStoryDetail.js";
 import getAllChapter from "./getAllChapter.js";
 import updateViewCount from "./updateViewCount.js";
+import getActivatedStories from './getActivatedStories.js'
+import getInactivatedStories from "./getInactivatedStories.js";
+
 
 export default {
   getStoryById,
@@ -30,4 +33,6 @@ export default {
   getStoryDetail,
   getAllChapter,
   updateViewCount,
+  getActivatedStories,
+  getInactivatedStories
 };

@@ -111,4 +111,11 @@ GET  http://localhost:9999/story/top_stories
 GET http://localhost:9999/story/get_stories?status=finished&categoryId=65e46ffee33a84f0a2e7576e&item=comment&order=1
 
 ###
-GET http://localhost:9999/chapter/65e48b32ea15f34d88d855c4/story?limit=1
+GET http://localhost:9999/chapter/65e48b32ea15f34d88d855c4/story?limit=10
+
+###
+GET http://localhost:9999/story/get_story/65e48b32ea15f34d88d855c4
+
+###
+GET  http://localhost:9999/story/actived
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWVmYmU3NTI0NDM4MmExYjc5YTU1NDIiLCJpYXQiOjE3MTA3NTY3NjMsImV4cCI6MTcxMDc2MDM2M30.KPVSMBE5ML496vVPJG1TMXb_bi8xvogfRSuaSA2X7Cc
