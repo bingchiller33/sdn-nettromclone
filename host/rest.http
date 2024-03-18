@@ -112,3 +112,7 @@ GET http://localhost:9999/story/get_stories?status=finished&categoryId=65e46ffee
 
 ###
 GET http://localhost:9999/chapter/65e48b32ea15f34d88d855c4/story?limit=1
+
+###
+GET  http://localhost:9999/story/actived
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWVmYmU3NTI0NDM4MmExYjc5YTU1NDIiLCJpYXQiOjE3MTA3NTY3NjMsImV4cCI6MTcxMDc2MDM2M30.KPVSMBE5ML496vVPJG1TMXb_bi8xvogfRSuaSA2X7Cc
