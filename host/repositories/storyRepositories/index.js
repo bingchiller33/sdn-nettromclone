@@ -10,6 +10,9 @@ import activeStory from "./activeStory.js";
 import finishStory from "./finishStory.js";
 import findHistoryStory from "./viewHistory.js";
 import topViewStories from "./topViewStories.js";
+import getStoryDetail from "./getStoryDetail.js";
+import getAllChapter from "./getAllChapter.js";
+import updateViewCount from "./updateViewCount.js";
 
 export default {
   getStoryById,
@@ -24,4 +27,7 @@ export default {
   finishStory,
   topViewStories,
   findHistoryStory,
+  getStoryDetail,
+  getAllChapter,
+  updateViewCount,
 };
