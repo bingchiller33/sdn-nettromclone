@@ -269,7 +269,7 @@ const StoryDetail = () => {
                   </Button>
                 )}
                 <p className="story_detail_item m-0 text-dark">
-                  {SplitNumber(60830 + followQuantity.length)}
+                  {SplitNumber(followQuantity.length)}
                 </p>
                 <p className="story_detail_item m-0">Người Đã Theo Dõi</p>
               </li>
