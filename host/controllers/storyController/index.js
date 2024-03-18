@@ -13,6 +13,9 @@ import findHistoryStory from "./viewHistory.js";
 import getChapterContent from "./getChapterContent.js";
 import getAllChapter from "./getAllChapter.js";
 import updateViewCount from "./updateViewCount.js";
+import getActivatedStories from './getActivatedStories.js';
+import getInactivedStories from './getInactivatedStories.js';
+import uploadStoryImage from "./uploadStoryImage.js";
 
 export default {
   getStoriesByUser,
@@ -30,4 +33,7 @@ export default {
   getChapterContent,
   getAllChapter,
   updateViewCount,
+  getActivatedStories,
+  getInactivedStories,
+  uploadStoryImage
 };

@@ -8,54 +8,74 @@ export default function Comment({ sid }) {
   const [comments, setComments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [changed, setChanged] = useState(false);
+  const [commentCount, setCommentCount] = useState(0); // Changed this for clarity
 
-  const limit = 5; // Number of comments per page
+  const limit = 5;
 
   useEffect(() => {
     async function getCommentsByStoryId(id, page) {
-      const response = await fetch(`http://localhost:9999/comment/story/${id}?page=${page}&limit=${limit}`);
-      const data = await response.json();
-      setComments(data.comments);
-      setTotalPages(data.totalPages);
+      try {
+        const response = await fetch(`http://localhost:9999/comment/story/${id}?page=${page}&limit=${limit}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setComments(data.comments);
+        setTotalPages(data.totalPages);
+      } catch (error) {
+        console.error('There was a problem with your fetch operation:', error);
+      }
     }
     getCommentsByStoryId(sid, currentPage);
-  }, [sid, currentPage, changed]);
+  }, [sid, currentPage, commentCount]);
 
   async function commentHandler(e) {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const comment = Object.fromEntries(fd.entries());
+    comment.storyId = sid;
+
     try {
-      e.preventDefault()
-      const fd = new FormData(e.target)
-      const comment = Object.fromEntries(fd.entries())
-      comment.storyId = sid
-      const token = localStorage.getItem("token")
-      const user = await fetchUserByToken(token)
-      // console.log(user)
-      comment.userId = user._id || undefined
-      console.log(comment)
-      //add to database
-      async function createComment(comment) {
-        const response = await fetch('http://localhost:9999/comment', {
-          method: 'POST',
-          body: JSON.stringify(comment),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        const resData = await response.json()
-        setChanged(!changed)
-        return resData
+      const token = localStorage.getItem("token");
+      const user = await fetchUserByToken(token);
+      if (!user || !user._id) {
+        throw new Error('Invalid user data');
       }
-      await createComment(comment)
-      e.target.reset()
+      comment.userId = user._id;
+
+      await createComment(comment);
+      e.target.reset();
+      setCommentCount(prev => prev + 1); // Update to trigger re-fetch
     } catch (error) {
-      toast.warn('Bạn cần đăng nhập để bình luận')
+      console.error('Error posting comment:', error);
+      toast.warn('Bạn cần đăng nhập để bình luận');
     }
   }
 
-  // Pagination change handler
+  async function createComment(comment) {
+    try {
+      const response = await fetch('http://localhost:9999/comment', {
+        method: 'POST',
+        body: JSON.stringify(comment),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const resData = await response.json();
+      return resData;
+    } catch (error) {
+      console.error('Error creating comment:', error);
+      throw error; // Re-throw to be caught in commentHandler
+    }
+  }
+
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    if (pageNumber !== currentPage) {
+      setCurrentPage(pageNumber);
+    }
   };
 
   return (
@@ -67,6 +87,7 @@ export default function Comment({ sid }) {
       <Form onSubmit={commentHandler}>
         <InputGroup className="mb-3">
           <Form.Control
+            as="textarea" rows={2}
             name='comment'
             placeholder="Bình luận của bạn"
           />

@@ -12,6 +12,7 @@ import {
   ListUl,
   Speedometer,
 } from "react-bootstrap-icons";
+import StoryListAdmin from "./adminComponents/StoryListAdmin";
 
 const AdminDetails = () => {
   const { user, setUser } = useContext(UserContext);
@@ -130,7 +131,7 @@ const AdminDetails = () => {
           )}
         </Col>
         <Col md={9} sm={8}>
-          {activeTab === 0}
+          {activeTab === 0 && <StoryListAdmin />}
           {activeTab === 1}
           {activeTab === 2}
           {activeTab === 3}

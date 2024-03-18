@@ -4,7 +4,8 @@ import User from "../../models/Users.js";
 
 const createStory = async (data) => {
   try {
-    const { categories, author } = data;
+    const { categories, uploader } = data;
+    console.log(data);
     const newStory = new Story(data);
     const savedStory = await newStory.save();
     const storyCategories = categories.map((c) => ({
@@ -13,7 +14,7 @@ const createStory = async (data) => {
     }));
 
     await StoryCategories.insertMany(storyCategories);
-    await User.findByIdAndUpdate(author, { $set: { role: 2 } });
+    await User.findByIdAndUpdate(uploader, { $set: { role: 2 } });
     return savedStory;
   } catch (error) {
     throw new Error(error.message);

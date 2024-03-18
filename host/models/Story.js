@@ -8,7 +8,7 @@ const storySchema = new Schema(
     },
     uploader: {
       type: Schema.Types.ObjectId,
-      ref: "users",
+      ref: "Users",
     },
     description: {
       type: String,
