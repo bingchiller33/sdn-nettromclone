@@ -176,7 +176,7 @@ const StoryDetail = () => {
                   <PersonFill size={28} />
                 </p>
                 <p className="story_detail_item m-0 item_primary">Tác giả:</p>
-                <p className="story_detail_item m-0">{story.author}</p>
+                <p className="story_detail_item m-0">{story.uploader?.userName}</p>
               </li>
               <li className="d-flex ">
                 <p className="m-0">

@@ -41,7 +41,7 @@ const AddStory = () => {
       .then((res) => dispatch(setCategories(res.data)))
       .catch((e) => console.log(e.message));
     axios
-      .get(`${BASE_URL}/users/get_user`, config)
+      .get(`${BASE_URL}/users`, config)
       .then((res) => setUser(res.data))
       .catch((err) => console.log(err.message));
   }, []);
@@ -67,12 +67,13 @@ const AddStory = () => {
           `${BASE_URL}/story/create_story`,
           {
             ...values,
-            author: user._id,
+            uploader: user._id,
             categories: categoriesChoice,
             image: uploadResponse.data,
           },
           config
         );
+        console.log(user._id);
 
         if (storyResponse.status === 201) {
           navigate("/");
