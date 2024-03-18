@@ -26,6 +26,7 @@ import ListChapter from "./common/listChapter/ListChapter";
 import { fetchCategorySuccess } from "./common/data/dataCategory/dataSlice";
 import Comment from './Comment'
 import Rate from "./Rate";
+import { fetchStoryById } from '../api/story.js'
 
 const StoryDetail = () => {
   const { sid } = useParams();
@@ -59,10 +60,17 @@ const StoryDetail = () => {
       .then((data) => setRateStories(data));
   }, [sid, rateNo]);
   useEffect(() => {
-    fetch("http://localhost:9999/story/get_story/" + sid)
-      .then((res) => res.json())
-      .then((data) => setStory(data));
+    async function getStoryById(id) {
+      try {
+        const fetchStory = await fetchStoryById(id)
+        setStory(fetchStory)
+      } catch (error) {
+        toast.error("Không thể lấy dữ liệu truyện")
+      }
+    }
+    getStoryById(sid)
   }, [sid]);
+
   useEffect(() => {
     fetch("http://localhost:9999/follows")
       .then((res) => res.json())
@@ -119,7 +127,6 @@ const StoryDetail = () => {
         }
       })
       .catch((error) => {
-        console.error("Error updating view count:", error);
         toast.error("Có lỗi xảy ra khi cập nhật số lượt xem.");
       });
   };
@@ -157,7 +164,7 @@ const StoryDetail = () => {
       <Col xs={12} className="text-center">
         <h3>{story.name}</h3>
         <p className="fst-italic fw-normal text-muted fs-14">
-          [Cập nhật lúc {time(story.updateDate)}]
+          [Cập nhật lúc {time(story.updatedAt)}]
         </p>
       </Col>
       <Col xs={12}>
@@ -176,7 +183,7 @@ const StoryDetail = () => {
                   <PersonFill size={28} />
                 </p>
                 <p className="story_detail_item m-0 item_primary">Tác giả:</p>
-                <p className="story_detail_item m-0">{story.author}</p>
+                <p className="story_detail_item m-0 ps-0">{story.author ? story.author : 'Không rõ'}</p>
               </li>
               <li className="d-flex ">
                 <p className="m-0">
@@ -185,7 +192,7 @@ const StoryDetail = () => {
                 <p className="story_detail_item m-0 item_primary">
                   Tình Trạng:
                 </p>
-                <p className="story_detail_item m-0">{story.status}</p>
+                <p className="story_detail_item m-0 ps-1">{story.status}</p>
               </li>
               <li className="d-flex ">
                 <p className="m-0">
@@ -193,6 +200,8 @@ const StoryDetail = () => {
                 </p>
                 <p className="story_detail_item m-0 item_primary">Thể loại:</p>
                 <p className="story_detail_item m-0">
+                  {console.log(listCategories)}
+                  {console.log(story)}
                   {category(listCategories, story)}
                 </p>
               </li>
@@ -201,22 +210,22 @@ const StoryDetail = () => {
                   <EyeFill size={24} />
                 </p>
                 <p className="story_detail_item m-0 item_primary">Lượt xem:</p>
-                <p className="story_detail_item m-0">
-                  {SplitNumber(parseInt(story.view))}
+                <p className="story_detail_item m-0 ps-1">
+                  {SplitNumber(parseInt(story.viewCount))}
                 </p>
               </li>
               <li className="d-flex ">
-                <p className="story_detail_item m-0 text-primary">
-                  {story.name}
-                  <small className="story_detail_item m-0">
-                    Xếp hạng: {rateAvg(rateStories)}/5-{rateStories.length} Lượt
+                <p className="story_detail_item m-0 ps-0 text-primary">
+                  {/* {story.name} */}
+                  <small className="story_detail_item m-0 ps-0">
+                    Xếp hạng: {rateAvg(rateStories)}/5 với {rateStories.length} Lượt
                     đánh giá.
                   </small>
                 </p>
               </li>
               <li className="d-flex ">
                 {/* <FormRate sid={sid} onchangeRateNo={getRateNo} story={story} /> */}
-                <Rate sid={sid}/>
+                <Rate sid={sid} />
                 {/* Rate */}
               </li>
               <li className="d-flex ">

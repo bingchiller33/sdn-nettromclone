@@ -1,19 +1,14 @@
-
 const category = (categories, story) => {
-    let storyCategory = "";
-    if (typeof story.categoryId !== 'undefined') {
-        categories.map(category => {
-            return story.categoryId.map((s, i) => {
-                if (category.id === s && i < story.categoryId.length - 1) {
-                    storyCategory += category.name + ", "
-                } else if (category.id === s && i < story.categoryId.length) {
-                    storyCategory += category.name
-                }
-                return storyCategory;
-            });
-        });
+    if (!story.categoryId || !Array.isArray(story.categoryId)) {
+        return "";
     }
-    return storyCategory;
+
+    const categoryNames = story.categoryId.map(storyCatId => {
+        const categoryObj = categories.find(cat => cat.id === storyCatId);
+        return categoryObj ? categoryObj.name : '';
+    }).filter(name => name);
+
+    return categoryNames.join(", ");
 }
 
 export default category;
