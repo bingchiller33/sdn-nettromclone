@@ -1,25 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import {
-  fetchChapterSuccess,
-  getChapter,
-} from "../../common/data/dataChapter/dataSlice";
+import { getChapter } from "../../common/data/dataChapter/dataSlice";
 import { fetchContentsSuccess } from "../../common/data/dataContent/dataSlice";
-import { fetchStorySuccess } from "../../common/data/dataStory/dataSlice";
 
 const FetchData = (sid, chapterId) => {
   const dispatch = useDispatch();
-  const listChapterQuantity = useSelector(
-    (state) => state.listChapter.quantity
-  );
   const listContentQuantity = useSelector((state) => state.content.quantity);
-  console.log(listChapterQuantity);
-  useEffect(() => {
-    fetch(`http://localhost:9999/story/chapters/${sid}`)
-      .then((res) => res.json())
-      .then((data) => dispatch(fetchChapterSuccess(data)));
-  }, [sid, dispatch, listChapterQuantity]);
   useEffect(() => {
     fetch("http://localhost:9999/chapter")
       .then((res) => res.json())
@@ -34,13 +20,6 @@ const FetchData = (sid, chapterId) => {
         dispatch(fetchContentsSuccess(data.filter((d) => d.storyId === +sid)))
       );
   }, [sid, dispatch, listContentQuantity]);
-  useEffect(() => {
-    fetch("http://localhost:9999/Stories")
-      .then((res) => res.json())
-      .then((data) =>
-        dispatch(fetchStorySuccess(data.find((d) => d.id === +sid)))
-      );
-  }, [sid, dispatch]);
 };
 
 export default FetchData;

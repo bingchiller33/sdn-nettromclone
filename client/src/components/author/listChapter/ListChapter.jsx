@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import FetchData from "./FetchData";
 import CheckBox from "../../common/custom-fileds/CheckboxField";
 import InputFiled from "../../common/custom-fileds/inputField";
-import userLogedIn from "../../user/userLogedIn";
 import calTime from "../../common/utilities/calTime";
 import {
   activeChapter,
@@ -17,11 +16,13 @@ import {
 import { createContent } from "../../common/data/dataContent/dataSlice";
 import axios from "axios";
 import { BASE_URL } from "../../common/utilities/initials";
+import { fetchStorySuccess } from "../../common/data/dataStory/dataSlice";
 
 const ListChapter = () => {
   const dispatch = useDispatch();
   const inputRef = useRef("");
   const { sid } = useParams();
+  const [user, setUser] = useState({});
   const listChapter = useSelector((state) => state.listChapter.data);
   const chapter = useSelector((state) => state.listChapter.chapter);
   const story = useSelector((state) => state.listStory.story);
@@ -29,16 +30,30 @@ const ListChapter = () => {
   const [chapterId, setChapterId] = useState(0);
   const [value, setValue] = useState("");
   let limit = 10;
-  const user = userLogedIn();
-  console.log(listChapter);
+  const jwt = localStorage.getItem("token");
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+  };
+  console.log({ story, user });
   useEffect(() => {
+    axios
+      .get(`${BASE_URL}/users`, config)
+      .then((res) => dispatch(setUser(res.data)))
+      .catch((err) => console.log(err.message));
+  }, []);
+  useEffect(() => {
+    axios
+      .get(`${BASE_URL}/story/get_story/${sid}`)
+      .then((res) => dispatch(fetchStorySuccess(res.data)))
+      .catch((err) => console.log(err.message));
     axios
       .get(`${BASE_URL}/chapter/${sid}/story?limit=${limit}`)
       .then((res) => dispatch(fetchChapterSuccess(res.data)))
       .catch((err) => console.log(err.message));
   }, [sid]);
-  const listChapterCopy = [...listChapter];
-  const newListChapter = listChapterCopy.sort((a, b) => b["id"] - a["id"]);
   FetchData(sid, chapterId);
   const handleInputChange = (e) => {
     setValue(e.target.value);
@@ -74,7 +89,7 @@ const ListChapter = () => {
   };
   return (
     <Row>
-      {newListChapter.length > 0 ? (
+      {listChapter && listChapter?.length > 0 ? (
         <Col xs={12}>
           <Row>
             <Col xs={12}>
@@ -88,31 +103,23 @@ const ListChapter = () => {
                   <tr className="text-center">
                     <th>#</th>
                     <th>Số chương</th>
-                    {user.role === 3 ? (
-                      <>
-                        <th>Mã truyện</th>
-                      </>
-                    ) : (
-                      ""
-                    )}
+                    {user.role === 3 ? <th>Mã truyện</th> : ""}
                     <th>Tên chương</th>
                     <th>Ngày phát hành</th>
-                    {user.id === story.userId ? (
+                    {user._id === story.author && (
                       <>
                         <th>Kích hoạt</th>
                         <th>Hành động</th>
                       </>
-                    ) : (
-                      ""
                     )}
                   </tr>
                 </thead>
                 <tbody>
-                  {newListChapter.map((chapter, index) => (
+                  {listChapter.map((chapter, index) => (
                     <tr
                       key={chapter.id}
                       className={`Content_header_List_item pt-2 pb-2 mx-4 px-2 ${
-                        index === newListChapter.length - 1 ? "last_item" : ""
+                        index === listChapter?.length - 1 ? "last_item" : ""
                       }`}
                     >
                       <td>{index + 1}</td>
@@ -127,27 +134,27 @@ const ListChapter = () => {
                           Chương {chapter.chapterNo}
                         </Link>
                       </td>
-                      {user.role === 3 && <td>{chapter.id}</td>}
+                      {user.role === 3 && <td>{chapter._id}</td>}
                       <td
-                        onClick={() => handleNewName(chapter.id, chapter.name)}
+                        onClick={() => handleNewName(chapter._id, chapter.name)}
                         className={`${
-                          chapterId === chapter.id &&
-                          user.id === story.userId &&
+                          chapterId === chapter._id &&
+                          user._id === story.author &&
                           !chapter.active &&
                           "d-none"
                         } ${
-                          user.id === story.userId && !chapter.active
+                          user._id === story.author && !chapter.active
                             ? "custom-cursor text-primary"
                             : ""
                         }`}
                       >
-                        {chapter.name === "" && user.id === story.userId
+                        {chapter.name?.length === 0 && user._id === story.author
                           ? "+"
                           : chapter.name}
                       </td>
-                      {chapterId === chapter.id &&
-                      user.id === story.userId &&
-                      !chapter.active ? (
+                      {chapterId === chapter._id &&
+                      user._id === story.author &&
+                      !chapter.isActive ? (
                         <td className={`d-flex justify-content-center`}>
                           <InputFiled
                             handleInputChange={handleInputChange}
@@ -171,7 +178,7 @@ const ListChapter = () => {
                           ? "Chưa được phát hành"
                           : calTime(chapter.publishedDate)}
                       </td>
-                      {user.id === story.userId ? (
+                      {user._id === story.author ? (
                         <>
                           <td>
                             <CheckBox

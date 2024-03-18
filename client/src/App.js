@@ -102,12 +102,12 @@ function App() {
                       path="/author/mystory/listchapter/:sid/content/:cid"
                       element={<AddEditContent />}
                     />
-                    <Route path="/author/addstory" element={<AddStory />} />
                     <Route
                       path="/author/editstory/:sid"
                       element={<EditStory />}
                     />
                   </Route>
+                  <Route path="/author/addstory" element={<AddStory />} />
 
                   {/* User Routes */}
                   <Route

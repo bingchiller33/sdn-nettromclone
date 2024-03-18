@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Col, Row } from "react-bootstrap";
 import {
@@ -24,10 +24,12 @@ import {
 } from "./common/data/dataChapter/dataSlice";
 import ListChapter from "./common/listChapter/ListChapter";
 import { fetchCategorySuccess } from "./common/data/dataCategory/dataSlice";
-import Comment from './Comment'
+import Comment from "./Comment";
 import Rate from "./Rate";
 import { fetchStoryById } from '../api/story.js'
 
+import UserContext from "../contexts/UserContext";
+import axios from "axios";
 const StoryDetail = () => {
   const { sid } = useParams();
   const dispatch = useDispatch();
@@ -40,7 +42,15 @@ const StoryDetail = () => {
   const [followStatus, setFollowStatus] = useState(0);
   const chapteres = useSelector((state) => state.listChapter.data);
   const listCategories = useSelector((state) => state.listCategory.data);
-  const user = userLogedIn();
+  const { user, setUser } = useContext(UserContext);
+  const jwt = localStorage.getItem("token");
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+  };
+
   const getRateNo = (value) => {
     setRateNo(value);
   };
@@ -72,25 +82,31 @@ const StoryDetail = () => {
   }, [sid]);
 
   useEffect(() => {
-    fetch("http://localhost:9999/follows")
-      .then((res) => res.json())
-      .then((data) =>
-        setFollowQuantity(data.filter((d) => d.storyId === parseInt(sid)))
-      );
+    axios
+      .get("http://localhost:9999/story/follows", config)
+      .then((response) => {
+        const data = response.data;
+        setFollowQuantity(data.filter((d) => d.storyId._id === sid));
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }, [followStatus, sid]);
   useEffect(() => {
     if (user !== null) {
-      fetch(`http://localhost:9999/followStory`)
-        .then((res) => res.json())
-        .then((data) =>
+      axios
+        .get(`http://localhost:9999/story/follows`, config)
+        .then((response) => {
+          const data = response.data;
           setFollowStory(
-            data.find(
-              (d) => d.userId === user.id && d.storyId === parseInt(sid)
-            )
-          )
-        );
+            data.find((d) => d.userId === user._id && d.storyId._id === sid)
+          );
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
     }
-  }, [followStatus, sid]);
+  }, [followStatus, sid, user]);
 
   useEffect(() => {
     const fetchStoryDetails = async () => {
@@ -137,28 +153,36 @@ const StoryDetail = () => {
     } else {
       setFollowStatus(parseInt(e.target.value) ? 0 : 1);
       const follower = {
-        storyId: story.id,
-        userId: user.id,
+        storyId: sid,
+        userId: user._id,
       };
+
       if (e.target.innerText === "Theo dõi") {
-        toast.success(
-          `Bạn đã theo dõi truyện ${story.name}. Chúng tôi sẽ gửi thông báo cho bạn khi truyện cập nhật`
-        );
-        fetch("http://localhost:9999/followStory", {
-          method: POST,
-          body: JSON.stringify(follower),
-          headers: header,
-        });
+        axios
+          .post("http://localhost:9999/story/follow/" + sid, follower, config)
+          .then(() => {
+            toast.success(
+              `Bạn đã theo dõi truyện ${story.name}. Chúng tôi sẽ gửi thông báo cho bạn khi truyện cập nhật`
+            );
+          })
+          .catch((error) => {
+            console.error("Error following story:", error);
+          });
       } else {
-        toast.error(
-          `Bạn đã hủy theo dõi truyện ${story.name}. Bạn sẽ không nhận thông báo từ chúng tôi nữa`
-        );
-        fetch("http://localhost:9999/followStory/" + followStory.id, {
-          method: DELETE,
-        });
+        axios
+          .post("http://localhost:9999/story/unfollow/" + sid, follower, config)
+          .then(() => {
+            toast.error(
+              `Bạn đã hủy theo dõi truyện ${story.name}. Bạn sẽ không nhận thông báo từ chúng tôi nữa`
+            );
+          })
+          .catch((error) => {
+            console.error("Error unfollowing story:", error);
+          });
       }
     }
   };
+
   return (
     <Row>
       <Col xs={12} className="text-center">
@@ -183,7 +207,7 @@ const StoryDetail = () => {
                   <PersonFill size={28} />
                 </p>
                 <p className="story_detail_item m-0 item_primary">Tác giả:</p>
-                <p className="story_detail_item m-0 ps-0">{story.author ? story.author : 'Không rõ'}</p>
+                <p className="story_detail_item m-0">{story.uploader?.userName}</p>
               </li>
               <li className="d-flex ">
                 <p className="m-0">
