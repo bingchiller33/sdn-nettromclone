@@ -28,6 +28,7 @@ import { BASE_URL } from "./components/common/utilities/initials";
 import Header from "./components/Header";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ViewAllHistoryStories from "./screens/user/profile/ViewAllHistoryStory";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -65,6 +66,10 @@ function App() {
                     element={<ChapterContent />}
                   />
                   <Route path="/search" element={<SearchStory />} />
+                  <Route
+                    path="/view_all_history"
+                    element={<ViewAllHistoryStories />}
+                  />
 
                   {/* Login/Register Routes */}
                   <Route

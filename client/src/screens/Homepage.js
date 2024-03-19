@@ -13,7 +13,7 @@ const Homepage = () => {
   }
   return (
     <DefaultTemplate>
-      {/* <SliderComponent /> */}
+      <SliderComponent />
       <Row className="d-flex justify-content-center">
         <Col xs={10}>
           <Row>

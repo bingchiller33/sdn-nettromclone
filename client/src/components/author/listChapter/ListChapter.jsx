@@ -91,6 +91,23 @@ const ListChapter = () => {
       dispatch(createContent({ storyId: +sid, chapterId: chapter.id }));
     }
   };
+  const handleCreateChapter = (chapter) => {
+    axios
+      .put(
+        `${BASE_URL}/chapter/${chapter?._id}/update`,
+        { chapter: { ...chapter, isActive: true } },
+        config
+      )
+      .then(() => {
+        axios
+          .get(`${BASE_URL}/chapter/${sid}/story?limit=${10}`, config)
+          .then((res) => dispatch(fetchChapterSuccess(res.data)))
+          .catch((err) => console.log(err.message));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <Row>
       {listChapter && listChapter?.length > 0 ? (
@@ -182,10 +199,10 @@ const ListChapter = () => {
                             <CheckBox
                               name="active"
                               required={false}
-                              disabled={c.active}
-                              checked={c.active}
-                              id={c}
-                              handleOnchange={activeChapter}
+                              disabled={c.isActive}
+                              checked={c.isActive}
+                              // id={c}
+                              handleOnchange={() => handleCreateChapter(c)}
                             />
                           </td>
                           <td>
