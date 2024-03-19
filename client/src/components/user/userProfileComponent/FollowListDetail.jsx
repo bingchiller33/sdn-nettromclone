@@ -84,7 +84,7 @@ const FollowListDetail = ({ setActiveTab }) => {
                   <tr key={story._id}>
                     <td>
                       <Link className="image" to={`/story/${story._id}`}>
-                        <Image src={story.storyId.image} />
+                        {/* <Image src={story.storyId.image} /> */}
                       </Link>
                     </td>
                     <td>
