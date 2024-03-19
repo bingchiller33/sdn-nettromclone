@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const StoryListAdmin = () => {
-  const [activatedStories, setActivatedStories] = useState([]);
+  const [stories, setStories] = useState([]);
+  const [filter, setFilter] = useState("inactive");
   const jwt = localStorage.getItem("token");
   const config = {
     headers: {
@@ -13,54 +14,73 @@ const StoryListAdmin = () => {
     },
   };
   useEffect(() => {
-    const fetchActivatedStories = async () => {
-      const res = await axios.get(`${BASE_URL}/story/inactivated`, config);
-      setActivatedStories(res.data);
+    const fetchStories = async () => {
+      let res;
+      switch (filter) {
+        case "active":
+          res = await axios.get(`${BASE_URL}/story/activated`, config);
+          break;
+        case "inactive":
+          res = await axios.get(`${BASE_URL}/story/inactivated`, config);
+          break;
+      }
+      setStories(res.data);
     };
-    fetchActivatedStories();
-  }, []);
+    fetchStories();
+  }, [filter]);
 
-  const handleApprove = async (id) => {
+  const handleStatusChange = async (id, status) => {
     try {
-      await axios.patch(`${BASE_URL}/story/${id}/active`, config);
+      await axios.patch(`${BASE_URL}/story/${id}/status`, { status }, config);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleReject = (id) => {
-    axios
-      .post(`/api/novels/${id}/reject`)
-      // .then(() => setNovels(novels.filter(novel => novel.id !== id)))
-      .catch((error) => console.error(error));
-  };
-
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Uploader</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {activatedStories.map((story) => (
-          <tr key={story._id}>
-            <td>{story.name}</td>
-            <td>{story.uploader?.userName}</td>
-            <td>
-              <Button variant="success" onClick={() => handleApprove(story._id)}>
-                Approve
-              </Button>
-              <Button variant="danger" onClick={() => handleReject(story.id)}>
-                Reject
-              </Button>
-            </td>
+    <>
+      <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Uploader</th>
+            <th>Actions</th>
           </tr>
-        ))}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody>
+          {stories.map((story, index) => (
+            <tr key={story._id}>
+              <td>{index + 1}</td>
+              <td>{story.name}</td>
+              <td>{story.uploader?.userName}</td>
+              <td>
+                {filter === "active" ? (
+                  <Button
+                    variant="danger"
+                    onClick={() => handleStatusChange(story._id, 'inactive')}
+                  >
+                    Deactivate
+                  </Button>
+                ) : (
+                  <Button
+                    variant="success"
+                    onClick={() => handleStatusChange(story._id, 'active')}
+                  >
+                    Activate
+                  </Button>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </>
   );
 };
 

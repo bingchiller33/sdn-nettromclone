@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import {
   ChevronDoubleLeft,
@@ -16,30 +16,86 @@ import FormComment from "../../components/FormComment";
 import TopViewStories from "../../components/TopViewStories";
 import DefaultTemplate from "../../templates/DefaultTemplate";
 import FetchData from "./FetchData";
+import { header, PUT } from "../../components/common/utilities/type.js";
 
 const ChapterContent = () => {
   const dispatch = useDispatch();
   const { sid, cid } = useParams();
-  const navigate = useNavigate("");
+  const navigate = useNavigate();
   const chapteres = useSelector((state) => state.listChapter.data);
   const chapterNo = useSelector((state) => state.listChapter.chapterNo);
   const story = useSelector((state) => state.listStory.story);
+  const [timerCompleted, setTimerCompleted] = useState(false);
 
   useEffect(() => {
     navigate(`/get_story/${sid}/chapter/${chapterNo}`);
   }, [sid, chapterNo, navigate]);
   FetchData(sid, cid);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimerCompleted(true);
+      if (!timerCompleted) {
+        updateViewCount(sid);
+      }
+    }, 30000);
+
+    return () => clearTimeout(timer);
+  }, [sid, chapterNo]);
+
+  const updateViewCount = (sid) => {
+    fetch(`http://localhost:9999/story/update_view_count/${sid}`, {
+      method: PUT,
+      headers: header,
+      body: JSON.stringify({ view: story.view + 1 }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error while updating view count");
+        }
+        console.log("View count updated successfully");
+      })
+      .catch((error) => {
+        console.error("Failed to update view count:", error);
+      });
+  };
+  const updateChapterHistory = (storyId, chapterNo) => {
+    let chapterHistory =
+      JSON.parse(localStorage.getItem("chapterHistory")) || [];
+
+    const existingIndex = chapterHistory.findIndex(
+      (item) => item.storyId === storyId
+    );
+    if (existingIndex !== -1) {
+      chapterHistory[existingIndex] = { storyId, chapterNo };
+    } else {
+      chapterHistory.push({ storyId, chapterNo });
+    }
+
+    localStorage.setItem("chapterHistory", JSON.stringify(chapterHistory));
+  };
+
   const handleOnchangeChapter = (e) => {
-    const { value } = e.target;
-    navigate(`/get_story/${sid}/chapter/${+value}`);
-    dispatch(setChapterNo(+value));
+    const newChapterNo = +e.target.value;
+    navigate(`/get_story/${sid}/chapter/${newChapterNo}`);
+    dispatch(setChapterNo(newChapterNo));
+    updateChapterHistory(sid, newChapterNo);
   };
+
   const handleMovePrev = (e) => {
-    dispatch(setChapterNo(+chapterNo - 1));
+    const newChapterNo = +chapterNo - 1;
+    dispatch(setChapterNo(newChapterNo));
+    navigate(`/get_story/${sid}/chapter/${newChapterNo}`);
+    updateChapterHistory(sid, newChapterNo);
   };
+
   const handleMoveNext = (e) => {
-    dispatch(setChapterNo(+chapterNo + 1));
+    const newChapterNo = +chapterNo + 1;
+    dispatch(setChapterNo(newChapterNo));
+    navigate(`/get_story/${sid}/chapter/${newChapterNo}`);
+    updateChapterHistory(sid, newChapterNo);
   };
+
   return (
     <DefaultTemplate>
       <Row className="mt-5 mb-4">
@@ -55,7 +111,7 @@ const ChapterContent = () => {
                 <Col xs={12} className="d-flex justify-content-center">
                   <ul className="d-flex mb-3 p-0 top_container_detail">
                     <li className="fw-bold pe-2">Tác giả:</li>
-                    <li className="text-muted">{story.author}</li>
+                    <li className="text-muted">{story.uploader}</li>
                   </ul>
                 </Col>
               </Row>
@@ -63,7 +119,7 @@ const ChapterContent = () => {
                 <Col className="d-flex justify-content-end" xs={4}>
                   <span className="mt-1 me-2">
                     <Link to="/">
-                      <HouseFill size={24} color="red" />{" "}
+                      <HouseFill size={24} color="red" />
                     </Link>
                   </span>
                   <span className="mt-1">

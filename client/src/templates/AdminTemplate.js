@@ -4,7 +4,7 @@ import Header from "../components/common/headerAdmin/Header";
 const AdminTemplate = ({ children }) => {
   return (
     <div>
-      <Container>{children}</Container>
+      <Container className="mt-3">{children}</Container>
     </div>
   );
 };

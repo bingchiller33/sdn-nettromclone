@@ -11,6 +11,7 @@ export default async function createChapter({
       .sort({ createdAt: -1 })
       .limit(1);
     const { chapterNo: newChapterNo } = chapter[0] || {};
+    console.log((newChapterNo || chapterNo));
     return await Chapter.create({
       storyId,
       chapterNo: (newChapterNo || chapterNo) + 1,
