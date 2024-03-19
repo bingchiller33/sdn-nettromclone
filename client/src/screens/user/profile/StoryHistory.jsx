@@ -29,7 +29,7 @@ const ViewHistoryStories = () => {
   };
 
   return (
-    <Row className={"border"}>
+    <Row className={"border"} style={{ marginBottom: "20px" }}>
       <Col className="mt-2 mb-3 pt-1 pb-1 border-bottom border-2 border-info">
         <h5>Truyện Đã Đọc</h5>
       </Col>
@@ -45,7 +45,11 @@ const ViewHistoryStories = () => {
           >
             <Row>
               <Col xs={4}>
-                <img src={content.storyImage} alt={content.storyName} />
+                <img
+                  style={{ height: "85%", width: "70%" }}
+                  src={content.storyImage}
+                  alt={content.storyName}
+                />
               </Col>
               <Col xs={8}>
                 <div>{content.storyName}</div>

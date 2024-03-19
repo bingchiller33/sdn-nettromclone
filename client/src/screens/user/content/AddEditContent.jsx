@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import DefaultTemplate from "../../../templates/DefaultTemplate";
 import axios from "axios";
 import { BASE_URL } from "../../../components/common/utilities/initials";
+import { toast } from "react-toastify";
 
 const AddEditContent = () => {
   const { sid, cid } = useParams();
@@ -32,10 +33,8 @@ const AddEditContent = () => {
     let updatedParagraphs = [...contentParagraphs];
 
     if (editIndex !== null) {
-      // Update the paragraph at the specified index
       updatedParagraphs[editIndex] = value.trim();
     } else {
-      // Add a new paragraph
       updatedParagraphs.push(value.trim());
     }
 
@@ -46,11 +45,17 @@ const AddEditContent = () => {
       .then(() => {
         setContentParagraphs(updatedParagraphs);
         setLoading(false);
-        setEditIndex(null); // Reset editing state
+        setEditIndex(null);
+        toast.success(
+          editIndex !== null
+            ? "Nội dung truyện đã được cập nhật thành công!"
+            : "Nội dung truyện đã được thêm thành công!"
+        );
       })
       .catch((error) => {
         console.error("Error updating content:", error);
         setLoading(false);
+        toast.error("Đã sảy ra lỗi trong quá trình cập nhật!.");
       });
 
     setValue("");
@@ -63,10 +68,12 @@ const AddEditContent = () => {
       .then(() => {
         setContentParagraphs([]);
         setLoading(false);
+        toast.success("Nội dung truyện đã được xóa thành công!");
       })
       .catch((error) => {
         console.error("Error clearing content:", error);
         setLoading(false);
+        toast.error("Đã sảy ra lỗi trong quá trình xóa!.");
       });
   };
 
@@ -106,7 +113,7 @@ const AddEditContent = () => {
                   as="textarea"
                   onChange={handleOnChangeValue}
                   value={value}
-                  placeholder="Enter your content here..."
+                  placeholder="Nhập nội dung của bạn ở đây..."
                   style={{ height: "400px", resize: "none" }}
                 />
               </Form.Group>
@@ -116,14 +123,14 @@ const AddEditContent = () => {
                   disabled={value === "" || loading}
                   onClick={handleAddOrUpdate}
                 >
-                  {editIndex !== null ? "Update" : "Submit"}
+                  {editIndex !== null ? "Cập nhật" : "Tạo"}
                 </Button>
                 <Button
                   variant="danger"
                   disabled={loading}
                   onClick={handleClearAll}
                 >
-                  Clear All
+                  Xóa hết
                 </Button>
               </div>
             </Form>

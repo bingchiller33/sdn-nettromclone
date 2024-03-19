@@ -7,7 +7,6 @@ import {
   setChapterNo,
 } from "../data/dataChapter/dataSlice";
 import calTime from "../utilities/calTime";
-import FetchData from "./FetchData";
 import axios from "axios";
 import { BASE_URL } from "../utilities/initials";
 
@@ -30,9 +29,31 @@ const ListChapter = () => {
       .get(`${BASE_URL}/chapter/${sid}/story?limit=${limit}`)
       .then((res) => dispatch(fetchChapterSuccess(res.data)))
       .catch((err) => console.log(err.message));
-  }, [sid]);
+  }, [dispatch, sid]);
+
   const handleMore = () => {
     setMore(listChapter.length);
+  };
+
+  const updateChapterHistory = (storyId, chapterNo) => {
+    let chapterHistory =
+      JSON.parse(localStorage.getItem("chapterHistory")) || [];
+
+    const existingIndex = chapterHistory.findIndex(
+      (item) => item.storyId === storyId
+    );
+    if (existingIndex !== -1) {
+      chapterHistory[existingIndex] = { storyId, chapterNo };
+    } else {
+      chapterHistory.push({ storyId, chapterNo });
+    }
+
+    localStorage.setItem("chapterHistory", JSON.stringify(chapterHistory));
+  };
+
+  const handleChapterSelection = (storyId, chapterId) => {
+    dispatch(setChapterNo(chapterId));
+    updateChapterHistory(storyId, chapterId);
   };
   return (
     <Col xs={12}>
@@ -51,7 +72,7 @@ const ListChapter = () => {
                         <Link
                           className="name_chapter text-dark"
                           onClick={() =>
-                            dispatch(setChapterNo(chapter.chapterNo))
+                            handleChapterSelection(sid, chapter.chapterNo)
                           }
                           to={`/get_story/${sid}/chapter/${chapter._id}`}
                         >
