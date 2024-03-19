@@ -122,14 +122,34 @@ const StoryDetail = () => {
     fetchStoryDetails();
   }, [sid]);
 
-  const handleOnclickRead = (isReadFromStart) => {
-    const chapterIndex = isReadFromStart ? 0 : chapteres.length - 1;
-    const chapter = chapteres[chapterIndex];
+  const readFromStart = () => {
+    const firstChapter = chapteres.reduce((prev, current) =>
+      prev.chapterNo < current.chapterNo ? prev : current
+    );
 
-    updateChapterHistory(sid, chapter.chapterId, chapter.chapterNo);
+    if (!firstChapter) {
+      console.error("Không tìm thấy chương đầu tiên.");
+      return;
+    }
 
-    navigate(`/get_story/${sid}/chapter/${chapter.chapterNo}`);
-    dispatch(setChapterNo(chapter.chapterNo));
+    navigate(`/get_story/${sid}/chapter/${firstChapter.chapterNo}`);
+    dispatch(setChapterNo(firstChapter.chapterNo));
+    updateChapterHistory(sid, firstChapter._id, firstChapter.chapterNo);
+  };
+
+  const readLatestChapter = () => {
+    const latestChapter = chapteres.reduce((prev, current) =>
+      prev.chapterNo > current.chapterNo ? prev : current
+    );
+
+    if (!latestChapter) {
+      console.error("Không tìm thấy chương mới nhất.");
+      return;
+    }
+
+    navigate(`/get_story/${sid}/chapter/${latestChapter.chapterNo}`);
+    dispatch(setChapterNo(latestChapter.chapterNo));
+    updateChapterHistory(sid, latestChapter._id, latestChapter.chapterNo);
   };
 
   const updateChapterHistory = (storyId, chapterId, chapterNo) => {
@@ -238,7 +258,7 @@ const StoryDetail = () => {
                 </p>
                 <p className="story_detail_item m-0 item_primary">Lượt xem:</p>
                 <p className="story_detail_item m-0 ps-1">
-                  {SplitNumber(parseInt(story.viewCount))}
+                  {SplitNumber(parseInt(story.view))}
                 </p>
               </li>
               <li className="d-flex ">
@@ -279,13 +299,13 @@ const StoryDetail = () => {
               <li className="d-flex ">
                 <p>
                   <Button
-                    onClick={(e) => handleOnclickRead(e)}
+                    onClick={(e) => readFromStart(e)}
                     className="bg-warning border-0 me-2"
                   >
                     Đọc từ đầu
                   </Button>
                   <Button
-                    onClick={(e) => handleOnclickRead(e, story)}
+                    onClick={(e) => readLatestChapter(e, story)}
                     className="bg-warning border-0 ms-2"
                   >
                     Đọc mới nhất
@@ -304,9 +324,7 @@ const StoryDetail = () => {
             </Row>
           </Col>
           <Col xs={12}>
-            <Row>
-              <ListChapter storyId={sid} />
-            </Row>
+            <Row>{/* <ListChapter storyId={sid} /> */}</Row>
           </Col>
         </Row>
         <Row>
