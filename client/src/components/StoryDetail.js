@@ -24,7 +24,7 @@ import {
 } from "./common/data/dataChapter/dataSlice";
 import ListChapter from "./common/listChapter/ListChapter";
 import { fetchCategorySuccess } from "./common/data/dataCategory/dataSlice";
-import Comment from './Comment'
+import Comment from "./Comment";
 import Rate from "./Rate";
 
 const StoryDetail = () => {
@@ -98,30 +98,30 @@ const StoryDetail = () => {
     fetchStoryDetails();
   }, [sid]);
 
-  const handleOnclickRead = (e) => {
-    const firstChapterNo = 1;
-    const newViewCount = story.view + 1;
+  const handleOnclickRead = (isReadFromStart) => {
+    const chapterIndex = isReadFromStart ? 0 : chapteres.length - 1;
+    const chapter = chapteres[chapterIndex];
 
-    fetch(`http://localhost:9999/story/update_view_count/${sid}`, {
-      method: PUT,
-      body: JSON.stringify({ view: newViewCount }),
-      headers: header,
-    })
-      .then(() => {
-        if (e.target.innerText === "Đọc từ đầu") {
-          navigate(`/get_story/${sid}/chapter/${firstChapterNo}`);
-          dispatch(setChapterNo(firstChapterNo));
-        } else {
-          // Đọc chương mới nhất dựa vào số lượng chương
-          const latestChapterNo = chapteres.length;
-          navigate(`/get_story/${sid}/chapter/${latestChapterNo}`);
-          dispatch(setChapterNo(latestChapterNo));
-        }
-      })
-      .catch((error) => {
-        console.error("Error updating view count:", error);
-        toast.error("Có lỗi xảy ra khi cập nhật số lượt xem.");
-      });
+    updateChapterHistory(sid, chapter.chapterId, chapter.chapterNo);
+
+    navigate(`/get_story/${sid}/chapter/${chapter.chapterNo}`);
+    dispatch(setChapterNo(chapter.chapterNo));
+  };
+
+  const updateChapterHistory = (storyId, chapterId, chapterNo) => {
+    let chapterHistory =
+      JSON.parse(localStorage.getItem("chapterHistory")) || [];
+
+    const existingIndex = chapterHistory.findIndex(
+      (item) => item.storyId === storyId
+    );
+    if (existingIndex !== -1) {
+      chapterHistory[existingIndex] = { storyId, chapterId, chapterNo };
+    } else {
+      chapterHistory.push({ storyId, chapterId, chapterNo });
+    }
+
+    localStorage.setItem("chapterHistory", JSON.stringify(chapterHistory));
   };
 
   const handleFollow = (e) => {
@@ -216,7 +216,7 @@ const StoryDetail = () => {
               </li>
               <li className="d-flex ">
                 {/* <FormRate sid={sid} onchangeRateNo={getRateNo} story={story} /> */}
-                <Rate sid={sid}/>
+                <Rate sid={sid} />
                 {/* Rate */}
               </li>
               <li className="d-flex ">

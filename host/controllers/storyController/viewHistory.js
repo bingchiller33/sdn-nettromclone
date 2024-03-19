@@ -1,10 +1,9 @@
 import { storyDAO } from "../../repositories/index.js";
 const findHistoryStory = async (req, res) => {
   try {
-    const chapterId = req.params.chapterId;
-    const { chapter } = await storyDAO.findHistoryStory(chapterId);
-
-    res.json(chapter);
+    const { storyId, chapterNo } = req.params;
+    const chapterDetail = await storyDAO.findHistoryStory(chapterNo, storyId);
+    res.json(chapterDetail);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
