@@ -27,6 +27,7 @@ import { fetchCategorySuccess } from "./common/data/dataCategory/dataSlice";
 import Comment from "./Comment";
 import Rate from "./Rate";
 import { fetchStoryById } from '../api/story.js'
+import { fetchRateInfo } from '../api/rate.js'
 
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
@@ -35,25 +36,29 @@ const StoryDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate("");
   const [story, setStory] = useState({});
-  const [rateStories, setRateStories] = useState([]);
+  const [rateInfo, setRateInfo] = useState({ average: 0, count: 0 });
   const [followQuantity, setFollowQuantity] = useState([]);
   const [followStory, setFollowStory] = useState({});
-  const [rateNo, setRateNo] = useState(0);
   const [followStatus, setFollowStatus] = useState(0);
   const chapteres = useSelector((state) => state.listChapter.data);
   const listCategories = useSelector((state) => state.listCategory.data);
   const { user, setUser } = useContext(UserContext);
   const jwt = localStorage.getItem("token");
+  const [update, setUpdate] = useState(false)
   const config = {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${jwt}`,
     },
   };
+  useEffect(() => {
+    async function getRateInfo(storyId) {
+      const info = await fetchRateInfo(storyId)
+      setRateInfo(info)
+    }
+    getRateInfo(sid)
+  }, [sid, update])
 
-  const getRateNo = (value) => {
-    setRateNo(value);
-  };
   useEffect(() => {
     fetch("http://localhost:9999/categories/all_catergories")
       .then((res) => res.json())
@@ -64,11 +69,6 @@ const StoryDetail = () => {
       .then((res) => res.json())
       .then((data) => dispatch(fetchChapterSuccess(data)));
   }, [dispatch, sid]);
-  useEffect(() => {
-    fetch("http://localhost:9999/rateStory?rateStoryId=" + sid)
-      .then((res) => res.json())
-      .then((data) => setRateStories(data));
-  }, [sid, rateNo]);
   useEffect(() => {
     async function getStoryById(id) {
       try {
@@ -182,6 +182,9 @@ const StoryDetail = () => {
       }
     }
   };
+  function handleUpdate(){
+    setUpdate(!update)
+  }
 
   return (
     <Row>
@@ -224,8 +227,6 @@ const StoryDetail = () => {
                 </p>
                 <p className="story_detail_item m-0 item_primary">Thể loại:</p>
                 <p className="story_detail_item m-0">
-                  {console.log(listCategories)}
-                  {console.log(story)}
                   {category(listCategories, story)}
                 </p>
               </li>
@@ -242,15 +243,14 @@ const StoryDetail = () => {
                 <p className="story_detail_item m-0 ps-0 text-primary">
                   {/* {story.name} */}
                   <small className="story_detail_item m-0 ps-0">
-                    Xếp hạng: {rateAvg(rateStories)}/5 với {rateStories.length} Lượt
+                    Xếp hạng: {rateInfo.average}/5 sao với {rateInfo.count} Lượt
                     đánh giá.
                   </small>
                 </p>
               </li>
               <li className="d-flex ">
                 {/* <FormRate sid={sid} onchangeRateNo={getRateNo} story={story} /> */}
-                <Rate sid={sid} />
-                {/* Rate */}
+                <Rate sid={sid} update={handleUpdate} />
               </li>
               <li className="d-flex ">
                 {user === null ? (

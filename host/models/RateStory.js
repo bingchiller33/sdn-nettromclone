@@ -16,20 +16,20 @@ const RateStorySchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
       required: true,
-      unique: true,
-      ref: "users",
+      ref: "Users",
     },
-    rateStoryId: {
+    storyId: {
       type: Schema.Types.ObjectId,
       required: true,
-      unique: true,
-      ref: "rateStories",
+      ref: "Story",
     },
   },
   {
     timestamps: true,
   }
 );
+
+RateStorySchema.index({ userId: 1, storyId: 1 }, { unique: true });
 
 const RateStory = mongoose.model("RateStory", RateStorySchema);
 

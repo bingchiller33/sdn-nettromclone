@@ -15,7 +15,7 @@ function Star({ selected = false, onClick = () => { } }) {
   );
 }
 
-export default function Rate({ sid }) {
+export default function Rate({ sid, update }) {
   const [rating, setRating] = useState(0);
   const totalStars = 5;
 
@@ -25,7 +25,7 @@ export default function Rate({ sid }) {
       try {
         const user = await fetchUserByToken(token)
         const userId = user._id || undefined;
-
+        console.log(user)
         const response2 = await fetch(`http://localhost:9999/rate?userId=${userId}&storyId=${sid}`);
 
         if (!response2.ok) {
@@ -61,7 +61,7 @@ export default function Rate({ sid }) {
           body: JSON.stringify({
             "rateNo": i + 1,
             userId,
-            "rateStoryId": storyId,
+            storyId,
           }),
           headers: {
             'Content-Type': 'application/json'
@@ -71,6 +71,7 @@ export default function Rate({ sid }) {
         console.log(resData)
       }
       createRate()
+      update()
     } catch (error) {
       toast.warning('Bạn cần đăng nhập để lưu đánh giá truyện')
     }
