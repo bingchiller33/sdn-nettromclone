@@ -28,7 +28,6 @@ const CommentDetail = ({ setActiveTab }) => {
                 <a
                   rel="nofollow"
                   className="image"
-                  href="https://www.nettruyenbb.com/truyen-tranh/kanojo-mo-kanojo-280221"
                 >
                   <img
                     className="lazy"
@@ -49,7 +48,7 @@ const CommentDetail = ({ setActiveTab }) => {
                 <time className="time">15:14 02/02</time>
               </td>
               <td>
-                <div className="word-wrap">COCK</div>
+                <div className="word-wrap"></div>
               </td>
             </tr>
           </tbody>

@@ -2,6 +2,7 @@ import express from "express";
 import storyController from "../../controllers/storyController/index.js";
 import authenticate from "../../middleware/authenticate.js";
 import upload from "../../middleware/multer.js";
+import Story from "../../models/Story.js";
 
 const storyRouter = express.Router();
 
@@ -201,6 +202,28 @@ storyRouter.post(
   (error, req, res, next) => {
     console.error(error);
     res.status(500).send({ error: "Something went wrong." });
+  }
+);
+
+
+storyRouter.patch(
+  "/:id/active",
+  authenticate,
+  async (req, res) => {
+    try {
+      const story = await Story.findById(req.params.id);
+      if (!story) {
+        return res.status(404).send('Story not found');
+      }
+
+      story.isActive = !story.isActive;
+      await story.save();
+
+      res.json(story);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ error: 'Something went wrong.' });
+    }
   }
 );
 

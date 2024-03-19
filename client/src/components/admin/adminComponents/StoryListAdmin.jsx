@@ -16,16 +16,16 @@ const StoryListAdmin = () => {
     const fetchActivatedStories = async () => {
       const res = await axios.get(`${BASE_URL}/story/inactivated`, config);
       setActivatedStories(res.data);
-      console.log(res.data);
     };
     fetchActivatedStories();
   }, []);
 
-  const handleApprove = (id) => {
-    axios
-      .post(`/api/novels/${id}/approve`)
-      // .then(() => setNovels(novels.filter(novel => novel.id !== id)))
-      .catch((error) => console.error(error));
+  const handleApprove = async (id) => {
+    try {
+      await axios.patch(`${BASE_URL}/story/${id}/active`, config);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleReject = (id) => {
@@ -50,7 +50,7 @@ const StoryListAdmin = () => {
             <td>{story.name}</td>
             <td>{story.uploader?.userName}</td>
             <td>
-              <Button variant="success" onClick={() => handleApprove(story.id)}>
+              <Button variant="success" onClick={() => handleApprove(story._id)}>
                 Approve
               </Button>
               <Button variant="danger" onClick={() => handleReject(story.id)}>
