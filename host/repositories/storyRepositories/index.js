@@ -15,8 +15,9 @@ import getAllChapter from "./getAllChapter.js";
 import updateViewCount from "./updateViewCount.js";
 import getActivatedStories from './getActivatedStories.js'
 import getInactivatedStories from "./getInactivatedStories.js";
-
-
+import getFollowByStory from "./getFollowByStory.js";
+import changeStoryStatus from "./changeStoryStatus.js";
+// 
 export default {
   getStoryById,
   getStoriesByUser,
@@ -34,5 +35,7 @@ export default {
   getAllChapter,
   updateViewCount,
   getActivatedStories,
-  getInactivatedStories
+  getInactivatedStories,
+  getFollowByStory,
+  changeStoryStatus
 };

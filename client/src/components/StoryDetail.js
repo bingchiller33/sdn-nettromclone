@@ -26,7 +26,7 @@ import ListChapter from "./common/listChapter/ListChapter";
 import { fetchCategorySuccess } from "./common/data/dataCategory/dataSlice";
 import Comment from "./Comment";
 import Rate from "./Rate";
-import { fetchStoryById } from '../api/story.js'
+import { fetchStoryById } from "../api/story.js";
 
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
@@ -72,21 +72,21 @@ const StoryDetail = () => {
   useEffect(() => {
     async function getStoryById(id) {
       try {
-        const fetchStory = await fetchStoryById(id)
-        setStory(fetchStory)
+        const fetchStory = await fetchStoryById(id);
+        setStory(fetchStory);
       } catch (error) {
-        toast.error("Không thể lấy dữ liệu truyện")
+        toast.error("Không thể lấy dữ liệu truyện");
       }
     }
-    getStoryById(sid)
+    getStoryById(sid);
   }, [sid]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:9999/story/follows", config)
+      .get("http://localhost:9999/story/follow_story/" + sid)
       .then((response) => {
         const data = response.data;
-        setFollowQuantity(data.filter((d) => d.storyId._id === sid));
+        setFollowQuantity(data.filter((d) => d.storyId === sid));
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -122,29 +122,50 @@ const StoryDetail = () => {
     fetchStoryDetails();
   }, [sid]);
 
-  const handleOnclickRead = (e) => {
-    const firstChapterNo = 1;
-    const newViewCount = story.view + 1;
+  const readFromStart = () => {
+    const firstChapter = chapteres.reduce((prev, current) =>
+      prev.chapterNo < current.chapterNo ? prev : current
+    );
 
-    fetch(`http://localhost:9999/story/update_view_count/${sid}`, {
-      method: PUT,
-      body: JSON.stringify({ view: newViewCount }),
-      headers: header,
-    })
-      .then(() => {
-        if (e.target.innerText === "Đọc từ đầu") {
-          navigate(`/get_story/${sid}/chapter/${firstChapterNo}`);
-          dispatch(setChapterNo(firstChapterNo));
-        } else {
-          // Đọc chương mới nhất dựa vào số lượng chương
-          const latestChapterNo = chapteres.length;
-          navigate(`/get_story/${sid}/chapter/${latestChapterNo}`);
-          dispatch(setChapterNo(latestChapterNo));
-        }
-      })
-      .catch((error) => {
-        toast.error("Có lỗi xảy ra khi cập nhật số lượt xem.");
-      });
+    if (!firstChapter) {
+      console.error("Không tìm thấy chương đầu tiên.");
+      return;
+    }
+
+    navigate(`/get_story/${sid}/chapter/${firstChapter.chapterNo}`);
+    dispatch(setChapterNo(firstChapter.chapterNo));
+    updateChapterHistory(sid, firstChapter._id, firstChapter.chapterNo);
+  };
+
+  const readLatestChapter = () => {
+    const latestChapter = chapteres.reduce((prev, current) =>
+      prev.chapterNo > current.chapterNo ? prev : current
+    );
+
+    if (!latestChapter) {
+      console.error("Không tìm thấy chương mới nhất.");
+      return;
+    }
+
+    navigate(`/get_story/${sid}/chapter/${latestChapter.chapterNo}`);
+    dispatch(setChapterNo(latestChapter.chapterNo));
+    updateChapterHistory(sid, latestChapter._id, latestChapter.chapterNo);
+  };
+
+  const updateChapterHistory = (storyId, chapterId, chapterNo) => {
+    let chapterHistory =
+      JSON.parse(localStorage.getItem("chapterHistory")) || [];
+
+    const existingIndex = chapterHistory.findIndex(
+      (item) => item.storyId === storyId
+    );
+    if (existingIndex !== -1) {
+      chapterHistory[existingIndex] = { storyId, chapterId, chapterNo };
+    } else {
+      chapterHistory.push({ storyId, chapterId, chapterNo });
+    }
+
+    localStorage.setItem("chapterHistory", JSON.stringify(chapterHistory));
   };
 
   const handleFollow = (e) => {
@@ -207,7 +228,9 @@ const StoryDetail = () => {
                   <PersonFill size={28} />
                 </p>
                 <p className="story_detail_item m-0 item_primary">Tác giả:</p>
-                <p className="story_detail_item m-0">{story.uploader?.userName}</p>
+                <p className="story_detail_item m-0">
+                  {story.uploader?.userName}
+                </p>
               </li>
               <li className="d-flex ">
                 <p className="m-0">
@@ -224,8 +247,8 @@ const StoryDetail = () => {
                 </p>
                 <p className="story_detail_item m-0 item_primary">Thể loại:</p>
                 <p className="story_detail_item m-0">
-                  {console.log(listCategories)}
-                  {console.log(story)}
+                  {/* {console.log(listCategories)}
+                  {console.log(story)} */}
                   {category(listCategories, story)}
                 </p>
               </li>
@@ -235,15 +258,15 @@ const StoryDetail = () => {
                 </p>
                 <p className="story_detail_item m-0 item_primary">Lượt xem:</p>
                 <p className="story_detail_item m-0 ps-1">
-                  {SplitNumber(parseInt(story.viewCount))}
+                  {SplitNumber(parseInt(story.view))}
                 </p>
               </li>
               <li className="d-flex ">
                 <p className="story_detail_item m-0 ps-0 text-primary">
                   {/* {story.name} */}
                   <small className="story_detail_item m-0 ps-0">
-                    Xếp hạng: {rateAvg(rateStories)}/5 với {rateStories.length} Lượt
-                    đánh giá.
+                    Xếp hạng: {rateAvg(rateStories)}/5 với {rateStories.length}{" "}
+                    Lượt đánh giá.
                   </small>
                 </p>
               </li>
@@ -269,20 +292,21 @@ const StoryDetail = () => {
                   </Button>
                 )}
                 <p className="story_detail_item m-0 text-dark">
-                  {SplitNumber(followQuantity.length)}
+                  {SplitNumber(followQuantity.length)
+                  }
                 </p>
                 <p className="story_detail_item m-0">Người Đã Theo Dõi</p>
               </li>
               <li className="d-flex ">
                 <p>
                   <Button
-                    onClick={(e) => handleOnclickRead(e)}
+                    onClick={(e) => readFromStart(e)}
                     className="bg-warning border-0 me-2"
                   >
                     Đọc từ đầu
                   </Button>
                   <Button
-                    onClick={(e) => handleOnclickRead(e, story)}
+                    onClick={(e) => readLatestChapter(e, story)}
                     className="bg-warning border-0 ms-2"
                   >
                     Đọc mới nhất
@@ -301,9 +325,7 @@ const StoryDetail = () => {
             </Row>
           </Col>
           <Col xs={12}>
-            <Row>
-              <ListChapter storyId={sid} />
-            </Row>
+            <Row>{/* <ListChapter storyId={sid} /> */}</Row>
           </Col>
         </Row>
         <Row>

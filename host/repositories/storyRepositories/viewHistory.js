@@ -1,20 +1,25 @@
 import Chapter from "../../models/Chapter.js";
-import Story from "../../models/Story.js";
 
-const findHistoryStory = async (chapterId) => {
+const findHistoryStory = async (chapterNo, storyId) => {
   try {
-    const chapter = await Chapter.findById(chapterId).populate("storyId");
+    const chapter = await Chapter.findOne({
+      chapterNo: parseInt(chapterNo),
+      storyId: storyId,
+    }).populate("storyId");
+
     if (!chapter) {
       throw new Error("Chapter not found");
     }
-    const story = await Story.findById(chapter.storyId);
-    if (!story) {
-      throw new Error("Story not found");
-    }
-    return { chapter, story };
+
+    return {
+      chapterName: chapter.name,
+      storyName: chapter.storyId.name,
+      storyImage: chapter.storyId.image,
+      storyId: chapter.storyId._id,
+      chapterNo: chapter.chapterNo,
+    };
   } catch (error) {
     throw new Error(error.message);
   }
 };
-
 export default findHistoryStory;
