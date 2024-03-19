@@ -7,7 +7,9 @@ export default async function createChapter({
   name,
 }) {
   try {
-    const chapter = await Chapter.find({}).sort({ createdAt: -1 }).limit(1);
+    const chapter = await Chapter.find({ storyId: storyId })
+      .sort({ createdAt: -1 })
+      .limit(1);
     const { chapterNo: newChapterNo } = chapter[0] || {};
     return await Chapter.create({
       storyId,
