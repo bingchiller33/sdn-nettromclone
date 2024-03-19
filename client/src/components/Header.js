@@ -52,7 +52,7 @@ const Header = () => {
       .then((data) => setChapteres(data));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:9999/Stories")
+    fetch(`${BASE_URL}/story/get_stories`)
       .then((res) => res.json())
       .then((data) =>
         setStories(
@@ -82,7 +82,7 @@ const Header = () => {
     navigate("/");
   };
   const handleOnclickTop = (e, id) => {
-    navigate(`/detail/${id}`);
+    navigate(`/get_story/${id}`);
     setSearchStory("");
   };
   const handleSearchCat = (id) => {
@@ -140,7 +140,7 @@ const Header = () => {
                           <Col
                             xs={4}
                             className="top_container_img"
-                            onClick={(e) => handleOnclickTop(e, story.id)}
+                            onClick={(e) => handleOnclickTop(e, story._id)}
                           >
                             <img
                               className="top_img_item"
@@ -154,7 +154,7 @@ const Header = () => {
                               id="collasible-nav-dropdown"
                             >
                               <li
-                                onClick={(e) => handleOnclickTop(e, story.id)}
+                                onClick={(e) => handleOnclickTop(e, story._id)}
                                 className="top_name_item pt-1 fw-bold"
                               >
                                 {story.name}
