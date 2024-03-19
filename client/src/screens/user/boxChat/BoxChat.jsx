@@ -264,7 +264,7 @@ const Feedback = () => {
             className="d-flex justify-content-center border rounded align-items-center my-1"
             style={{ gap: "1.5rem", margin: "0 46px", height: "56px" }}
           >
-            <div className="flx-1">
+            <div className="flx-1 mt-3">
               <InputField
                 handleInputChange={handleInputChange}
                 placeholder="Aa..."
