@@ -31,11 +31,11 @@ const ViewList = () => {
         }&item=${sort.type}&order=${sort.payload}`
       )
       .then((res) => dispatch(fetchStoriesSuccess(res.data)))
-      .catch((err) => console.log(err.message)); 
+      .catch((err) => console.log(err.message));
   }, [filterCat, dispatch, sort, filter]);
   return (
     <Row>
-      {listStory.map((story) => (
+      {listStory?.map((story) => (
         <Col key={story._id} xs={3}>
           <Card className="card_slider">
             <Card.Body className="body_card_item">
@@ -50,7 +50,7 @@ const ViewList = () => {
                 {story.name}
               </Card.Subtitle>
               <ul className="content_header m-0 p-0">
-                {story.chapters.map((chapter) => (
+                {story?.chapters?.map((chapter) => (
                   <li key={chapter._id} className={`mx-0 lh-1`}>
                     <span onClick={() => dispatch(updateViewStory(story))}>
                       <Link

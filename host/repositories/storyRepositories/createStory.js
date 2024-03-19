@@ -5,7 +5,6 @@ import User from "../../models/Users.js";
 const createStory = async (data) => {
   try {
     const { categories, uploader } = data;
-    console.log(data);
     const newStory = new Story(data);
     const savedStory = await newStory.save();
     const storyCategories = categories.map((c) => ({

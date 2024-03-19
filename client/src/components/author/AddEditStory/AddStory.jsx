@@ -50,7 +50,6 @@ const AddStory = () => {
     formData.append("image", selectedFile);
 
     try {
-      // Upload the image
       const uploadResponse = await axios.post(
         `${BASE_URL}/story/upload`,
         formData,
@@ -60,8 +59,6 @@ const AddStory = () => {
           },
         }
       );
-      console.log(uploadResponse.data);
-
       if (uploadResponse.status === 200) {
         const storyResponse = await axios.post(
           `${BASE_URL}/story/create_story`,
@@ -70,10 +67,10 @@ const AddStory = () => {
             uploader: user._id,
             categories: categoriesChoice,
             image: uploadResponse.data,
+            isActive: false,
           },
           config
         );
-        console.log(user._id);
 
         if (storyResponse.status === 201) {
           navigate("/");
