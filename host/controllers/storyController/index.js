@@ -17,6 +17,7 @@ import getActivatedStories from './getActivatedStories.js';
 import getInactivedStories from './getInactivatedStories.js';
 import uploadStoryImage from "./uploadStoryImage.js";
 import getFollowByStory from "./getFollowByStory.js";
+import changeStoryStatus from "./changeStoryStatus.js";
 
 export default {
   getStoriesByUser,
@@ -37,5 +38,6 @@ export default {
   getActivatedStories,
   getInactivedStories,
   uploadStoryImage,
-  getFollowByStory
+  getFollowByStory,
+  changeStoryStatus
 };

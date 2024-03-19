@@ -209,26 +209,10 @@ storyRouter.post(
   }
 );
 
-
-storyRouter.patch(
-  "/:id/active",
+storyRouter.get(
+  "/story/:id/status",
   authenticate,
-  async (req, res) => {
-    try {
-      const story = await Story.findById(req.params.id);
-      if (!story) {
-        return res.status(404).send('Story not found');
-      }
-
-      story.isActive = !story.isActive;
-      await story.save();
-
-      res.json(story);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({ error: 'Something went wrong.' });
-    }
-  }
+  storyController.changeStoryStatus
 );
 
 export default storyRouter;

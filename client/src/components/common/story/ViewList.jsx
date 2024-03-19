@@ -73,7 +73,7 @@ const ViewList = () => {
                 {story.name}
               </Card.Subtitle>
               <ul className="content_header m-0 p-0">
-                {story.chapters.map((chapter) => (
+                {story.chapters?.map((chapter) => (
                   <li
                     key={chapter._id}
                     className="mx-0 lh-1"
