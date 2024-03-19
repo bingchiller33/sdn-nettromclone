@@ -83,10 +83,10 @@ const StoryDetail = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:9999/story/follows", config)
+      .get("http://localhost:9999/story/follow_story/" + sid)
       .then((response) => {
         const data = response.data;
-        setFollowQuantity(data.filter((d) => d.storyId._id === sid));
+        setFollowQuantity(data.filter((d) => d.storyId === sid));
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -247,8 +247,8 @@ const StoryDetail = () => {
                 </p>
                 <p className="story_detail_item m-0 item_primary">Thể loại:</p>
                 <p className="story_detail_item m-0">
-                  {console.log(listCategories)}
-                  {console.log(story)}
+                  {/* {console.log(listCategories)}
+                  {console.log(story)} */}
                   {category(listCategories, story)}
                 </p>
               </li>
@@ -292,7 +292,8 @@ const StoryDetail = () => {
                   </Button>
                 )}
                 <p className="story_detail_item m-0 text-dark">
-                  {SplitNumber(followQuantity.length)}
+                  {SplitNumber(followQuantity.length)
+                  }
                 </p>
                 <p className="story_detail_item m-0">Người Đã Theo Dõi</p>
               </li>

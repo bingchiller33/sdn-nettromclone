@@ -10,7 +10,7 @@ const FetchData = (sid) => {
 
   useEffect(() => {
     if (sid) {
-      fetch(`http://localhost:9999/story/chapters/${sid}`)
+      fetch(`http://localhost:9999/chapterContent/${sid}`)
         .then((res) => res.json())
         .then((chapters) => {
           if (chapters && chapters.length > 0) {
