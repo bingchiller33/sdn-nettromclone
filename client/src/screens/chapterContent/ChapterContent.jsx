@@ -20,7 +20,7 @@ import FetchData from "./FetchData";
 const ChapterContent = () => {
   const dispatch = useDispatch();
   const { sid, cid } = useParams();
-  const navigate = useNavigate("");
+  const navigate = useNavigate();
   const chapteres = useSelector((state) => state.listChapter.data);
   const chapterNo = useSelector((state) => state.listChapter.chapterNo);
   const story = useSelector((state) => state.listStory.story);
@@ -34,10 +34,10 @@ const ChapterContent = () => {
     navigate(`/get_story/${sid}/chapter/${+value}`);
     dispatch(setChapterNo(+value));
   };
-  const handleMovePrev = (e) => {
+  const handleMovePrev = () => {
     dispatch(setChapterNo(+chapterNo - 1));
   };
-  const handleMoveNext = (e) => {
+  const handleMoveNext = () => {
     dispatch(setChapterNo(+chapterNo + 1));
   };
   return (
@@ -55,7 +55,7 @@ const ChapterContent = () => {
                 <Col xs={12} className="d-flex justify-content-center">
                   <ul className="d-flex mb-3 p-0 top_container_detail">
                     <li className="fw-bold pe-2">Tác giả:</li>
-                    <li className="text-muted">{story.author}</li>
+                    <li className="text-muted">{story.uploader}</li>
                   </ul>
                 </Col>
               </Row>
@@ -63,7 +63,7 @@ const ChapterContent = () => {
                 <Col className="d-flex justify-content-end" xs={4}>
                   <span className="mt-1 me-2">
                     <Link to="/">
-                      <HouseFill size={24} color="red" />{" "}
+                      <HouseFill size={24} color="red" />
                     </Link>
                   </span>
                   <span className="mt-1">
