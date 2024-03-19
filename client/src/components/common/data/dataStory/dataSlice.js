@@ -43,7 +43,7 @@ const apiListStory = createSlice({
           name: story.name,
           status: story.status,
           categoryId: story.categoryId,
-          author: story.author,
+          uploader: story.uploader,
           description: story.description,
           userId: story.userId,
           image: story.image,

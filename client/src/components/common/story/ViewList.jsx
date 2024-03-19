@@ -25,7 +25,7 @@ const ViewList = () => {
         }&item=${sort.type}&order=${sort.payload}`
       )
       .then((res) => dispatch(fetchStoriesSuccess(res.data)))
-      .catch((err) => console.error(err.message));
+      .catch((err) => console.log(err.message));
   }, [filterCat, dispatch, sort, filter]);
 
   const updateChapterHistory = (storyId, chapterNo) => {

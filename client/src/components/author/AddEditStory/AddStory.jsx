@@ -41,7 +41,7 @@ const AddStory = () => {
       .then((res) => dispatch(setCategories(res.data)))
       .catch((e) => console.log(e.message));
     axios
-      .get(`${BASE_URL}/users/get_user`, config)
+      .get(`${BASE_URL}/users`, config)
       .then((res) => setUser(res.data))
       .catch((err) => console.log(err.message));
   }, []);
@@ -50,7 +50,6 @@ const AddStory = () => {
     formData.append("image", selectedFile);
 
     try {
-      // Upload the image
       const uploadResponse = await axios.post(
         `${BASE_URL}/story/upload`,
         formData,
@@ -60,16 +59,15 @@ const AddStory = () => {
           },
         }
       );
-      console.log(uploadResponse.data);
-
       if (uploadResponse.status === 200) {
         const storyResponse = await axios.post(
           `${BASE_URL}/story/create_story`,
           {
             ...values,
-            author: user._id,
+            uploader: user._id,
             categories: categoriesChoice,
             image: uploadResponse.data,
+            isActive: false,
           },
           config
         );
