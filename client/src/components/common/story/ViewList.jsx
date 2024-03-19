@@ -16,7 +16,6 @@ const ViewList = () => {
     filter,
   } = useSelector((state) => state.listStory);
   const { filterCat } = useSelector((state) => state.listCategory);
-
   useEffect(() => {
     axios
       .get(
