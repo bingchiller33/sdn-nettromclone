@@ -292,8 +292,7 @@ const StoryDetail = () => {
                   </Button>
                 )}
                 <p className="story_detail_item m-0 text-dark">
-                  {SplitNumber(followQuantity.length)
-                  }
+                  {SplitNumber(followQuantity.length)}
                 </p>
                 <p className="story_detail_item m-0">Người Đã Theo Dõi</p>
               </li>
@@ -325,7 +324,9 @@ const StoryDetail = () => {
             </Row>
           </Col>
           <Col xs={12}>
-            <Row>{/* <ListChapter storyId={sid} /> */}</Row>
+            <Row>
+              <ListChapter />
+            </Row>
           </Col>
         </Row>
         <Row>

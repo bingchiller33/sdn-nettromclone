@@ -64,7 +64,7 @@ const MyListChapter = () => {
           </div>
         </Col>
         <Col xs={12}>
-          <ListChapter sid={sid} />
+          <ListChapter />
         </Col>
       </Row>
     </DefaultTemplate>

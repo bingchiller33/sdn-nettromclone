@@ -180,6 +180,7 @@ storyRouter.get(
 );
 storyRouter.get("/chapters/:storyId", storyController.getAllChapter);
 storyRouter.put("/update_view_count/:id", storyController.updateViewCount);
+storyRouter.get("/updated", storyController.getStoryUpdated);
 
 storyRouter.get(
   "/activated",
