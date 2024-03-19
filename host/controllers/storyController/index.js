@@ -13,12 +13,11 @@ import findHistoryStory from "./viewHistory.js";
 import getChapterContent from "./getChapterContent.js";
 import getAllChapter from "./getAllChapter.js";
 import updateViewCount from "./updateViewCount.js";
-import getActivatedStories from './getActivatedStories.js';
-import getInactivedStories from './getInactivatedStories.js';
 import uploadStoryImage from "./uploadStoryImage.js";
 import getFollowByStory from "./getFollowByStory.js";
 import changeStoryStatus from "./changeStoryStatus.js";
-
+import getStoriesByStatus from "./getStoriesByStatus.js";
+import getStoryUpdated from "./getStoryUpdated.js";
 export default {
   getStoriesByUser,
   getStoryById,
@@ -35,9 +34,9 @@ export default {
   getChapterContent,
   getAllChapter,
   updateViewCount,
-  getActivatedStories,
-  getInactivedStories,
   uploadStoryImage,
   getFollowByStory,
-  changeStoryStatus
+  changeStoryStatus,
+  getStoriesByStatus,
+  getStoryUpdated,
 };

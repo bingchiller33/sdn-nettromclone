@@ -43,12 +43,12 @@ Content-Type: application/json
 
 {
   "rateNo": 1,
-  "userId": "65e5ac14eff5d175cb7f6d8a",
-  "rateStoryId": "65f3df2266cc7c4a6b836fc5"
+  "userId": "65f935aee901b5259dcf87b7",
+  "storyId": "65f3df2266cc7c4a6b836fc5"
 }
 
 ###
-GET  http://localhost:9999/rate?userId=65e5ac14eff5d175cb7f6d8a&storyId=65f3df2266cc7c4a6b836fc5
+GET  http://localhost:9999/rate/general/65f857a07c3109c5da6304e8
 
 ###
 DELETE  http://localhost:9999/comment/65ed37f8313fc3a01fa281f0
@@ -106,6 +106,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWU0N
 
 ###
 GET  http://localhost:9999/story/top_stories
+###
+GET  http://localhost:9999/story/get_stories
 
 ###
 GET http://localhost:9999/story/get_stories?status=finished&categoryId=65e46ffee33a84f0a2e7576e&item=comment&order=1

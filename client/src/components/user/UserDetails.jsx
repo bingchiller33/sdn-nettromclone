@@ -17,6 +17,7 @@ import CommentDetail from "./userProfileComponent/CommentDetail";
 import ProfileDetail from "./userProfileComponent/ProfileDetail";
 import UserContext from "../../contexts/UserContext";
 import { Link, useNavigate } from "react-router-dom";
+import ListSotry from "../author/myListStory/ListStory";
 
 const UserDetails = () => {
   const { user, setUser } = useContext(UserContext);
@@ -36,7 +37,7 @@ const UserDetails = () => {
   }
 
   return (
-    <Container>
+    <Container className="mt-3">
       <Row>
         <Col md={3} sm={4}>
           <section className="user-sidebar">
@@ -142,6 +143,7 @@ const UserDetails = () => {
           {activeTab === 1 && <ProfileDetail user={user} setUser={setUser} />}
           {activeTab === 2 && <FollowListDetail />}
           {activeTab === 3 && <CommentDetail />}
+          {activeTab === 4 && <ListSotry />}
         </Col>
       </Row>
     </Container>

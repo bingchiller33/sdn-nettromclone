@@ -26,7 +26,6 @@ const ListChapter = () => {
   const chapter = useSelector((state) => state.listChapter.chapter);
   const story = useSelector((state) => state.listStory.story);
   const listContent = useSelector((state) => state.content.data);
-  // const [value, setValue] = useState("");
   let limit = 10;
   const jwt = localStorage.getItem("token");
   const config = {
@@ -54,7 +53,6 @@ const ListChapter = () => {
   // FetchData(sid, chapterId);
   const handleInputChange = (e) => {
     dispatch(getChapter({ ...chapter, name: e.target.value }));
-    // setValue(e.target.value);
   };
   useEffect(() => {
     if (inputRef.current) {
@@ -158,6 +156,7 @@ const ListChapter = () => {
                         onClick={() => handleNewName(c, c.name)}
                         className={`${
                           chapter?._id === c._id &&
+                          !c.isActive &&
                           user._id === story.uploader?._id &&
                           !c.active &&
                           "d-none"
@@ -167,10 +166,11 @@ const ListChapter = () => {
                             : ""
                         }`}
                       >
-                        {c.name?.length === 0 &&
-                        user._id === story.uploader?._id
-                          ? "+"
-                          : c.name}
+                        {c.name?.length === 0 && !c.isActive
+                          ? user._id === story.uploader?._id
+                            ? "+"
+                            : c.name
+                          : "..."}
                       </td>
                       {chapter?._id === c._id &&
                       user._id === story.uploader?._id &&

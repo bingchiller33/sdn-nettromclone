@@ -54,7 +54,7 @@ const ListSotry = () => {
         </tr>
       </thead>
       <tbody>
-        {listStories.map((story, index) => (
+        {listStories?.map((story, index) => (
           <tr key={story._id}>
             <td className="align-middle text-center">{index + 1}</td>
             <td className="align-middle text-center">{story.name}</td>
@@ -82,7 +82,7 @@ const ListSotry = () => {
             </td>
             <td className="align-middle text-center">
               {rateAvg(
-                listRate.filter((rate) => rate.rateStoryId === story._id)
+                listRate?.filter((rate) => rate.rateStoryId === story._id)
               )}
             </td>
             <td className="align-middle text-center">
@@ -100,13 +100,15 @@ const ListSotry = () => {
                 name="active"
                 required={false}
                 disabled={true}
-                checked={story.active === 1}
+                checked={story.isActive === 1}
               />
             </td>
             <td className="text-center align-middle">
-              <Link to={!story.active ? `/author/editstory/${story._id}` : ""}>
+              <Link
+                to={!story.isActive ? `/author/editstory/${story._id}` : ""}
+              >
                 <PencilSquare
-                  color={!story.active ? "black" : "grey"}
+                  color={!story.isActive ? "black" : "grey"}
                   className="pb-1"
                   size={22}
                 />

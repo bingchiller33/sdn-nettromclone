@@ -5,7 +5,7 @@ export default async function getRateByUserAndStory(userId, storyId) {
   try {
     const rate = await RateStory.findOne({
       userId: userId,
-      rateStoryId: storyId 
+      storyId: storyId 
     });
 
     return rate;

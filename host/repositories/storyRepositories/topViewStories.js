@@ -14,7 +14,15 @@ const topViewStories = async () => {
       },
       {
         $addFields: {
-          chapters: { $size: "$chapters" },
+          chapters: {
+            $size: {
+              $filter: {
+                input: "$chapters",
+                as: "chapter",
+                cond: { $eq: ["$$chapter.isActive", true] },
+              },
+            },
+          },
         },
       },
     ])

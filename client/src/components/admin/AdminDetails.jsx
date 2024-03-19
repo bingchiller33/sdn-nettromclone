@@ -9,6 +9,7 @@ import {
   ChevronDown,
   ChevronUp,
   InfoCircle,
+  Kanban,
   ListUl,
   Speedometer,
 } from "react-bootstrap-icons";
@@ -70,7 +71,7 @@ const AdminDetails = () => {
                   onClick={() => setActiveTab(0)}
                 >
                   <a href="#">
-                    <Speedometer></Speedometer> Thông tin chung
+                    <Kanban></Kanban> Quản lý truyện
                   </a>
                 </li>
                 <li
@@ -111,19 +112,6 @@ const AdminDetails = () => {
                 >
                   <a href="#">
                     <ListUl></ListUl> Truyện đã đăng
-                  </a>
-                </li>
-                <li
-                  className={`hvr-sweep-to-right ${
-                    activeTab === 5 ? "active" : ""
-                  }`}
-                  onClick={() => {
-                    localStorage.removeItem("token");
-                    navigate("/");
-                  }}
-                >
-                  <a href="#">
-                    <BoxArrowLeft></BoxArrowLeft> Đăng xuất
                   </a>
                 </li>
               </ul>
