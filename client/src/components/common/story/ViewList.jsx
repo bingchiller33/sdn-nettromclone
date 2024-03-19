@@ -54,7 +54,7 @@ const ViewList = () => {
                   <li key={chapter._id} className={`mx-0 lh-1`}>
                     <span onClick={() => dispatch(updateViewStory(story))}>
                       <Link
-                        to={`/get_story/${story.id}/chapter/${chapter.id}`}
+                        to={`/get_story/${story._id}/chapter/${chapter.id}`}
                         className="m-0 pe-2 text-decoration-none text-dark chapter_list_view name_chapter"
                       >
                         Chương {chapter.chapterNo}

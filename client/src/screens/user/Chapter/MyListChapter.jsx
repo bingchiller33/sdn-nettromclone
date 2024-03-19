@@ -19,6 +19,7 @@ const MyListChapter = () => {
     },
   };
   const handleCreateChapter = () => {
+    console.log("create chapter");
     axios
       .post(
         `${BASE_URL}/chapter`,
