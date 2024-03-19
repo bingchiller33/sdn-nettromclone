@@ -1,10 +1,12 @@
-import { Button, Form, FormControl, Row, Table } from "react-bootstrap";
+import { Button, Form, FormControl, Modal, Row, Table } from "react-bootstrap";
 import { BASE_URL } from "../../common/utilities/initials";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const StoryListAdmin = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [currentStory, setCurrentStory] = useState(null);
   const [stories, setStories] = useState([]);
   const [filter, setFilter] = useState("inactive");
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,6 +21,7 @@ const StoryListAdmin = () => {
     const fetchStories = async () => {
       const url = `${BASE_URL}/story/activate?status=${filter}&search=${searchQuery}`;
       const res = await axios.get(url, config);
+      console.log(res.data);
       setStories(res.data);
     };
     fetchStories();
@@ -30,6 +33,16 @@ const StoryListAdmin = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleShowModal = (story) => {
+    setCurrentStory(story);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setCurrentStory(null);
+    setShowModal(false);
   };
 
   return (
@@ -57,9 +70,10 @@ const StoryListAdmin = () => {
           <tr>
             <th style={{ width: "5%", textAlign: "center" }}>#</th>
             <th style={{ width: "10%" }}>Cover</th>
-            <th style={{ width: "50%" }}>Title</th>
+            <th style={{ width: "40%" }}>Title</th>
             <th style={{ width: "10%" }}>Uploader</th>
             <th style={{ width: "25%" }}>Actions</th>
+            <th style={{ width: "15%" }}>Profanity Status</th>
           </tr>
         </thead>
         <tbody>
@@ -95,10 +109,33 @@ const StoryListAdmin = () => {
                   Review
                 </Link>
               </td>
+              <td
+                style={{ color: story.containsProfanity ? "red" : "green" }}
+                onClick={() => handleShowModal(story)}
+              >
+                {story.containsProfanity
+                  ? "Contains Profanity"
+                  : "No Profanity"}
+              </td>
             </tr>
           ))}
         </tbody>
       </Table>
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Profanity Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {currentStory && currentStory.containsProfanity
+            ? `Profane words: ${currentStory.profaneWords.join(", ")}`
+            : "No profanity in this story."}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
