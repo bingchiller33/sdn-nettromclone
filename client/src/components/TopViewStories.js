@@ -66,7 +66,7 @@ const TopViewStories = () => {
                                 <EyeFill />
                               </span>
                               <span className="m-0">
-                                {CountView(story.view)}
+                                {CountView(story.viewCount)}
                               </span>
                             </p>
                           </Col>
