@@ -16,6 +16,7 @@ import updateViewCount from "./updateViewCount.js";
 import getActivatedStories from './getActivatedStories.js';
 import getInactivedStories from './getInactivatedStories.js';
 import uploadStoryImage from "./uploadStoryImage.js";
+import getFollowByStory from "./getFollowByStory.js";
 
 export default {
   getStoriesByUser,
@@ -35,5 +36,6 @@ export default {
   updateViewCount,
   getActivatedStories,
   getInactivedStories,
-  uploadStoryImage
+  uploadStoryImage,
+  getFollowByStory
 };

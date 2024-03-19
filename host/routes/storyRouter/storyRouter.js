@@ -115,6 +115,7 @@ storyRouter.post(
  *         description: An error occurred while trying to get the follow list
  */
 storyRouter.get("/follows", authenticate, storyController.getFollowingStories);
+storyRouter.get("/follow_story/:storyId", storyController.getFollowByStory);
 
 /**
  * @swagger
@@ -169,7 +170,10 @@ storyRouter.get("/:id/active", authenticate, storyController.activeStory);
  *         description: An error occurred while trying to get the follow list
  */
 storyRouter.get("/:id/finished", authenticate, storyController.finished);
-storyRouter.get("/content/:chapterId", storyController.findHistoryStory);
+storyRouter.get(
+  "/content/:storyId/:chapterNo",
+  storyController.findHistoryStory
+);
 storyRouter.get(
   "/chapterContent/:chapterId",
   storyController.getChapterContent
