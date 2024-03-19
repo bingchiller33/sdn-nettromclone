@@ -89,7 +89,9 @@ const Header = () => {
     navigate(`/search`);
     dispatch(setFilterCate(id));
   };
-
+  const handleNavHome = () => {
+    dispatch(setFilterCate(""));
+  };
   return (
     <div>
       <Container>
@@ -311,6 +313,7 @@ const Header = () => {
                 <Nav.Link
                   as={Link}
                   to="/"
+                  onClick={handleNavHome}
                   eventKey="/"
                   className={theme === "light" ? "light" : "dark"}
                 >
