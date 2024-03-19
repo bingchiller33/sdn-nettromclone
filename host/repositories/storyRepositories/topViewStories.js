@@ -18,7 +18,7 @@ const topViewStories = async () => {
         },
       },
     ])
-      .sort({ viewCount: 1 })
+      .sort({ viewCount: -1 })
       .limit(10);
   } catch (error) {
     throw new Error(error.message);
