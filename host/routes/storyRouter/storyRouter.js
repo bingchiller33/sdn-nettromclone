@@ -115,6 +115,7 @@ storyRouter.post(
  *         description: An error occurred while trying to get the follow list
  */
 storyRouter.get("/follows", authenticate, storyController.getFollowingStories);
+storyRouter.get("/follow_story/:storyId", storyController.getFollowByStory);
 
 /**
  * @swagger
