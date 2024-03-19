@@ -183,14 +183,9 @@ storyRouter.put("/update_view_count/:id", storyController.updateViewCount);
 storyRouter.get("/updated", storyController.getStoryUpdated);
 
 storyRouter.get(
-  "/activated",
+  "/activate",
   authenticate,
-  storyController.getActivatedStories
-);
-storyRouter.get(
-  "/inactivated",
-  authenticate,
-  storyController.getInactivedStories
+  storyController.getStoriesByStatus
 );
 
 storyRouter.post(
@@ -210,10 +205,6 @@ storyRouter.post(
   }
 );
 
-storyRouter.get(
-  "/story/:id/status",
-  authenticate,
-  storyController.changeStoryStatus
-);
+storyRouter.patch("/:id/status", authenticate, storyController.changeStoryStatus);
 
 export default storyRouter;
