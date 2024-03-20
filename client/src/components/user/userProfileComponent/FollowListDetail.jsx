@@ -6,17 +6,18 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../common/utilities/initials";
 
-const FollowListDetail = ({ setActiveTab }) => {
+const FollowListDetail = () => {
   const [followList, setFollowList] = useState([]);
   const [followed, setFollowed] = useState("");
+  const jwt = localStorage.getItem("token");
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+  };
+
   useEffect(() => {
-    const jwt = localStorage.getItem("token");
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${jwt}`,
-      },
-    };
     axios
       .get(`${BASE_URL}/story/follows`, config)
       .then((response) => {
@@ -28,8 +29,6 @@ const FollowListDetail = ({ setActiveTab }) => {
   }, []);
 
   const handleFollow = (storyId, index) => {
-    const jwt = localStorage.getItem("token");
-    console.log(jwt);
     const url = followed[index]
       ? `${BASE_URL}/story/unfollow/${storyId}`
       : `${BASE_URL}/story/follow/${storyId}`;
@@ -73,12 +72,18 @@ const FollowListDetail = ({ setActiveTab }) => {
                 return (
                   <tr key={story._id}>
                     <td>
-                      <Link className="image" to={`/get_story/${story.storyId._id}`}>
+                      <Link
+                        className="image"
+                        to={`/get_story/${story.storyId._id}`}
+                      >
                         <Image src={story.storyId.image} />
                       </Link>
                     </td>
                     <td>
-                      <Link className="comic-name" to={`/get_story/${story.storyId._id}`}>
+                      <Link
+                        className="comic-name"
+                        to={`/get_story/${story.storyId._id}`}
+                      >
                         {story.storyId.name}
                       </Link>
                       <div className="follow-action">
@@ -91,7 +96,7 @@ const FollowListDetail = ({ setActiveTab }) => {
                           Đã đọc
                         </a>
                         <button
-                          className={`following-btn   ${
+                          className={`following-btn ${
                             followed[index] ? "unfollow-btn" : "follow-btn"
                           }`}
                           onClick={() => handleFollow(story.storyId._id, index)}
