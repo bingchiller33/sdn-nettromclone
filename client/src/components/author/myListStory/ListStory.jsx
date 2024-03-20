@@ -13,8 +13,6 @@ import { fetchStoriesSuccess } from "../../common/data/dataStory/dataSlice";
 
 const ListSotry = () => {
   const listStories = useSelector((state) => state.listStory.data);
-  const listFollows = useSelector((state) => state.listFollow.data);
-  const listRate = useSelector((state) => state.listRate.data);
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("token");
   const config = {
@@ -44,8 +42,6 @@ const ListSotry = () => {
           <th className="align-middle text-center">Ngày Tạo</th>
           <th className="align-middle text-center">Ngày phát hành</th>
           <th className="align-middle text-center">Lượt đọc</th>
-          <th className="align-middle text-center">Theo dõi</th>
-          <th className="align-middle text-center">Đánh giá</th>
           <th className="align-middle text-center">Hoàn thành</th>
           <th className="align-middle text-center">Kích hoạt</th>
           <th className="align-middle text-center" colSpan={3}>
@@ -71,19 +67,6 @@ const ListSotry = () => {
             </td>
             <td className="align-middle text-center">
               {SplitNumber(story.viewCount)}
-            </td>
-            <td className="align-middle text-center">
-              {listFollows.reduce((acc, follow) => {
-                if (follow.storyId === story._id) {
-                  acc += 1;
-                }
-                return acc;
-              }, 0)}
-            </td>
-            <td className="align-middle text-center">
-              {rateAvg(
-                listRate?.filter((rate) => rate.rateStoryId === story._id)
-              )}
             </td>
             <td className="align-middle text-center">
               <CheckBox
