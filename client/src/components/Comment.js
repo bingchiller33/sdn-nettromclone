@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Container, InputGroup, Form, Button, ListGroup, Image, Pagination } from "react-bootstrap";
 import { Chat } from "react-bootstrap-icons";
 import { toast } from "react-toastify"
 import { fetchUserByToken } from '../api/user.js'
+import { ThemeContext } from '../contexts/ThemeContext.js';
 
 export default function Comment({ sid, currentPage, setCurrentPage, highlightCommentId }) {
-
+  const { theme } = useContext(ThemeContext)
   const [comments, setComments] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
@@ -88,7 +89,7 @@ export default function Comment({ sid, currentPage, setCurrentPage, highlightCom
 
 
   return (
-    <Container fluid className="mb-5">
+    <Container fluid className={`mb-5 ${theme}`}>
       <h3 className="fw-normal text-info mt-2 pb-1 d-flex border-3 border-bottom border-info">
         <p className="ps-4 m-0"><Chat size={22} /></p>
         <p className="m-0 lh-base ms-1">Bình luận</p>
@@ -99,13 +100,24 @@ export default function Comment({ sid, currentPage, setCurrentPage, highlightCom
             as="textarea" rows={2}
             name='comment'
             placeholder="Bình luận của bạn"
+            style={{
+              backgroundColor: theme === 'dark' ? '#374151' : '#fff',
+              color: theme === 'dark' ? '#d1d3cd' : '#4b535e',
+            }}
           />
           <Button type='submit' variant="outline-primary">Comment</Button>
         </InputGroup>
       </Form>
       <ListGroup>
         {comments.map((comment, index) => (
-          <ListGroup.Item key={index} style={comment._id === highlightCommentId ? { backgroundColor: comment.clicked ? 'transparent' : 'aqua' } : {}}
+          <ListGroup.Item
+            key={index}
+            style={{
+              backgroundColor: theme === 'dark' ? '#1e2937' : '#fff',
+              color: theme === 'dark' ? '#d1d3cd' : '#4b535e',
+              ...comment._id === highlightCommentId ? { backgroundColor: comment.clicked ? 'transparent' : 'aqua' } : {}
+            }}
+            // className={`${theme === 'dark' ? 'dark' : 'light'}`}
             onClick={() => handleItemClick(comment)}
           >
             <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '20px' }}>

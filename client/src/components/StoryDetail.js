@@ -30,7 +30,7 @@ import { fetchStoryById, fetchCategoriesByStoryId } from '../api/story.js'
 import { fetchRateInfo } from '../api/rate.js'
 import { fetchPageByCommentId } from '../api/comment.js'
 import { formatDateAndTime } from '../util.js'
-
+import { ThemeContext } from '../contexts/ThemeContext.js'
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
 const StoryDetail = () => {
@@ -46,8 +46,8 @@ const StoryDetail = () => {
   const [followStory, setFollowStory] = useState({});
   const [followStatus, setFollowStatus] = useState(0);
   const chapteres = useSelector((state) => state.listChapter.data);
-  const listCategories = useSelector((state) => state.listCategory.data);
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const { theme } = useContext(ThemeContext)
   const jwt = localStorage.getItem("token");
   const [update, setUpdate] = useState(false)
   const [currentPage, setCurrentPage] = useState(1);
@@ -250,10 +250,11 @@ const StoryDetail = () => {
   }
 
   return (
-    <Row>
+    <Row className={`${theme}`}>
       <Col xs={12} className="text-center">
         <h3>{story.name}</h3>
-        <p className="fst-italic fw-normal text-muted fs-14">
+        <p
+        >
           [Cập nhật lúc {formatDateAndTime(story.updatedAt)}]
         </p>
       </Col>
@@ -270,39 +271,31 @@ const StoryDetail = () => {
             <ul className="">
               <li className="d-flex">
                 <p className="m-0">
-                  <PersonFill size={28} />
+                  <PersonFill size={24} />
                 </p>
-                <p className="story_detail_item m-0 item_primary">Tác giả:</p>
-                <p className="story_detail_item m-0 ps-0">
-                  {story.uploader?.userName}
-                </p>
+                <p className="story_detail_item m-0">
+                <strong>Tác giả:</strong> {story.uploader?.userName}</p>
+
               </li>
               <li className="d-flex ">
                 <p className="m-0">
                   <ExclamationCircleFill size={24} />
                 </p>
-                <p className="story_detail_item m-0 item_primary">
-                  Tình Trạng:
+                <p className="story_detail_item m-0">
+                  <strong>Tình Trạng:</strong> {story.status}
                 </p>
-                <p className="story_detail_item m-0 ps-1">{story.status}</p>
               </li>
               <li className="d-flex ">
                 <p className="m-0">
                   <RssFill size={24} />
                 </p>
-                <p className="story_detail_item m-0 item_primary">Thể loại:</p>
-                <p className="story_detail_item m-0 ps-0">
-                  {storyCategories.map(link => link?.categoryId.name).join(', ')}
-                </p>
+                <p className="story_detail_item m-0"><strong>Thể loại:</strong> {storyCategories.map(link => link?.categoryId.name).join(', ')}</p>
               </li>
               <li className="d-flex ">
                 <p className="m-0">
                   <EyeFill size={24} />
                 </p>
-                <p className="story_detail_item m-0 item_primary">Lượt xem:</p>
-                <p className="story_detail_item m-0 ps-1">
-                  {SplitNumber(parseInt(story.viewCount))}
-                </p>
+                <p className="story_detail_item m-0"><strong>Lượt xem:</strong> {SplitNumber(parseInt(story.viewCount))}</p>
               </li>
               <li className="d-flex ">
                 <p className="story_detail_item m-0 ps-0 text-primary">

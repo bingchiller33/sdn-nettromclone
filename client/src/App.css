@@ -60,7 +60,6 @@ html {
   line-height: 30px;
   padding-left: 10px;
   padding-bottom: 8px;
-  color: rgb(103, 103, 103);
 }
 
 .item_primary {
@@ -202,7 +201,7 @@ html {
 
 .over_content::after {
   position: absolute;
-  content: "";
+  content: '';
   display: block;
   left: 0;
   right: 0;
@@ -359,7 +358,7 @@ div.bc-action {
 }
 
 .full-width-background::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -50vw;
@@ -400,4 +399,13 @@ div.bc-action {
 
 .bg-body-tertiary-custom {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Define placeholder colors within theme classes */
+.light textarea::placeholder {
+  color: #4b535e; /* Light theme placeholder color */
+}
+
+.dark textarea::placeholder {
+  color: #d1d3cd; /* Dark theme placeholder color */
 }
