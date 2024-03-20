@@ -5,7 +5,8 @@ import categoriesRouter from "./categoriesRouter/categoriesRouter.js";
 import storyCategoriesRouter from "./storyCategoriesRouter/storyCategories.js";
 import commentRouter from "./commentRouter/commentRouter.js";
 import chapterRouter from "./chapterRouter/chapterRouter.js";
-import rateRouter from './rateRouter/rateRouter.js'
+import rateRouter from "./rateRouter/rateRouter.js";
+import ChapterContentRouter from "./chapterContentRouter/chapterContentRouter.js";
 
 export {
   feedbackRouter,
@@ -16,4 +17,5 @@ export {
   commentRouter,
   chapterRouter,
   rateRouter,
+  ChapterContentRouter,
 };

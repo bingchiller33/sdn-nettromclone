@@ -4,10 +4,10 @@ const chapterContentSchema = new Schema(
   {
     chapterId: {
       type: Schema.Types.ObjectId,
-      ref: 'Chapter',
+      ref: "Chapter",
       required: true,
     },
-    paragraphs: {
+    paragraph: {
       type: [String],
       required: true,
     },

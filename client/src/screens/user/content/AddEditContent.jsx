@@ -1,93 +1,144 @@
-import { useRef } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { useRef, useState, useEffect } from "react";
+import { Button, Col, Row, Form, Container, Card } from "react-bootstrap";
 import { ArrowLeftCircle } from "react-bootstrap-icons";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import Content from "../../../components/common/chapterContent";
-import TextArea from "../../../components/common/custom-fileds/textArea";
-import { addContent, clearAll, setContentValue, updateContentValue } from "../../../components/common/data/dataContent/dataSlice";
 import DefaultTemplate from "../../../templates/DefaultTemplate";
-import FetchData from "./FetchData";
+import axios from "axios";
+import { BASE_URL } from "../../../components/common/utilities/initials";
+import { toast } from "react-toastify";
 
 const AddEditContent = () => {
-    const { sid, cid } = useParams();
-    const dispatch = useDispatch();
-    const inputRef = useRef();
-    const content = useSelector(state => state.content.content);
-    const value = useSelector(state => state.content.value);
-    const update = useSelector(state => state.content.update);
-    const chapter = useSelector(state => state.listChapter.chapter);
-    FetchData(sid, cid);
-    const handleOnchangeValue = (e) => {
-        dispatch(setContentValue(e.target.value));
+  const { sid, cid } = useParams();
+  const [value, setValue] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [contentParagraphs, setContentParagraphs] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
+  const inputRef = useRef();
+
+  useEffect(() => {
+    axios
+      .get(`${BASE_URL}/chapterContent/${cid}`)
+      .then((response) => {
+        setContentParagraphs(response.data.paragraph || []);
+      })
+      .catch((error) => console.error("Failed to fetch content: ", error));
+  }, [cid]);
+
+  const handleOnChangeValue = (e) => {
+    setValue(e.target.value);
+  };
+
+  const handleAddOrUpdate = () => {
+    setLoading(true);
+    let updatedParagraphs = [...contentParagraphs];
+
+    if (editIndex !== null) {
+      updatedParagraphs[editIndex] = value.trim();
+    } else {
+      updatedParagraphs.push(value.trim());
     }
-    const handleAdd = () => {
-        if (update !== 0) {
-            dispatch(updateContentValue({ value: value, index: update, contentId: content.id }));
-        } else {
-            dispatch(addContent({ value: value, contentId: content.id }));
-        }
-        dispatch(setContentValue(""));
-    }
-    const handleClearAll = () => {
-        dispatch(clearAll(content.id));
-    }
-    if (inputRef.current) {
-        inputRef.current.focus();
-    }
-    return (
-        <DefaultTemplate>
-            <Row className="d-flex justify-content-center">
-                <Col xs={10}>
-                    <span>
-                        <Link
-                            to={`/author/mystory/listchapter/${sid}`}>
-                            <ArrowLeftCircle
-                                color="black"
-                                className="pb-1 mt-3"
-                                size={22}
-                            />
-                        </Link >
-                    </span>
-                </Col>
-                <Col xs={10} className="border new-content" >
-                    <Content />
-                </Col>
-                <Col xs={10}>
-                    <Row className="text-center d-flex justify-content-center mt-1">
-                        <Col xs={8}>
-                            <TextArea
-                                handleInputChange={handleOnchangeValue}
-                                value={value}
-                                ref={inputRef}
-                            />
-                        </Col>
-                        <Col xs={2}>
-                            <Row className="d-flex justify-content-center">
-                                <Col xs={4}>
-                                    <Button
-                                        disabled={value === "" || (chapter && chapter.active)}
-                                        onClick={handleAdd}
-                                    >
-                                        Gửi
-                                    </Button>
-                                </Col>
-                                <Col xs={8}>
-                                    <Button
-                                        variant="danger"
-                                        disabled={(content.paragraph && content.paragraph.length === 0) || (chapter && chapter.active)}
-                                        onClick={handleClearAll}
-                                    >
-                                        Xóa hết
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
-        </DefaultTemplate>
-    );
-}
+
+    axios
+      .put(`${BASE_URL}/chapterContent/${cid}`, {
+        paragraph: updatedParagraphs,
+      })
+      .then(() => {
+        setContentParagraphs(updatedParagraphs);
+        setLoading(false);
+        setEditIndex(null);
+        toast.success(
+          editIndex !== null
+            ? "Nội dung truyện đã được cập nhật thành công!"
+            : "Nội dung truyện đã được thêm thành công!"
+        );
+      })
+      .catch((error) => {
+        console.error("Error updating content:", error);
+        setLoading(false);
+        toast.error("Đã sảy ra lỗi trong quá trình cập nhật!.");
+      });
+
+    setValue("");
+  };
+
+  const handleClearAll = () => {
+    setLoading(true);
+    axios
+      .put(`${BASE_URL}/chapterContent/${cid}`, { paragraph: [] })
+      .then(() => {
+        setContentParagraphs([]);
+        setLoading(false);
+        toast.success("Nội dung truyện đã được xóa thành công!");
+      })
+      .catch((error) => {
+        console.error("Error clearing content:", error);
+        setLoading(false);
+        toast.error("Đã sảy ra lỗi trong quá trình xóa!.");
+      });
+  };
+
+  const handleEdit = (index) => {
+    setEditIndex(index);
+    setValue(contentParagraphs[index]);
+  };
+
+  return (
+    <DefaultTemplate>
+      <Container>
+        <Row className="d-flex justify-content-center">
+          <Col xs={12} className="text-center mb-4">
+            <Link to={`/author/mystory/listchapter/${sid}`}>
+              <ArrowLeftCircle color="black" className="mt-3" size={28} />
+            </Link>
+          </Col>
+          <Col xs={12} md={10} className="mb-4">
+            <Card>
+              <Card.Body>
+                {contentParagraphs.map((paragraph, index) => (
+                  <p
+                    key={index}
+                    onClick={() => handleEdit(index)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col xs={12} md={10}>
+            <Form>
+              <Form.Group className="mb-3" controlId="formContent">
+                <Form.Control
+                  as="textarea"
+                  onChange={handleOnChangeValue}
+                  value={value}
+                  placeholder="Nhập nội dung của bạn ở đây..."
+                  style={{ height: "400px", resize: "none" }}
+                />
+              </Form.Group>
+              <div className="d-flex justify-content-between">
+                <Button
+                  variant="primary"
+                  disabled={value === "" || loading}
+                  onClick={handleAddOrUpdate}
+                >
+                  {editIndex !== null ? "Cập nhật" : "Tạo"}
+                </Button>
+                <Button
+                  variant="danger"
+                  disabled={loading}
+                  onClick={handleClearAll}
+                >
+                  Xóa hết
+                </Button>
+              </div>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+    </DefaultTemplate>
+  );
+};
 
 export default AddEditContent;
