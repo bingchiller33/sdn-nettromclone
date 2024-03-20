@@ -44,7 +44,6 @@ function App() {
       .get(`${BASE_URL}/users`, config)
       .then((res) => {
         setUser(res.data);
-        console.log(!!res.data && res.data.role === 3);
       })
       .catch((err) => console.log(err.message));
   }, []);
