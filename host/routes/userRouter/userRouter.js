@@ -3,6 +3,7 @@ import userController from "../../controllers/userController/index.js";
 import verifyToken from "../../middleware/verifyToken.js";
 import upload from "../../middleware/multer.js";
 import authenticate from "../../middleware/authenticate.js";
+import authenticateAdmin from "../../middleware/authenticateAdmin.js";
 
 const userRouter = express.Router();
 
@@ -19,7 +20,6 @@ const userRouter = express.Router();
  *        description: A successful response
  */
 userRouter.get("/", verifyToken, userController.getUserByToken);
-
 
 /**
  * @swagger
@@ -128,4 +128,75 @@ userRouter.post(
   userController.uploadImage
 );
 
+/**
+ * @swagger
+ * /user/all:
+ *  get:
+ *    tags: ['User and Authentication']
+ *    description: Use to request all users sorted by role
+ *    security:
+ *      - BearerAuth: []
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+userRouter.get("/all", authenticate, userController.getAllUsersSortedByRole);
+
+/**
+ * @swagger
+ * /user/change-role:
+ *  put:
+ *    tags: ['User and Authentication']
+ *    description: Use to change a user's role
+ *    security:
+ *      - BearerAuth: []
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              userId:
+ *                type: string
+ *              newRole:
+ *                type: number
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+userRouter.put(
+  "/change-role",
+  authenticateAdmin,
+  userController.changeUserRole
+);
+
+/**
+ * @swagger
+ * /user/change-status:
+ *  put:
+ *    tags: ['User and Authentication']
+ *    description: Use to change a user's status
+ *    security:
+ *      - BearerAuth: []
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              userId:
+ *                type: string
+ *              newStatus:
+ *                type: string
+ *    responses:
+ *      '200':
+ *        description: A successful response
+ */
+userRouter.put(
+  "/change-status",
+  authenticateAdmin,
+  userController.changeUserStatus
+);
 export default userRouter;

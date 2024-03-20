@@ -15,6 +15,7 @@ import {
 } from "react-bootstrap-icons";
 import StoryListAdmin from "./adminComponents/StoryListAdmin";
 import CategoryManagement from "./adminComponents/CategoryManagement";
+import UserManagement from "./adminComponents/UserManagement";
 
 const AdminDetails = () => {
   const { user, setUser } = useContext(UserContext);
@@ -92,27 +93,7 @@ const AdminDetails = () => {
                   onClick={() => setActiveTab(2)}
                 >
                   <a href="#">
-                    <BookmarkHeartFill></BookmarkHeartFill> Truyện theo dõi
-                  </a>
-                </li>
-                <li
-                  className={`hvr-sweep-to-right ${
-                    activeTab === 3 ? "active" : ""
-                  }`}
-                  onClick={() => setActiveTab(3)}
-                >
-                  <a href="#">
-                    <ChatLeftDots></ChatLeftDots> Bình luận
-                  </a>
-                </li>
-                <li
-                  className={`hvr-sweep-to-right ${
-                    activeTab === 4 ? "active" : ""
-                  }`}
-                  onClick={() => setActiveTab(4)}
-                >
-                  <a href="#">
-                    <ListUl></ListUl> Truyện đã đăng
+                    <BookmarkHeartFill></BookmarkHeartFill> Quản lý account
                   </a>
                 </li>
               </ul>
@@ -122,8 +103,7 @@ const AdminDetails = () => {
         <Col md={9} sm={8}>
           {activeTab === 0 && <StoryListAdmin />}
           {activeTab === 1 && <CategoryManagement />}
-          {activeTab === 2}
-          {activeTab === 3}
+          {activeTab === 2 && <UserManagement />}
         </Col>
       </Row>
     </Container>
