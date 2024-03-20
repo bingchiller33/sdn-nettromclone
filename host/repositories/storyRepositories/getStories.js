@@ -50,6 +50,7 @@ const getStories = async ({ status, categoryId }) => {
         },
       },
       { $sort: { "chapters.publishedDate": -1 } },
+      { $sort: { updatedAt: -1 } },
       // {
       //   $addFields: {
       //     chapters: { $slice: ["$chapters", 3] },

@@ -173,7 +173,7 @@ const ListChapter = () => {
                             c.name?.length === 0
                             ? "+"
                             : c.name
-                          : c.name?.length > 0
+                          : c.name?.length === 0
                           ? "..."
                           : c.name}
                       </td>
@@ -216,9 +216,17 @@ const ListChapter = () => {
                             ) : (
                               <Link
                                 onClick={() => handleCreateContetChapter(c)}
-                                to={`/author/mystory/listchapter/${sid}/content/${c._id}`}
+                                to={`${
+                                  !c.isActive
+                                    ? `/author/mystory/listchapter/${sid}/content/${c._id}`
+                                    : ""
+                                }`}
                               >
-                                <Pen color="black" className="pb-1" size={22} />
+                                <Pen
+                                  color={`${!c.isActive ? "black" : "grey"}`}
+                                  className="pb-1"
+                                  size={22}
+                                />
                               </Link>
                             )}
                           </td>

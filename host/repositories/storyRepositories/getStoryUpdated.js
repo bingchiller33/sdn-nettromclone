@@ -1,4 +1,3 @@
-import ChapterContent from "../../models/ChapterContent.js";
 import Story from "../../models/Story.js";
 
 const getStoryUpdated = async (chapterId) => {
@@ -21,7 +20,7 @@ const getStoryUpdated = async (chapterId) => {
               },
             },
             { $sort: { publishedDate: -1 } },
-            { $limit: 3 },
+            { $limit: 1 },
           ],
           as: "chapters",
         },
