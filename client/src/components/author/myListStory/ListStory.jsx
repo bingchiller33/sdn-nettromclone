@@ -100,7 +100,7 @@ const ListSotry = () => {
                 name="active"
                 required={false}
                 disabled={true}
-                checked={story.isActive === 1}
+                checked={story.isActive}
               />
             </td>
             <td className="text-center align-middle">
