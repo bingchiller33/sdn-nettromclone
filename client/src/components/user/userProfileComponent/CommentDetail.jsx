@@ -3,14 +3,11 @@ import { Table } from "react-bootstrap";
 import "../UserDetails.css";
 import { Link } from "react-router-dom";
 
-const CommentDetail = ({ setActiveTab }) => {
+const CommentDetail = () => {
   return (
     <React.Fragment>
       <div className="position-relative">
         <h2 className="posttitle">Bình luận</h2>
-        <Link className="link" onClick={() => setActiveTab(3)}>
-          Xem tất cả
-        </Link>
       </div>
       <section className="user-table clearfix">
         <Table responsive>

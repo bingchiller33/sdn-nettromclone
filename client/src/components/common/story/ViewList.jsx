@@ -78,6 +78,7 @@ const ViewList = () => {
                     alignSelf: "center",
                     width: "100%",
                     maxHeight: "95%",
+                    objectFit: "cover",
                   }}
                 />
               </Link>

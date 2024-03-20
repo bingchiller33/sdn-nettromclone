@@ -40,23 +40,6 @@ const CommonDetail = ({ user, setActiveTab }) => {
             </div>
           </div>
         </Col>
-        <Col xs={12} md={6}>
-          <div className="account-info clearfix">
-            <h2 className="posttitle">Liên kết Tài khoản Google</h2>
-            <div className="info-detail">
-              <div className="group">
-                <div className="label">Trạng thái</div>
-                <div className="detail">Đã liên kết</div>
-              </div>
-              <div className="group">
-                <div className="label hidden">3</div>
-                <div className="detail">
-                  <a href="">Thay đổi</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Col>
         <Col xs={12}>
           <FollowListDetail setActiveTab={setActiveTab} />
         </Col>
