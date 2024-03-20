@@ -11,7 +11,7 @@ const Content = () => {
   };
   return (
     <p className="lh-sm">
-      {typeof content !== "undefined" && Object.keys(content).length !== 0
+      {Object.keys(content).length !== 0
         ? content?.paragraph?.map((p, i) => (
             <span key={i}>
               <br />

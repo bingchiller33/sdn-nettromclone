@@ -54,7 +54,6 @@ const ListChapter = () => {
   const handleInputChange = (e) => {
     dispatch(getChapter({ ...chapter, name: e.target.value }));
   };
-  console.log(chapter);
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
