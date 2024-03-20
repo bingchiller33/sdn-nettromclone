@@ -12,11 +12,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Content from "../../components/common/chapterContent";
 import { setChapterNo } from "../../components/common/data/dataChapter/dataSlice";
-import FormComment from "../../components/FormComment";
 import TopViewStories from "../../components/TopViewStories";
 import DefaultTemplate from "../../templates/DefaultTemplate";
 import FetchData from "./FetchData";
 import { header, PUT } from "../../components/common/utilities/type.js";
+import Comment from "../../components/Comment.js";
 
 const ChapterContent = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,6 @@ const ChapterContent = () => {
     navigate(`/get_story/${sid}/chapter/${chapterNo}`);
   }, [sid, chapterNo, navigate]);
   FetchData(sid, cid);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setTimerCompleted(true);
@@ -95,7 +94,6 @@ const ChapterContent = () => {
     navigate(`/get_story/${sid}/chapter/${newChapterNo}`);
     updateChapterHistory(sid, newChapterNo);
   };
-
   return (
     <DefaultTemplate>
       <Row className="mt-5 mb-4">
@@ -111,7 +109,7 @@ const ChapterContent = () => {
                 <Col xs={12} className="d-flex justify-content-center">
                   <ul className="d-flex mb-3 p-0 top_container_detail">
                     <li className="fw-bold pe-2">Tác giả:</li>
-                    <li className="text-muted">{story.uploader}</li>
+                    <li className="text-muted">{story.uploader?.userName}</li>
                   </ul>
                 </Col>
               </Row>
@@ -123,7 +121,7 @@ const ChapterContent = () => {
                     </Link>
                   </span>
                   <span className="mt-1">
-                    <Link to={`/detail/${story.id}`}>
+                    <Link to={`/detail/${story._id}`}>
                       <List size={28} color="red" />{" "}
                     </Link>
                   </span>
@@ -208,13 +206,12 @@ const ChapterContent = () => {
           </Row>
           <Row>
             <Col xs={12}>
-              <FormComment sid={sid} />
+              {" "}
+              <Comment sid={sid} />{" "}
             </Col>
           </Row>
         </Col>
-        <Col xs={4}>
-          <TopViewStories />
-        </Col>
+        <Col xs={4}>{/* <TopViewStories /> */}</Col>
       </Row>
     </DefaultTemplate>
   );
