@@ -39,7 +39,7 @@ const Header = () => {
       Authorization: `Bearer ${jwt}`,
     },
   };
-  let lengthCat = Math.ceil(categories.length / 3);
+  const lengthCat = Math.ceil(categories.length / 3);
   let countCat = 0;
   useEffect(() => {
     axios
@@ -339,9 +339,8 @@ const Header = () => {
                 className="fw-bold"
               >
                 <div className="m-0 p-0 header_dropdown_width d-flex flex-row justify-content-around">
-                  {Array.from({ length: lengthCat }, (_, i) => {
+                  {Array.from({ length: 3 }, (_, i) => {
                     let index = countCat;
-                    countCat = 0;
                     return (
                       <div className={`d-flex flex-column`}>
                         {categories.map((category, j) => {
