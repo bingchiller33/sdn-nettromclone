@@ -14,6 +14,7 @@ import {
   Speedometer,
 } from "react-bootstrap-icons";
 import StoryListAdmin from "./adminComponents/StoryListAdmin";
+import CategoryManagement from "./adminComponents/CategoryManagement";
 
 const AdminDetails = () => {
   const { user, setUser } = useContext(UserContext);
@@ -81,7 +82,7 @@ const AdminDetails = () => {
                   onClick={() => setActiveTab(1)}
                 >
                   <a href="#">
-                    <InfoCircle></InfoCircle> Thông tin tài khoản
+                    <InfoCircle></InfoCircle> Quản lý thể loại
                   </a>
                 </li>
                 <li
@@ -120,7 +121,7 @@ const AdminDetails = () => {
         </Col>
         <Col md={9} sm={8}>
           {activeTab === 0 && <StoryListAdmin />}
-          {activeTab === 1}
+          {activeTab === 1 && <CategoryManagement />}
           {activeTab === 2}
           {activeTab === 3}
         </Col>
