@@ -4,7 +4,11 @@ const changeStoryStatus = async (id, isActive) => {
   try {
     const story = await Story.findByIdAndUpdate(
       id,
-      { isActive },
+      {
+        isActive,
+        status: isActive ? "ongoing" : "draft",
+        publishDate: new Date(),
+      },
       { new: true }
     );
     if (!story) {

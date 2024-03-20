@@ -173,7 +173,7 @@ commentRouter.route('/getPage/:id').get(async (req, res, next) => {
       return res.status(404).send({ message: "Comment not found." });
     }
     const olderCommentsCount = await Comment.countDocuments()
-      .where('userId').equals(comment.userId)
+      .where('storyId').equals(comment.storyId)
       .where('createdAt').gt(comment.createdAt)
 
     console.log(olderCommentsCount)

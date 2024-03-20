@@ -15,7 +15,7 @@ storyCategoriesRouter.route('/getCategoriesBystoryId/:id').get(async (req, res, 
     const response = await StoryCategories.find({ storyId })
       .populate({
         path: 'categoryId',
-        options: { sort: { 'name': 1 } }
+        options: { sort: { 'name': 1, 'createdAt': -1 } }
       })
     res.send(response)
   } catch (error) {

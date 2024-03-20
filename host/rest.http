@@ -51,8 +51,7 @@ Content-Type: application/json
 GET  http://localhost:9999/rate/general/65f857a07c3109c5da6304e8
 
 ###
-GET  http://localhost:9999/story_categories/getCategoriesBystoryId/65fac22f4ed0b41f000b9bf2
-
+GET  http://localhost:9999/comment/getPage/65fad0c94ed0b41f000ba03b
 ###
 PUT  http://localhost:9999/comment/65ed6556d21a1d2d1b38cf03
 Content-Type: application/json

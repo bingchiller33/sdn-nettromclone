@@ -69,9 +69,8 @@ const UserDetails = () => {
             <Nav className="user-sidelink clearfix">
               <ul className="p-0">
                 <li
-                  className={`hvr-sweep-to-right ${
-                    activeTab === 0 ? "active" : ""
-                  }`}
+                  className={`hvr-sweep-to-right ${activeTab === 0 ? "active" : ""
+                    }`}
                   onClick={() => setActiveTab(0)}
                 >
                   <Link>
@@ -79,9 +78,8 @@ const UserDetails = () => {
                   </Link>
                 </li>
                 <li
-                  className={`hvr-sweep-to-right ${
-                    activeTab === 1 ? "active" : ""
-                  }`}
+                  className={`hvr-sweep-to-right ${activeTab === 1 ? "active" : ""
+                    }`}
                   onClick={() => setActiveTab(1)}
                 >
                   <Link>
@@ -89,9 +87,8 @@ const UserDetails = () => {
                   </Link>
                 </li>
                 <li
-                  className={`hvr-sweep-to-right ${
-                    activeTab === 2 ? "active" : ""
-                  }`}
+                  className={`hvr-sweep-to-right ${activeTab === 2 ? "active" : ""
+                    }`}
                   onClick={() => setActiveTab(2)}
                 >
                   <Link>
@@ -99,9 +96,8 @@ const UserDetails = () => {
                   </Link>
                 </li>
                 <li
-                  className={`hvr-sweep-to-right ${
-                    activeTab === 3 ? "active" : ""
-                  }`}
+                  className={`hvr-sweep-to-right ${activeTab === 3 ? "active" : ""
+                    }`}
                   onClick={() => setActiveTab(3)}
                 >
                   <Link>
@@ -109,9 +105,8 @@ const UserDetails = () => {
                   </Link>
                 </li>
                 <li
-                  className={`hvr-sweep-to-right ${
-                    activeTab === 4 ? "active" : ""
-                  }`}
+                  className={`hvr-sweep-to-right ${activeTab === 4 ? "active" : ""
+                    }`}
                   onClick={() => setActiveTab(4)}
                 >
                   <Link>
@@ -119,9 +114,8 @@ const UserDetails = () => {
                   </Link>
                 </li>
                 <li
-                  className={`hvr-sweep-to-right ${
-                    activeTab === 5 ? "active" : ""
-                  }`}
+                  className={`hvr-sweep-to-right ${activeTab === 5 ? "active" : ""
+                    }`}
                   onClick={() => {
                     setUser(null);
                     localStorage.removeItem("token");
@@ -144,7 +138,7 @@ const UserDetails = () => {
           {activeTab === 2 && <FollowListDetail />}
           {activeTab === 3 && <CommentDetail />}
           {activeTab === 4 && <ListSotry />}
-        </Col>   
+        </Col>
       </Row>
     </Container>
   );

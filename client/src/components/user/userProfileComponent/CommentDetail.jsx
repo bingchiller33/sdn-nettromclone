@@ -5,12 +5,16 @@ import { Link } from "react-router-dom";
 import { fetchListCommentByUserId } from '../../../api/comment.js'
 import UserContext from "../../../contexts/UserContext.js";
 import { formatDate } from '../../../util.js'
+import { ThemeContext } from '../../../contexts/ThemeContext.js';
+
 const CommentDetail = ({ setActiveTab }) => {
   const { user } = useContext(UserContext)
   const [comments, setComments] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [commentCount, setCommentCount] = useState(0);
+  const [commentCount] = useState(0);
+  const { theme } = useContext(ThemeContext)
+
   useEffect(() => {
     async function getCommentsByUserId(userId, currentPage) {
       const response = await fetchListCommentByUserId(userId, currentPage)
@@ -19,7 +23,7 @@ const CommentDetail = ({ setActiveTab }) => {
       setTotalPages(response.totalPages)
       console.log(comments)
     }
-    getCommentsByUserId(user._id, currentPage)
+    getCommentsByUserId(user?._id, currentPage)
   }, [user, currentPage, commentCount])
 
   const handlePageChange = (pageNumber) => {
@@ -29,12 +33,12 @@ const CommentDetail = ({ setActiveTab }) => {
   }
 
   return (
-    <>
+    <section className={`${theme}`}>
       <div className="position-relative">
         <h2 className="posttitle">Bình luận</h2>
       </div>
       <section className="user-table clearfix">
-        <Table responsive >
+        <Table responsive variant={theme === 'dark' ? 'dark' : undefined}>
           <thead>
             <tr>
               <th className="nowrap" colSpan={2} style={{ textAlign: 'center' }}>Tên truyện</th>
@@ -50,7 +54,7 @@ const CommentDetail = ({ setActiveTab }) => {
                   <img src={comment.storyId?.image} alt={comment.storyId?.name} style={{ width: '80px', height: 'auto' }} />
                 </td>
                 <td>
-                  <Link to={`/get_story/${comment.storyId?._id}#${comment?._id}`}>
+                  <Link to={`/get_story/${comment?.storyId?._id}#${comment?._id}`}>
                     {comment.storyId?.name}
                   </Link>
                 </td>
@@ -68,7 +72,7 @@ const CommentDetail = ({ setActiveTab }) => {
           ))}
         </Pagination>
       </section>
-    </>
+    </section>
   );
 };
 

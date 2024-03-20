@@ -70,21 +70,21 @@ const FollowListDetail = () => {
             <tbody>
               {followList.map((story, index) => {
                 return (
-                  <tr key={story._id}>
+                  <tr key={story?._id}>
                     <td>
                       <Link
                         className="image"
-                        to={`/get_story/${story.storyId._id}`}
+                        to={`/get_story/${story.storyId?._id}`}
                       >
-                        <Image src={story.storyId.image} />
+                        <Image src={story?.storyId?.image} />
                       </Link>
                     </td>
                     <td>
                       <Link
                         className="comic-name"
-                        to={`/get_story/${story.storyId._id}`}
+                        to={`/get_story/${story.storyId?._id}`}
                       >
-                        {story.storyId.name}
+                        {story?.storyId?.name}
                       </Link>
                       <div className="follow-action">
                         <a
@@ -96,9 +96,8 @@ const FollowListDetail = () => {
                           Đã đọc
                         </a>
                         <button
-                          className={`following-btn ${
-                            followed[index] ? "unfollow-btn" : "follow-btn"
-                          }`}
+                          className={`following-btn ${followed[index] ? "unfollow-btn" : "follow-btn"
+                            }`}
                           onClick={() => handleFollow(story.storyId._id, index)}
                         >
                           {followed[index] ? (
