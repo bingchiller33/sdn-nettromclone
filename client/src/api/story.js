@@ -7,3 +7,13 @@ export async function fetchStoryById(id) {
     throw error
   }
 }
+
+export async function fetchCategoriesByStoryId(storyId) {
+  try {
+    const response = await fetch(`http://localhost:9999/story_categories/getCategoriesBystoryId/${storyId}`)
+    const story = await response.json()
+    return story
+  } catch (error) {
+    throw error
+  }
+}
