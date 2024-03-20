@@ -109,6 +109,8 @@ GET  http://localhost:9999/story/top_stories
 ###
 GET  http://localhost:9999/story/get_stories
 ###
+GET  http://localhost:9999/story//get_story/65e48b32ea15f34d88d855c4
+###
 GET  http://localhost:9999/story/updated
 ###
 GET  http://localhost:9999/story/search/l
