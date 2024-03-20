@@ -125,7 +125,7 @@ const AddStory = () => {
                 <div>
                   <label>Mô tả truyện</label>
                   <Field
-                    type="text"
+                    as="textarea" rows={3}
                     name="description"
                     className={`${
                       touched.description && errors.description ? "error" : ""
