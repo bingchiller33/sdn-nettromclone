@@ -156,6 +156,10 @@ const StoryDetail = () => {
   }, [sid]);
 
   const readFromStart = () => {
+    if (chapteres.length === 0) {
+      toast.warning('Truyện chưa có chapter')
+      return
+    }
     const firstChapter = chapteres.reduce((prev, current) =>
       prev.chapterNo < current.chapterNo ? prev : current
     );
@@ -171,6 +175,10 @@ const StoryDetail = () => {
   };
 
   const readLatestChapter = () => {
+    if (chapteres.length === 0) {
+      toast.warning('Truyện chưa có chapter')
+      return
+    }
     const latestChapter = chapteres.reduce((prev, current) =>
       prev.chapterNo > current.chapterNo ? prev : current
     );
