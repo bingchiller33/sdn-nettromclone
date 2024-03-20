@@ -1,4 +1,4 @@
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, InputGroup, Row } from "react-bootstrap";
 import "../UserDetails.css";
 import { Upload } from "react-bootstrap-icons";
 import { useState } from "react";
@@ -83,57 +83,44 @@ const ProfileDetail = ({ user, setUser }) => {
         <h2 className="posttitle">Cập nhật thông tin tài khoản</h2>
         <Form onSubmit={handleSubmit}>
           <Row>
-            <Col md={2}>
-              <Form.Label className="account-edit-label">Username</Form.Label>
-            </Col>
-            <Col md={6}>
-              <Form.Group controlId="username">
-                <Form.Control
-                  type="text"
-                  placeholder="Enter username"
-                  value={username}
-                  onChange={handleUsernameChange}
-                />
-              </Form.Group>
-            </Col>
+            <InputGroup className="mb-3">
+              <InputGroup.Text id="basic-addon3">
+                Username
+              </InputGroup.Text>
+              <Form.Control type="text"
+                placeholder="Enter username"
+                value={username}
+                onChange={handleUsernameChange} />
+            </InputGroup>
           </Row>
           <Row>
-            <Col md={2}>
-              <Form.Label className="account-edit-label">Email</Form.Label>
-            </Col>
-            <Col md={6} className="mb-3">
-              <Form.Group>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter email"
-                  value={email}
-                  onChange={handleEmailChange}
-                />
-              </Form.Group>
-            </Col>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>
+                Email
+              </InputGroup.Text>
+              <Form.Control type="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={handleEmailChange} />
+            </InputGroup>
           </Row>
           <Row>
-            <Col md={2}>
-              <Form.Label className="account-edit-label">
+            <InputGroup className="mb-3">
+              <InputGroup.Text>
                 Số điện thoại
-              </Form.Label>
-            </Col>
-            <Col md={6} className="mb-3">
-              <Form.Group>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter phoneNumber"
-                  value={phoneNumber}
-                  onChange={handlePhoneNumberChange}
-                  disabled
-                />
-              </Form.Group>
-            </Col>
+              </InputGroup.Text>
+              <Form.Control type="text"
+                placeholder="Enter phoneNumber"
+                value={phoneNumber}
+                onChange={handlePhoneNumberChange}
+                disabled
+              />
+            </InputGroup>
             <Row>
-              <Col md={2}>
-                <Form.Label className="account-edit-label">Avatar</Form.Label>
-              </Col>
-              <Col md={6} className="mb-3">
+              <Form.Group controlId="custom-file" className="mb-3">
+              <InputGroup.Text>
+                Avatar
+              </InputGroup.Text>
                 <Form.Group>
                   <Image
                     src={imagePreviewUrl || image}
@@ -164,7 +151,7 @@ const ProfileDetail = ({ user, setUser }) => {
                     </Form.Text>
                   </div>
                 </Form.Group>
-              </Col>
+              </Form.Group>
             </Row>
           </Row>
           <Button type="submit">Update</Button>
