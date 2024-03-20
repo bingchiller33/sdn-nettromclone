@@ -23,7 +23,7 @@ const CommentDetail = ({ setActiveTab }) => {
       setTotalPages(response.totalPages)
       console.log(comments)
     }
-    getCommentsByUserId(user._id, currentPage)
+    getCommentsByUserId(user?._id, currentPage)
   }, [user, currentPage, commentCount])
 
   const handlePageChange = (pageNumber) => {
@@ -54,7 +54,7 @@ const CommentDetail = ({ setActiveTab }) => {
                   <img src={comment.storyId?.image} alt={comment.storyId?.name} style={{ width: '80px', height: 'auto' }} />
                 </td>
                 <td>
-                  <Link to={`/get_story/${comment.storyId?._id}#${comment?._id}`}>
+                  <Link to={`/get_story/${comment?.storyId?._id}#${comment?._id}`}>
                     {comment.storyId?.name}
                   </Link>
                 </td>

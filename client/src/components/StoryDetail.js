@@ -273,7 +273,7 @@ const StoryDetail = () => {
                   <PersonFill size={24} />
                 </p>
                 <p className="story_detail_item m-0">
-                <strong>Tác giả:</strong> {story.uploader?.userName}</p>
+                  <strong>Tác giả:</strong> {story.uploader?.userName}</p>
 
               </li>
               <li className="d-flex ">
@@ -325,10 +325,7 @@ const StoryDetail = () => {
                       : "Theo dõi"}
                   </Button>
                 )}
-                <p className="story_detail_item m-0 text-blue">
-                  {SplitNumber(followQuantity.length)}
-                </p>
-                <p className="story_detail_item m-0">Người Đã Theo Dõi</p>
+                <p className="story_detail_item m-0">{SplitNumber(followQuantity.length)} người Đã Theo Dõi</p>
               </li>
               <li className="d-flex ">
                 <p>

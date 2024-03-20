@@ -48,7 +48,7 @@ export default function Comment({
     const fd = new FormData(e.target);
     const comment = Object.fromEntries(fd.entries());
     comment.storyId = sid;
-
+    if(!comment.comment) return
     try {
       const token = localStorage.getItem("token");
       const user = await fetchUserByToken(token);
