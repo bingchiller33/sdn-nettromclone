@@ -4,18 +4,17 @@ import { Chat } from "react-bootstrap-icons";
 import { toast } from "react-toastify"
 import { fetchUserByToken } from '../api/user.js'
 
-export default function Comment({ sid }) {
+export default function Comment({ sid, currentPage, setCurrentPage, highlightCommentId }) {
+
   const [comments, setComments] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [commentCount, setCommentCount] = useState(0); // Changed this for clarity
 
-  const limit = 5;
 
   useEffect(() => {
     async function getCommentsByStoryId(id, page) {
       try {
-        const response = await fetch(`http://localhost:9999/comment/story/${id}?page=${page}&limit=${limit}`);
+        const response = await fetch(`http://localhost:9999/comment/story/${id}?page=${page}&limit=5`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -28,6 +27,7 @@ export default function Comment({ sid }) {
     }
     getCommentsByStoryId(sid, currentPage);
   }, [sid, currentPage, commentCount]);
+
 
   async function commentHandler(e) {
     e.preventDefault();
@@ -76,7 +76,16 @@ export default function Comment({ sid }) {
     if (pageNumber !== currentPage) {
       setCurrentPage(pageNumber);
     }
+  }
+
+  const handleItemClick = (clickedComment) => {
+    setComments(comments.map(comment => 
+      comment._id === clickedComment._id 
+        ? { ...comment, clicked: true } 
+        : comment
+    ));
   };
+  
 
   return (
     <Container fluid className="mb-5">
@@ -96,7 +105,9 @@ export default function Comment({ sid }) {
       </Form>
       <ListGroup>
         {comments.map((comment, index) => (
-          <ListGroup.Item key={index}>
+          <ListGroup.Item key={index} style={comment._id === highlightCommentId ? { backgroundColor: comment.clicked ? 'transparent' : 'aqua' } : {}}
+            onClick={() => handleItemClick(comment)}
+          >
             <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '20px' }}>
               <Image src={comment.userId.img} style={{ height: '30px', width: '30px', objectFit: 'cover' }} roundedCircle />
               <div>

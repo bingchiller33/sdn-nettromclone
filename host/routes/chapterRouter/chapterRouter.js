@@ -4,7 +4,11 @@ import authenticate from "../../middleware/authenticate.js";
 
 const chapterRouter = express.Router();
 
-chapterRouter.get("/:sid/story", chapterController.getChapterByStoryId);
+chapterRouter.get(
+  "/:sid/story",
+  authenticate,
+  chapterController.getChapterByStoryId
+);
 chapterRouter.put(
   "/:cid/update",
   authenticate,

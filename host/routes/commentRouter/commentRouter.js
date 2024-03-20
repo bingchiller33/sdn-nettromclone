@@ -1,5 +1,7 @@
 import express from 'express'
+import mongoose from 'mongoose'
 import { commentController } from '../../controllers/index.js'
+import Comment from '../../models/Comments.js'
 
 const commentRouter = express.Router()
 
@@ -136,5 +138,53 @@ commentRouter.route('/:id').delete(commentController.deleteCommentById).put(comm
  *         description: New comment created successfully.
  */
 commentRouter.route('/').get(commentController.getAllComments).post(commentController.createComment)
+
+commentRouter.route('/list/:id').get(async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const page = req.query.page * 1 || 1
+    const limit = req.query.limit * 1 || 5
+    const skip = (page - 1) * limit
+
+    const listComments = await Comment.find({ userId }).populate({
+      path: 'storyId',
+      select: 'name image'
+    }).skip(skip).limit(limit).sort({ createdAt: -1 })
+
+    const total = await Comment.countDocuments({ userId })
+
+    res.send({
+      comments: listComments,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page,
+      totalComments: total
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+
+commentRouter.route('/getPage/:id').get(async (req, res, next) => {
+  try {
+    const commentId = req.params.id;
+    const limit = parseInt(req.query.limit, 10) || 5;
+    const comment = await Comment.findById(commentId);
+    if (!comment) {
+      return res.status(404).send({ message: "Comment not found." });
+    }
+    const olderCommentsCount = await Comment.countDocuments()
+      .where('userId').equals(comment.userId)
+      .where('createdAt').gt(comment.createdAt)
+
+    console.log(olderCommentsCount)
+    const pageNumber = Math.floor(olderCommentsCount / limit) + 1;
+
+    res.send({
+      page: pageNumber
+    });
+  } catch (error) {
+    next(error)
+  }
+})
 
 export default commentRouter
