@@ -110,7 +110,7 @@ const StoryListAdmin = () => {
                 </Link>
               </td>
               <td
-                style={{ color: story.containsProfanity ? "red" : "green" }}
+                style={{ color: story.containsProfanity ? "red" : "green" , cursor: "pointer", fontWeight: "bold" }}  
                 onClick={() => handleShowModal(story)}
               >
                 {story.containsProfanity

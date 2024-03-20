@@ -1,12 +1,14 @@
 import createHttpError from "http-errors";
 import { storyDAO } from "../../repositories/index.js";
 import Filter from "bad-words";
+import leoProfanity from 'leo-profanity';
 
 const filter = new Filter();
+leoProfanity.loadDictionary('vi');
 
 const getProfaneWords = (text) => {
   const words = text.split(" ");
-  return words.filter((word) => filter.isProfane(word));
+  return words.filter((word) => filter.isProfane(word) || leoProfanity.check(word));
 };
 
 const getStoriesByStatus = async (req, res, next) => {
@@ -16,7 +18,7 @@ const getStoriesByStatus = async (req, res, next) => {
 
     const storiesWithProfanityCheck = stories.map((story) => ({
       ...story.toObject(),
-      containsProfanity: filter.isProfane(story.name),
+      containsProfanity: filter.isProfane(story.name) || leoProfanity.check(story.name),
       profaneWords: getProfaneWords(story.name),
     }));
 

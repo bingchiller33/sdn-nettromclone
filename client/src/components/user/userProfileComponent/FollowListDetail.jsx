@@ -83,12 +83,12 @@ const FollowListDetail = ({ setActiveTab }) => {
                 return (
                   <tr key={story._id}>
                     <td>
-                      <Link className="image" to={`/story/${story._id}`}>
-                        {/* <Image src={story.storyId.image} /> */}
+                      <Link className="image" to={`/get_story/${story.storyId._id}`}>
+                        <Image src={story.storyId.image} />
                       </Link>
                     </td>
                     <td>
-                      <Link className="comic-name" to={`/story/${story._id}`}>
+                      <Link className="comic-name" to={`/get_story/${story.storyId._id}`}>
                         {story.storyId.name}
                       </Link>
                       <div className="follow-action">
