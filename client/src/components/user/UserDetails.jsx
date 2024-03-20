@@ -144,7 +144,7 @@ const UserDetails = () => {
           {activeTab === 2 && <FollowListDetail />}
           {activeTab === 3 && <CommentDetail />}
           {activeTab === 4 && <ListSotry />}
-        </Col>
+        </Col>   
       </Row>
     </Container>
   );

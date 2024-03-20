@@ -55,16 +55,6 @@ const FollowListDetail = ({ setActiveTab }) => {
     <React.Fragment>
       <div className="position-relative">
         <h2 className="posttitle">Truyện theo dõi</h2>
-        <Link
-          className="link"
-          to=""
-          onClick={(e) => {
-            e.preventDefault();
-            setActiveTab(2);
-          }}
-        >
-          Xem tất cả
-        </Link>
       </div>
       <section className="user-table clearfix">
         <div className="alert alert-success">TRUYỆN ĐỌC XONG RA ĐÂY</div>

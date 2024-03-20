@@ -6,6 +6,8 @@ import axios from "axios";
 
 const StoryListAdmin = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showProfanityDetailModal, setShowProfanityDetailModal] =
+    useState(false);
   const [currentStory, setCurrentStory] = useState(null);
   const [stories, setStories] = useState([]);
   const [filter, setFilter] = useState("inactive");
@@ -19,7 +21,7 @@ const StoryListAdmin = () => {
   };
   useEffect(() => {
     const fetchStories = async () => {
-      const url = `${BASE_URL}/story/activate?status=${filter}&search=${searchQuery}`;
+      const url = `${BASE_URL}/story/get_stories_by_status?status=${filter}&search=${searchQuery}`;
       const res = await axios.get(url, config);
       console.log(res.data);
       setStories(res.data);
@@ -43,6 +45,14 @@ const StoryListAdmin = () => {
   const handleCloseModal = () => {
     setCurrentStory(null);
     setShowModal(false);
+  };
+
+  const handleOpenDetailModal = () => {
+    setShowProfanityDetailModal(true);
+  };
+
+  const handleCloseDetailModal = () => {
+    setShowProfanityDetailModal(false);
   };
 
   return (
@@ -110,7 +120,11 @@ const StoryListAdmin = () => {
                 </Link>
               </td>
               <td
-                style={{ color: story.containsProfanity ? "red" : "green" , cursor: "pointer", fontWeight: "bold" }}  
+                style={{
+                  color: story.containsProfanity ? "red" : "green",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                }}
                 onClick={() => handleShowModal(story)}
               >
                 {story.containsProfanity
@@ -131,7 +145,42 @@ const StoryListAdmin = () => {
             : "No profanity in this story."}
         </Modal.Body>
         <Modal.Footer>
+          {currentStory && currentStory.containsProfanity && (
+            <Button onClick={handleOpenDetailModal}>Show More Details</Button>
+          )}
           <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={showProfanityDetailModal}
+        onHide={handleCloseDetailModal}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Profanity Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {currentStory && (
+            <>
+              <h5>Profanity in Name:</h5>
+              <p>{currentStory.profanityDetails.inName.join(", ")}</p>
+              <h5>Profanity in Chapters:</h5>
+              {currentStory.profanityDetails.inChapters.map(
+                (chapter, index) => (
+                  <div key={index}>
+                    {console.log(chapter)}
+                    <h6>Chapter {chapter.chapterNo}:</h6>
+                    <p>{chapter.profaneWords.join(", ")}</p>
+                  </div>
+                )
+              )}
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseDetailModal}>
             Close
           </Button>
         </Modal.Footer>
