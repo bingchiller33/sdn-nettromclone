@@ -170,6 +170,7 @@ storyRouter.get("/:id/active", authenticate, storyController.activeStory);
  *         description: An error occurred while trying to get the follow list
  */
 storyRouter.get("/:id/finished", authenticate, storyController.finished);
+storyRouter.get("/search/:search", storyController.searchStory);
 storyRouter.get(
   "/content/:storyId/:chapterNo",
   storyController.findHistoryStory
@@ -257,7 +258,11 @@ storyRouter.get("/updated", storyController.getStoryUpdated);
  *           items:
  *             type: string
  */
-storyRouter.get("/get_stories_by_status", authenticate, storyController.getStoriesByStatus);
+storyRouter.get(
+  "/get_stories_by_status",
+  authenticate,
+  storyController.getStoriesByStatus
+);
 
 storyRouter.post(
   "/upload",

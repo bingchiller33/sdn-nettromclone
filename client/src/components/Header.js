@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Form,
   Container,
@@ -22,13 +22,13 @@ import { useDispatch, useSelector } from "react-redux";
 const Header = () => {
   const navigate = useNavigate("");
   const dispatch = useDispatch();
+  const componentRef = useRef(null);
   const [stories, setStories] = useState([]);
   const { toggleTheme, theme } = useContext(ThemeContext);
   const { filterCat } = useSelector((state) => state.listCategory);
   const [categories, setCategories] = useState([]);
-  const [SearchStory, setSearchStory] = useState("");
+  const [searchStory, setSearchStory] = useState("");
   const [user, setUser] = useState(null);
-  const [chapteres, setChapteres] = useState([]);
   const jwt = localStorage.getItem("token");
   const [activeKey, setActiveKey] = useState("/");
   const { user: contextUser, setUser: setContextUser } =
@@ -47,23 +47,12 @@ const Header = () => {
       .then((res) => setCategories(res.data));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:9999/chapter")
-      .then((res) => res.json())
-      .then((data) => setChapteres(data));
-  }, []);
-  useEffect(() => {
-    fetch(`${BASE_URL}/story/get_stories`)
-      .then((res) => res.json())
-      .then((data) =>
-        setStories(
-          data.filter((d) =>
-            SearchStory.length > 0
-              ? d.name.toUpperCase().startsWith(SearchStory.toUpperCase())
-              : ""
-          )
-        )
-      );
-  }, [SearchStory]);
+    if (searchStory.length > 0)
+      axios
+        .get(`${BASE_URL}/story/search/${searchStory}`)
+        .then((res) => setStories(res.data))
+        .catch((err) => console.log(err));
+  }, [searchStory]);
   useEffect(() => {
     if (jwt) {
       axios
@@ -92,6 +81,22 @@ const Header = () => {
   const handleNavHome = () => {
     dispatch(setFilterCate(""));
   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        componentRef.current &&
+        !componentRef.current.contains(event.target)
+      ) {
+        setSearchStory("");
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
   return (
     <div>
       <Container>
@@ -117,95 +122,86 @@ const Header = () => {
                 placeholder="Tìm kiếm truyện"
                 className="me-2 square-input placeholder-color"
                 aria-label="Search"
-                value={SearchStory}
+                value={searchStory}
                 onChange={(e) => setSearchStory(e.target.value)}
               />
             </Form.Group>
             <ul
+              ref={componentRef}
               style={{ zIndex: 100000 }}
               className={`list-unstyled m-0 p-0 position-absolute border form-control ${
-                stories.length > 0 ? "" : "d-none"
-              } ${SearchStory.length >= 1 ? "" : "d-none"}`}
+                stories.length === 0 && "d-none"
+              } ${searchStory.length === 0 && "d-none"}`}
             >
-              {stories.map((story, index) =>
-                index < 5 ? (
-                  <li className="px-3" key={story.id}>
-                    <Row key={story.id} className={""}>
-                      <Col xs={12}>
-                        <Row
-                          className={`pt-1 pb-1 ${
-                            index < stories.length - 1 ? "border-bottom" : ""
-                          }`}
-                        >
-                          <Col
-                            xs={4}
-                            className="top_container_img"
-                            onClick={(e) => handleOnclickTop(e, story._id)}
+              {stories.map(
+                (story, index) =>
+                  index < 5 && (
+                    <li className="px-3" key={story._id}>
+                      <Row key={story._id} className={""}>
+                        <Col xs={12}>
+                          <Row
+                            className={`pt-1 pb-1 ${
+                              index < stories.length - 1 && "border-bottom"
+                            }`}
                           >
-                            <img
-                              className="top_img_item"
-                              src={story.image}
-                              alt={story.name}
-                            ></img>
-                          </Col>
-                          <Col xs={8}>
-                            <ul
-                              className="top_container_detail p-0 m-0"
-                              id="collasible-nav-dropdown"
+                            <Col
+                              xs={4}
+                              className="top_container_img"
+                              onClick={(e) => handleOnclickTop(e, story._id)}
                             >
-                              <li
-                                onClick={(e) => handleOnclickTop(e, story._id)}
-                                className="top_name_item pt-1 fw-bold"
+                              <img
+                                className="top_img_item"
+                                src={story.image}
+                                alt={story.name}
+                              ></img>
+                            </Col>
+                            <Col xs={8}>
+                              <ul
+                                className="top_container_detail p-0 m-0"
+                                id="collasible-nav-dropdown"
                               >
-                                {story.name}
-                              </li>
-                              <li>
-                                <Row>
-                                  <Col xs={7}>
-                                    <p className="m-0 top_chapter_item">
-                                      Chương {chapteres.length}
-                                    </p>
-                                  </Col>
-                                  <Col xs={5}>
-                                    <p className="m-0 top_view_item d-flex">
-                                      <span className="m-0 me-1">
-                                        <EyeFill />
-                                      </span>
-                                      <span className="m-0">{story.view}</span>
-                                    </p>
-                                  </Col>
-                                </Row>
-                              </li>
-                              <li className="top_name_item fw-bold text-info">
-                                {story.author}
-                              </li>
-                              <li className="top_name_item">
-                                {categories.map((category) => {
-                                  return story.categoryId.map((s, i) => {
-                                    if (
-                                      category.id === s &&
-                                      i < story.categoryId.length - 1
-                                    ) {
-                                      return category.name + ", ";
-                                    } else if (
-                                      category.id === s &&
-                                      i < story.categoryId.length
-                                    ) {
-                                      return category.name;
-                                    }
-                                    return false;
-                                  });
-                                })}
-                              </li>
-                            </ul>
-                          </Col>
-                        </Row>
-                      </Col>
-                    </Row>
-                  </li>
-                ) : (
-                  ""
-                )
+                                <li
+                                  onClick={(e) =>
+                                    handleOnclickTop(e, story._id)
+                                  }
+                                  className="top_name_item pt-1 fw-bold"
+                                >
+                                  {story.name}
+                                </li>
+                                <li>
+                                  <Row>
+                                    <Col xs={7}>
+                                      <p className="m-0 top_chapter_item">
+                                        Chương {story.chapters}
+                                      </p>
+                                    </Col>
+                                    <Col xs={5}>
+                                      <p className="m-0 top_view_item d-flex">
+                                        <span className="m-0 me-1">
+                                          <EyeFill />
+                                        </span>
+                                        <span className="m-0">
+                                          {story.viewCount}
+                                        </span>
+                                      </p>
+                                    </Col>
+                                  </Row>
+                                </li>
+                                <li className="top_name_item fw-bold text-info">
+                                  {story.uploader.userName}
+                                </li>
+                                <li className="top_name_item">
+                                  {story?.categories
+                                    ?.map((c) => c.name)
+                                    .join(", ")}
+                                </li>
+                              </ul>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Row>
+                    </li>
+                  )
               )}
             </ul>
           </Col>

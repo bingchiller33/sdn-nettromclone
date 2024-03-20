@@ -29,6 +29,7 @@ import Rate from "./Rate";
 import { fetchStoryById } from '../api/story.js'
 import { fetchRateInfo } from '../api/rate.js'
 import { fetchPageByCommentId } from '../api/comment.js'
+import { formatDateAndTime } from '../util.js'
 
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
@@ -236,7 +237,7 @@ const StoryDetail = () => {
       <Col xs={12} className="text-center">
         <h3>{story.name}</h3>
         <p className="fst-italic fw-normal text-muted fs-14">
-          [Cập nhật lúc {time(story.updatedAt)}]
+          [Cập nhật lúc {formatDateAndTime(story.updatedAt)}]
         </p>
       </Col>
       <Col xs={12}>
@@ -255,7 +256,7 @@ const StoryDetail = () => {
                   <PersonFill size={28} />
                 </p>
                 <p className="story_detail_item m-0 item_primary">Tác giả:</p>
-                <p className="story_detail_item m-0">
+                <p className="story_detail_item m-0 ps-0">
                   {story.uploader?.userName}
                 </p>
               </li>
@@ -274,6 +275,8 @@ const StoryDetail = () => {
                 </p>
                 <p className="story_detail_item m-0 item_primary">Thể loại:</p>
                 <p className="story_detail_item m-0">
+                  {console.log(listCategories)}
+                  {console.log(story)}
                   {category(listCategories, story)}
                 </p>
               </li>
@@ -290,7 +293,8 @@ const StoryDetail = () => {
                 <p className="story_detail_item m-0 ps-0 text-primary">
                   {/* {story.name} */}
                   <small className="story_detail_item m-0 ps-0">
-                    Xếp hạng: {rateInfo.average}/5 sao với {rateInfo.count} Lượt
+                    Xếp hạng: {!isNaN(rateInfo.average) ? rateInfo.average : 0}
+                    /5 sao với {rateInfo.count} Lượt
                     đánh giá.
                   </small>
                 </p>
