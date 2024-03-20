@@ -78,7 +78,7 @@ const StoryListAdmin = () => {
           fontWeight: "bold",
         }}
       >
-        QUẢN LÝ TRUYỆN{" "}
+        QUẢN LÝ TRUYỆN
       </Card.Header>
       <Card.Body>
         <Form inline className="justify-content-end">
