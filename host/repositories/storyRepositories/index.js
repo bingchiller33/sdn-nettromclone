@@ -19,6 +19,7 @@ import getFollowByStory from "./getFollowByStory.js";
 import changeStoryStatus from "./changeStoryStatus.js";
 import getStoriesByStatus from "./getStoriesByStatus.js";
 import getStoryUpdated from "./getStoryUpdated.js";
+import searchStory from "./searchStory.js";
 //
 export default {
   getStoryById,
@@ -42,4 +43,5 @@ export default {
   changeStoryStatus,
   getStoriesByStatus,
   getStoryUpdated,
+  searchStory,
 };
