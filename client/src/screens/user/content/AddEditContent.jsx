@@ -55,25 +55,38 @@ const AddEditContent = () => {
       .catch((error) => {
         console.error("Error updating content:", error);
         setLoading(false);
-        toast.error("Đã sảy ra lỗi trong quá trình cập nhật!.");
+        toast.error("Đã xảy ra lỗi trong quá trình cập nhật!.");
       });
 
     setValue("");
   };
 
-  const handleClearAll = () => {
+  const handleDelete = () => {
+    if (editIndex === null) {
+      toast.warn("Vui lòng chọn một đoạn văn để xóa.");
+      return;
+    }
+
     setLoading(true);
+    let updatedParagraphs = [
+      ...contentParagraphs.slice(0, editIndex),
+      ...contentParagraphs.slice(editIndex + 1),
+    ];
+
     axios
-      .put(`${BASE_URL}/chapterContent/${cid}`, { paragraph: [] })
+      .put(`${BASE_URL}/chapterContent/${cid}`, {
+        paragraph: updatedParagraphs,
+      })
       .then(() => {
-        setContentParagraphs([]);
+        setContentParagraphs(updatedParagraphs);
         setLoading(false);
-        toast.success("Nội dung truyện đã được xóa thành công!");
+        setEditIndex(null);
+        toast.success("Đoạn văn đã được xóa thành công!");
       })
       .catch((error) => {
-        console.error("Error clearing content:", error);
+        console.error("Error deleting content:", error);
         setLoading(false);
-        toast.error("Đã sảy ra lỗi trong quá trình xóa!.");
+        toast.error("Đã xảy ra lỗi trong quá trình xóa!.");
       });
   };
 
@@ -114,7 +127,7 @@ const AddEditContent = () => {
                   onChange={handleOnChangeValue}
                   value={value}
                   placeholder="Nhập nội dung của bạn ở đây..."
-                  style={{ height: "400px", resize: "none" }}
+                  style={{ height: "250px", resize: "none" }}
                 />
               </Form.Group>
               <div className="d-flex justify-content-between">
@@ -123,15 +136,17 @@ const AddEditContent = () => {
                   disabled={value === "" || loading}
                   onClick={handleAddOrUpdate}
                 >
-                  {editIndex !== null ? "Cập nhật" : "Tạo"}
+                  {editIndex !== null ? "Cập nhật" : "Thêm mới"}
                 </Button>
-                <Button
-                  variant="danger"
-                  disabled={loading}
-                  onClick={handleClearAll}
-                >
-                  Xóa hết
-                </Button>
+                {editIndex !== null && (
+                  <Button
+                    variant="danger"
+                    disabled={loading}
+                    onClick={handleDelete}
+                  >
+                    Xóa
+                  </Button>
+                )}
               </div>
             </Form>
           </Col>
