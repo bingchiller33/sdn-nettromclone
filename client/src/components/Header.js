@@ -256,10 +256,16 @@ const Header = () => {
                       id="basic-nav-dropdown"
                     >
                       <NavDropdown.Item disabled>
-                        Role:
-                        <span className="fw-bold text-danger">
+                        <span
+                          className="fw-bold"
+                          style={{
+                            color:
+                              user &&
+                              { 1: "black", 2: "orange", 3: "red" }[user.role],
+                          }}
+                        >
                           {user &&
-                            { 1: "User", 2: "Author", 3: "Admin" }[user.role]}
+                            { 1: "User", 2: "Uploader", 3: "Admin" }[user.role]}
                         </span>
                       </NavDropdown.Item>
                       <NavDropdown.Divider />
@@ -273,9 +279,11 @@ const Header = () => {
                       <NavDropdown.Item as={Link} to="/profile">
                         Trang cá nhân
                       </NavDropdown.Item>
-                      <NavDropdown.Item as={Link} to="/author/addstory">
-                        Tạo truyện mới
-                      </NavDropdown.Item>
+                      {user.role !== 3 && (
+                        <NavDropdown.Item as={Link} to="/author/addstory">
+                          Tạo truyện mới
+                        </NavDropdown.Item>
+                      )}
                       {user.role === 2 ? (
                         <NavDropdown.Item as={Link} to="/author/mystory">
                           Truyện của tôi
