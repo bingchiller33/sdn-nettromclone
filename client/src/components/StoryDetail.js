@@ -26,7 +26,7 @@ import ListChapter from "./common/listChapter/ListChapter";
 import { fetchCategorySuccess } from "./common/data/dataCategory/dataSlice";
 import Comment from "./Comment";
 import Rate from "./Rate";
-import { fetchStoryById } from '../api/story.js'
+import { fetchStoryById, fetchCategoriesByStoryId } from '../api/story.js'
 import { fetchRateInfo } from '../api/rate.js'
 import { fetchPageByCommentId } from '../api/comment.js'
 import { formatDateAndTime } from '../util.js'
@@ -51,6 +51,7 @@ const StoryDetail = () => {
   const jwt = localStorage.getItem("token");
   const [update, setUpdate] = useState(false)
   const [currentPage, setCurrentPage] = useState(1);
+  const [storyCategories, setStoryCategories] = useState([])
 
   const config = {
     headers: {
@@ -145,6 +146,14 @@ const StoryDetail = () => {
 
     fetchPageNumber();
   }, [commentIdFromHash]);
+
+  useEffect(() => {
+    async function getCategoriesByStoryId(storyId) {
+      const categories = await fetchCategoriesByStoryId(storyId)
+      setStoryCategories(categories)
+    }
+    getCategoriesByStoryId(sid)
+  }, [sid])
 
 
   const readFromStart = () => {
@@ -274,10 +283,8 @@ const StoryDetail = () => {
                   <RssFill size={24} />
                 </p>
                 <p className="story_detail_item m-0 item_primary">Thể loại:</p>
-                <p className="story_detail_item m-0">
-                  {console.log(listCategories)}
-                  {console.log(story)}
-                  {category(listCategories, story)}
+                <p className="story_detail_item m-0 ps-0">
+                  {storyCategories.map(link => link?.categoryId.name).join(', ')}
                 </p>
               </li>
               <li className="d-flex ">
