@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Button, Col, Row } from "react-bootstrap";
 import {
   ExclamationCircleFill,
@@ -28,10 +28,14 @@ import Comment from "./Comment";
 import Rate from "./Rate";
 import { fetchStoryById } from '../api/story.js'
 import { fetchRateInfo } from '../api/rate.js'
+import { fetchPageByCommentId } from '../api/comment.js'
 
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
 const StoryDetail = () => {
+  const location = useLocation()
+  const commentIdFromHash = location.hash ? location.hash.slice(1) : null
+
   const { sid } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate("");
@@ -45,6 +49,8 @@ const StoryDetail = () => {
   const { user, setUser } = useContext(UserContext);
   const jwt = localStorage.getItem("token");
   const [update, setUpdate] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1);
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -121,6 +127,24 @@ const StoryDetail = () => {
 
     fetchStoryDetails();
   }, [sid]);
+
+  useEffect(() => {
+    const fetchPageNumber = async () => {
+      if (commentIdFromHash) {
+        try {
+          const response = await fetchPageByCommentId(commentIdFromHash);
+          if (response.page) {
+            setCurrentPage(response.page);
+          }
+        } catch (error) {
+          console.error('Error fetching page number:', error);
+        }
+      }
+    };
+
+    fetchPageNumber();
+  }, [commentIdFromHash]);
+
 
   const readFromStart = () => {
     const firstChapter = chapteres.reduce((prev, current) =>
@@ -203,7 +227,7 @@ const StoryDetail = () => {
       }
     }
   };
-  function handleUpdate(){
+  function handleUpdate() {
     setUpdate(!update)
   }
 
@@ -220,7 +244,7 @@ const StoryDetail = () => {
           <Col xs={4} className="d-flex justify-content-end">
             <img
               className="img_detail border border-dark"
-              src={story.image}
+              src={story?.image}
               alt={story.name}
             />
           </Col>
@@ -332,7 +356,7 @@ const StoryDetail = () => {
           <Col xs={12}>
             {/* <FormComment sid={sid} /> */}
             {/* comment */}
-            <Comment sid={sid} />
+            <Comment sid={sid} currentPage={currentPage} setCurrentPage={setCurrentPage} highlightCommentId={commentIdFromHash} />
           </Col>
         </Row>
       </Col>

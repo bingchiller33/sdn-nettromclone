@@ -1,11 +1,35 @@
-import React from "react";
-import { Table } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { Pagination, Table } from "react-bootstrap";
 import "../UserDetails.css";
 import { Link } from "react-router-dom";
-
+import { fetchListCommentByUserId } from '../../../api/comment.js'
+import UserContext from "../../../contexts/UserContext.js";
+import { formatDate } from '../../../util.js'
 const CommentDetail = ({ setActiveTab }) => {
+  const { user } = useContext(UserContext)
+  const [comments, setComments] = useState([])
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
+  useEffect(() => {
+    async function getCommentsByUserId(userId, currentPage) {
+      const response = await fetchListCommentByUserId(userId, currentPage)
+      console.log(response)
+      setComments(response.comments)
+      setTotalPages(response.totalPages)
+      console.log(comments)
+    }
+    getCommentsByUserId(user._id, currentPage)
+  }, [user, currentPage, commentCount])
+
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber !== currentPage) {
+      setCurrentPage(pageNumber);
+    }
+  }
+
   return (
-    <React.Fragment>
+    <>
       <div className="position-relative">
         <h2 className="posttitle">Bình luận</h2>
         <Link className="link" onClick={() => setActiveTab(3)}>
@@ -13,48 +37,40 @@ const CommentDetail = ({ setActiveTab }) => {
         </Link>
       </div>
       <section className="user-table clearfix">
-        <Table responsive>
+        <Table responsive >
           <thead>
             <tr>
-              <th></th>
-              <th className="nowrap">Tên truyện</th>
-              <th className="nowrap">Thời gian</th>
+              <th className="nowrap" colSpan={2} style={{ textAlign: 'center' }}>Tên truyện</th>
               <th className="nowrap">Nội dung</th>
+              <th className="nowrap">Thời gian</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <a
-                  rel="nofollow"
-                  className="image"
-                >
-                  <img
-                    className="lazy"
-                    data-original="//st.nettruyenbb.com/data/comics/118/kanojo-mo-kanojo-6298.jpg"
-                    src="//st.nettruyenbb.com/data/comics/118/kanojo-mo-kanojo-6298.jpg"
-                  />
-                </a>
-              </td>
-              <td>
-                <a
-                  rel="nofollow"
-                  href="https://www.nettruyenbb.com/truyen-tranh/kanojo-mo-kanojo-280221"
-                >
-                  Kanojo mo Kanojo
-                </a>
-              </td>
-              <td className="nowrap">
-                <time className="time">15:14 02/02</time>
-              </td>
-              <td>
-                <div className="word-wrap"></div>
-              </td>
-            </tr>
+            {comments.map((comment, index) => (
+              <tr key={index}>
+                <td style={{ display: 'flex', justifyContent: 'center' }}>
+                  <img src={comment.storyId.image} alt={comment.storyId.name} style={{ width: '80px', height: 'auto' }} />
+                </td>
+                <td>
+                  <Link to={`/get_story/${comment.storyId._id}#${comment._id}`}>
+                    {comment.storyId.name}
+                  </Link>
+                </td>
+                <td>{comment.comment}</td>
+                <td className="nowrap">{formatDate(comment.createdAt)}</td>
+              </tr>
+            ))}
           </tbody>
         </Table>
+        <Pagination className="justify-content-center mt-2">
+          {[...Array(totalPages).keys()].map(num => (
+            <Pagination.Item key={num + 1} active={num + 1 === currentPage} onClick={() => handlePageChange(num + 1)}>
+              {num + 1}
+            </Pagination.Item>
+          ))}
+        </Pagination>
       </section>
-    </React.Fragment>
+    </>
   );
 };
 

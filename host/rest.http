@@ -51,7 +51,7 @@ Content-Type: application/json
 GET  http://localhost:9999/rate/general/65f857a07c3109c5da6304e8
 
 ###
-DELETE  http://localhost:9999/comment/65ed37f8313fc3a01fa281f0
+GET  http://localhost:9999/comment/getPage/65faaea6a9b2ad33377db795
 
 ###
 PUT  http://localhost:9999/comment/65ed6556d21a1d2d1b38cf03

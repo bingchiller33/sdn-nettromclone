@@ -25,7 +25,6 @@ export default function Rate({ sid, update }) {
       try {
         const user = await fetchUserByToken(token)
         const userId = user._id || undefined;
-        console.log(user)
         const response2 = await fetch(`http://localhost:9999/rate?userId=${userId}&storyId=${sid}`);
 
         if (!response2.ok) {
@@ -54,7 +53,6 @@ export default function Rate({ sid, update }) {
         return
       }
       const storyId = sid
-      console.log(userId, storyId, i + 1)
       async function createRate() {
         const response = await fetch('http://localhost:9999/rate', {
           method: 'POST',
@@ -68,7 +66,6 @@ export default function Rate({ sid, update }) {
           }
         })
         const resData = await response.json()
-        console.log(resData)
       }
       createRate()
       update()
