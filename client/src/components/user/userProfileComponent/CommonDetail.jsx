@@ -41,10 +41,10 @@ const CommonDetail = ({ user, setActiveTab }) => {
           </div>
         </Col>
         <Col xs={12}>
-          <FollowListDetail setActiveTab={setActiveTab} />
+          <FollowListDetail />
         </Col>
         <Col xs={12}>
-          <CommentDetail setActiveTab={setActiveTab} />
+          <CommentDetail />
         </Col>
       </Row>
     </div>
