@@ -13,6 +13,7 @@ import {
   commentRouter,
   chapterRouter,
   rateRouter,
+  ChapterContentRouter,
 } from "./routes/index.js";
 import http from "http";
 import { Server } from "socket.io";
@@ -60,7 +61,8 @@ app.use("/categories", categoriesRouter);
 app.use("/story_categories", storyCategoriesRouter);
 app.use("/comment", commentRouter);
 app.use("/chapter", chapterRouter);
-app.use('/rate', rateRouter)
+app.use("/rate", rateRouter);
+app.use("/chapterContent", ChapterContentRouter);
 
 // app.use("/products", productRouter);
 const port = process.env.PORT || 9999;

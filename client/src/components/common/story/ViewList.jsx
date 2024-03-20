@@ -51,32 +51,53 @@ const ViewList = () => {
   return (
     <Row>
       {listStory.map((story) => (
-        <Col key={story._id} xs={3} style={{ marginBottom: "20px" }}>
+        <Col key={story._id} xs={4} style={{ marginBottom: "20px" }}>
+          {" "}
           <Card
             className="card_slider"
-            style={{ height: "100%", display: "flex", flexDirection: "column" }}
+            style={{
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              border: "1px solid #ccc",
+              boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+              padding: "5px",
+            }}
           >
-            <Card.Body className="body_card_item" style={{ flexGrow: 1 }}>
+            <Card.Body
+              className="body_card_item"
+              style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
+            >
               <Link to={`/get_story/${story._id}`}>
                 <Card.Img
                   className="img_card_item border border-dark"
                   src={story.image}
                   alt={story.name}
-                  style={{ marginBottom: "15px" }}
+                  style={{
+                    marginBottom: "10px",
+                    alignSelf: "center",
+                    width: "100%",
+                    maxHeight: "95%",
+                    objectFit: "cover",
+                  }}
                 />
               </Link>
               <Card.Subtitle
                 className="name_card_item fs-6"
-                style={{ marginBottom: "10px" }}
+                style={{ marginBottom: "5px", textAlign: "center" }}
               >
                 {story.name}
               </Card.Subtitle>
-              <ul className="content_header m-0 p-0">
+              <ul
+                className="content_header m-0 p-0"
+                style={{ overflowY: "auto", maxHeight: "100px" }}
+              >
+                {" "}
                 {story.chapters?.map((chapter) => (
                   <li
                     key={chapter._id}
                     className="mx-0 lh-1"
-                    style={{ marginBottom: "10px" }}
+                    style={{ marginBottom: "5px" }}
                   >
                     <Link
                       to={`/get_story/${story._id}/chapter/${chapter.chapterNo}`}

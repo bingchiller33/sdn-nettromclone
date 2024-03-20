@@ -13,11 +13,13 @@ import topViewStories from "./topViewStories.js";
 import getStoryDetail from "./getStoryDetail.js";
 import getAllChapter from "./getAllChapter.js";
 import updateViewCount from "./updateViewCount.js";
-import getActivatedStories from './getActivatedStories.js'
-import getInactivatedStories from "./getInactivatedStories.js";
+// import getActivatedStories from './getActivatedStories.js'
+// import getInactivatedStories from "./getInactivatedStories.js";
 import getFollowByStory from "./getFollowByStory.js";
 import changeStoryStatus from "./changeStoryStatus.js";
-// 
+import getStoriesByStatus from "./getStoriesByStatus.js";
+import getStoryUpdated from "./getStoryUpdated.js";
+//
 export default {
   getStoryById,
   getStoriesByUser,
@@ -34,8 +36,10 @@ export default {
   getStoryDetail,
   getAllChapter,
   updateViewCount,
-  getActivatedStories,
-  getInactivatedStories,
+  // getActivatedStories,
+  // getInactivatedStories,
   getFollowByStory,
-  changeStoryStatus
+  changeStoryStatus,
+  getStoriesByStatus,
+  getStoryUpdated,
 };

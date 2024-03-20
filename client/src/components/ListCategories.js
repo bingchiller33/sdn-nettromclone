@@ -9,7 +9,7 @@ const ListCategories = () => {
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
   const { filterCat } = useSelector((state) => state.listCategory);
-  let lengthCat = Math.ceil(categories.length / 2);
+  const lengthCat = Math.ceil(categories.length / 3);
   let countCat = 0;
   useEffect(() => {
     axios
@@ -30,9 +30,8 @@ const ListCategories = () => {
           <Col xs={12} className={"d-flex"}>
             <div className="w-100">
               <div className="m-0 p-0 d-flex flex-row">
-                {Array.from({ length: lengthCat }, (_, i) => {
+                {Array.from({ length: 3 }, (_, i) => {
                   let index = countCat;
-                  countCat = 0;
                   return (
                     <div className={`d-flex flex-column`}>
                       {categories.map((category, j) => {

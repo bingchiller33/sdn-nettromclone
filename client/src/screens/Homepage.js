@@ -11,6 +11,10 @@ const Homepage = () => {
     toast.success("Đăng nhập thành công!");
     sessionStorage.removeItem("login_success");
   }
+  const hasChapterHistory =
+    localStorage.getItem("chapterHistory") &&
+    JSON.parse(localStorage.getItem("chapterHistory")).length > 0;
+
   return (
     <DefaultTemplate>
       <SliderComponent />
@@ -24,7 +28,7 @@ const Homepage = () => {
               <ViewList />
             </Col>
             <Col xs={4}>
-              <ViewHistoryStories />
+              {hasChapterHistory && <ViewHistoryStories />}
               <TopViewStories />
             </Col>
           </Row>

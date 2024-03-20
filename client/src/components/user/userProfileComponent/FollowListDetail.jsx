@@ -55,16 +55,6 @@ const FollowListDetail = ({ setActiveTab }) => {
     <React.Fragment>
       <div className="position-relative">
         <h2 className="posttitle">Truyện theo dõi</h2>
-        <Link
-          className="link"
-          to=""
-          onClick={(e) => {
-            e.preventDefault();
-            setActiveTab(2);
-          }}
-        >
-          Xem tất cả
-        </Link>
       </div>
       <section className="user-table clearfix">
         <div className="alert alert-success">TRUYỆN ĐỌC XONG RA ĐÂY</div>
@@ -83,12 +73,12 @@ const FollowListDetail = ({ setActiveTab }) => {
                 return (
                   <tr key={story._id}>
                     <td>
-                      <Link className="image" to={`/story/${story._id}`}>
-                        {/* <Image src={story.storyId.image} /> */}
+                      <Link className="image" to={`/get_story/${story.storyId._id}`}>
+                        <Image src={story.storyId.image} />
                       </Link>
                     </td>
                     <td>
-                      <Link className="comic-name" to={`/story/${story._id}`}>
+                      <Link className="comic-name" to={`/get_story/${story.storyId._id}`}>
                         {story.storyId.name}
                       </Link>
                       <div className="follow-action">

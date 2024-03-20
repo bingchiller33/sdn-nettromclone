@@ -9,10 +9,12 @@ import {
   ChevronDown,
   ChevronUp,
   InfoCircle,
+  Kanban,
   ListUl,
   Speedometer,
 } from "react-bootstrap-icons";
 import StoryListAdmin from "./adminComponents/StoryListAdmin";
+import CategoryManagement from "./adminComponents/CategoryManagement";
 
 const AdminDetails = () => {
   const { user, setUser } = useContext(UserContext);
@@ -70,7 +72,7 @@ const AdminDetails = () => {
                   onClick={() => setActiveTab(0)}
                 >
                   <a href="#">
-                    <Speedometer></Speedometer> Thông tin chung
+                    <Kanban></Kanban> Quản lý truyện
                   </a>
                 </li>
                 <li
@@ -80,7 +82,7 @@ const AdminDetails = () => {
                   onClick={() => setActiveTab(1)}
                 >
                   <a href="#">
-                    <InfoCircle></InfoCircle> Thông tin tài khoản
+                    <InfoCircle></InfoCircle> Quản lý thể loại
                   </a>
                 </li>
                 <li
@@ -113,26 +115,13 @@ const AdminDetails = () => {
                     <ListUl></ListUl> Truyện đã đăng
                   </a>
                 </li>
-                <li
-                  className={`hvr-sweep-to-right ${
-                    activeTab === 5 ? "active" : ""
-                  }`}
-                  onClick={() => {
-                    localStorage.removeItem("token");
-                    navigate("/");
-                  }}
-                >
-                  <a href="#">
-                    <BoxArrowLeft></BoxArrowLeft> Đăng xuất
-                  </a>
-                </li>
               </ul>
             </Nav>
           )}
         </Col>
         <Col md={9} sm={8}>
           {activeTab === 0 && <StoryListAdmin />}
-          {activeTab === 1}
+          {activeTab === 1 && <CategoryManagement />}
           {activeTab === 2}
           {activeTab === 3}
         </Col>

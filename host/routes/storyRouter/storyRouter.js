@@ -180,17 +180,84 @@ storyRouter.get(
 );
 storyRouter.get("/chapters/:storyId", storyController.getAllChapter);
 storyRouter.put("/update_view_count/:id", storyController.updateViewCount);
+storyRouter.get("/updated", storyController.getStoryUpdated);
 
-storyRouter.get(
-  "/activated",
-  authenticate,
-  storyController.getActivatedStories
-);
-storyRouter.get(
-  "/inactivated",
-  authenticate,
-  storyController.getInactivedStories
-);
+/**
+ * @swagger
+ * /story/get_stories_by_status:
+ *   get:
+ *     tags:
+ *       - Story
+ *     summary: Get stories by status
+ *     description: This can only be done by the logged in user.
+ *     operationId: getStoriesByStatus
+ *     security:
+ *       - BearerAuth: []   # use the security scheme named 'BearerAuth'
+ *     parameters:
+ *       - in: query
+ *         name: status
+ *         description: The status of the stories to retrieve.
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: search
+ *         description: The search term to filter stories.
+ *         required: false
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Story'
+ *       '400':
+ *         description: Invalid status value
+ *       '401':
+ *         description: User is not authenticated
+ *       '500':
+ *         description: An error occurred while trying to get the stories
+ * components:
+ *   schemas:
+ *     Story:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *         name:
+ *           type: string
+ *         containsProfanity:
+ *           type: boolean
+ *         profaneWords:
+ *           type: array
+ *           items:
+ *             type: string
+ *         profanityDetails:
+ *           type: object
+ *           properties:
+ *             inName:
+ *               type: array
+ *               items:
+ *                 type: string
+ *             inChapters:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/ProfaneChapter'
+ *     ProfaneChapter:
+ *       type: object
+ *       properties:
+ *         chapterNo:
+ *           type: integer
+ *         profaneWords:
+ *           type: array
+ *           items:
+ *             type: string
+ */
+storyRouter.get("/get_stories_by_status", authenticate, storyController.getStoriesByStatus);
 
 storyRouter.post(
   "/upload",
@@ -209,8 +276,8 @@ storyRouter.post(
   }
 );
 
-storyRouter.get(
-  "/story/:id/status",
+storyRouter.patch(
+  "/:id/status",
   authenticate,
   storyController.changeStoryStatus
 );

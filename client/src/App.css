@@ -21,7 +21,10 @@ html {
   color: #000;
   text-decoration: none;
 }
-
+.slick-track {
+  display: flex !important;
+  gap: 0.5rem;
+}
 .active-link {
   font-weight: bold;
   color: #000;

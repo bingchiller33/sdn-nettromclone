@@ -26,7 +26,6 @@ const ListChapter = () => {
   const chapter = useSelector((state) => state.listChapter.chapter);
   const story = useSelector((state) => state.listStory.story);
   const listContent = useSelector((state) => state.content.data);
-  // const [value, setValue] = useState("");
   let limit = 10;
   const jwt = localStorage.getItem("token");
   const config = {
@@ -54,8 +53,8 @@ const ListChapter = () => {
   // FetchData(sid, chapterId);
   const handleInputChange = (e) => {
     dispatch(getChapter({ ...chapter, name: e.target.value }));
-    // setValue(e.target.value);
   };
+  console.log(chapter);
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -65,19 +64,20 @@ const ListChapter = () => {
     dispatch(getChapter(chapter));
   };
   const handleSubmit = () => {
-    dispatch(getChapter({}));
+    console.log(chapter);
     axios
       .put(
         `${BASE_URL}/chapter/${chapter?._id}/update`,
         { chapter: chapter },
         config
       )
-      .then(() =>
+      .then(() => {
         axios
           .get(`${BASE_URL}/chapter/${sid}/story?limit=${limit}`, config)
           .then((res) => dispatch(fetchChapterSuccess(res.data)))
-          .catch((err) => console.log(err.message))
-      )
+          .catch((err) => console.log(err.message));
+        dispatch(getChapter({}));
+      })
       .catch((err) => console.log(err.message));
   };
   const handleCreateContetChapter = (chapter) => {
@@ -158,6 +158,7 @@ const ListChapter = () => {
                         onClick={() => handleNewName(c, c.name)}
                         className={`${
                           chapter?._id === c._id &&
+                          !c.isActive &&
                           user._id === story.uploader?._id &&
                           !c.active &&
                           "d-none"
@@ -167,9 +168,13 @@ const ListChapter = () => {
                             : ""
                         }`}
                       >
-                        {c.name?.length === 0 &&
-                        user._id === story.uploader?._id
-                          ? "+"
+                        {!c.isActive
+                          ? user._id === story.uploader?._id &&
+                            c.name?.length === 0
+                            ? "+"
+                            : c.name
+                          : c.name?.length === 0
+                          ? "..."
                           : c.name}
                       </td>
                       {chapter?._id === c._id &&
@@ -211,9 +216,17 @@ const ListChapter = () => {
                             ) : (
                               <Link
                                 onClick={() => handleCreateContetChapter(c)}
-                                to={`/author/mystory/listchapter/${sid}/content/${c._id}`}
+                                to={`${
+                                  !c.isActive
+                                    ? `/author/mystory/listchapter/${sid}/content/${c._id}`
+                                    : ""
+                                }`}
                               >
-                                <Pen color="black" className="pb-1" size={22} />
+                                <Pen
+                                  color={`${!c.isActive ? "black" : "grey"}`}
+                                  className="pb-1"
+                                  size={22}
+                                />
                               </Link>
                             )}
                           </td>

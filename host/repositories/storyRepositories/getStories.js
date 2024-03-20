@@ -8,8 +8,21 @@ const getStories = async ({ status, categoryId }) => {
       {
         $lookup: {
           from: "chapters",
-          localField: "_id",
-          foreignField: "storyId",
+          let: { storyId: "$_id" },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$$storyId", "$storyId"] },
+                    { $eq: ["$isActive", true] },
+                  ],
+                },
+              },
+            },
+            { $sort: { publishedDate: -1 } },
+            { $limit: 3 },
+          ],
           as: "chapters",
         },
       },
@@ -36,13 +49,13 @@ const getStories = async ({ status, categoryId }) => {
           chapterQtt: { $size: "$chapters" },
         },
       },
-      { $match: { isActive: true } },
       { $sort: { "chapters.publishedDate": -1 } },
-      {
-        $addFields: {
-          chapters: { $slice: ["$chapters", 3] },
-        },
-      },
+      { $sort: { updatedAt: -1 } },
+      // {
+      //   $addFields: {
+      //     chapters: { $slice: ["$chapters", 3] },
+      //   },
+      // },
     ];
     if (status !== undefined && status.length > 0) {
       pipeline[0].$match.status = status;

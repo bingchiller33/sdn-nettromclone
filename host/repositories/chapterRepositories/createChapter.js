@@ -2,19 +2,20 @@ import Chapter from "../../models/Chapter.js";
 
 export default async function createChapter({
   storyId,
-  chapterNo,
+  chapterNo = 1,
   isActive,
   name,
 }) {
   try {
-    const chapter = await Chapter.find({ storyId: storyId })
-      .sort({ createdAt: -1 })
-      .limit(1);
-    const { chapterNo: newChapterNo } = chapter[0] || {};
-    console.log((newChapterNo || chapterNo));
+    const lastChapter = await Chapter.findOne({ storyId: storyId }).sort({
+      chapterNo: -1,
+    });
+
+    const newChapterNo = lastChapter ? lastChapter.chapterNo + 1 : chapterNo;
+
     return await Chapter.create({
       storyId,
-      chapterNo: (newChapterNo || chapterNo) + 1,
+      chapterNo: newChapterNo,
       name,
       isActive,
     });

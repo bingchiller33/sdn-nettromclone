@@ -283,7 +283,7 @@ const StoryDetail = () => {
                 </p>
                 <p className="story_detail_item m-0 item_primary">Lượt xem:</p>
                 <p className="story_detail_item m-0 ps-1">
-                  {SplitNumber(parseInt(story.view))}
+                  {SplitNumber(parseInt(story.viewCount))}
                 </p>
               </li>
               <li className="d-flex ">
@@ -316,8 +316,7 @@ const StoryDetail = () => {
                   </Button>
                 )}
                 <p className="story_detail_item m-0 text-dark">
-                  {SplitNumber(followQuantity.length)
-                  }
+                  {SplitNumber(followQuantity.length)}
                 </p>
                 <p className="story_detail_item m-0">Người Đã Theo Dõi</p>
               </li>
@@ -349,7 +348,9 @@ const StoryDetail = () => {
             </Row>
           </Col>
           <Col xs={12}>
-            <Row>{/* <ListChapter storyId={sid} /> */}</Row>
+            <Row>
+              <ListChapter />
+            </Row>
           </Col>
         </Row>
         <Row>

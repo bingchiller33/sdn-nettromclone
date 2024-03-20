@@ -152,7 +152,7 @@ const Feedback = () => {
         className="bc_article d-flex flex-column overflow-hidden"
         style={{ height: "calc(100vh - 112px)" }}
       >
-        {/* <HeaderChat /> */}
+        <HeaderChat />
         <div className="bc_article-chat_view d-flex flex-column flx-1">
           <div
             className="bc_article-message_view flx-1 px-3"
