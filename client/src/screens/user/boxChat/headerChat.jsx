@@ -16,7 +16,7 @@ const HeaderChat = () => {
         <div className="hc_story-name">{story.name}</div>
         <div className="hc_story_detail d-flex flex-row gap-2">
           <span className="detail-time-created">
-            {getTime(story.updateDate)}
+            {getTime(story.updatedAt)}
           </span>
           <span className="detail-status">{story.status}</span>
         </div>

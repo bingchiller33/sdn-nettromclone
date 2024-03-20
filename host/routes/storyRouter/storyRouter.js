@@ -123,8 +123,7 @@ storyRouter.get("/follow_story/:storyId", storyController.getFollowByStory);
  *   get:
  *     tags:
  *       - Story
- *     summary: Get the list of stories the user is following
- *     description: This can only be done by the logged in user.
+ *     summary: Active story
  *     operationId: getFollowingStories
  *     security:
  *       - BearerAuth: []   # use the security scheme named 'BearerAuth'

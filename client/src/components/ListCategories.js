@@ -42,7 +42,7 @@ const ListCategories = () => {
                               onClick={(e) =>
                                 handleOnclickCategory(e, category._id)
                               }
-                              className={`px-3 pt-2 pb-2 border-bottom cursor-pointer custom-cursor name_chapter ${
+                              className={`px-3 pt-2 pb-2 border-bottom cursor-pointer custom-cursor name_chapter slider_list_item ${
                                 filterCat === category._id
                                   ? "fw-bold text-info"
                                   : ""
