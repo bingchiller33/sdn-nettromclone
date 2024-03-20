@@ -26,16 +26,16 @@ import ListChapter from "./common/listChapter/ListChapter";
 import { fetchCategorySuccess } from "./common/data/dataCategory/dataSlice";
 import Comment from "./Comment";
 import Rate from "./Rate";
-import { fetchStoryById, fetchCategoriesByStoryId } from '../api/story.js'
-import { fetchRateInfo } from '../api/rate.js'
-import { fetchPageByCommentId } from '../api/comment.js'
-import { formatDateAndTime } from '../util.js'
+import { fetchStoryById, fetchCategoriesByStoryId } from "../api/story.js";
+import { fetchRateInfo } from "../api/rate.js";
+import { fetchPageByCommentId } from "../api/comment.js";
+import { formatDateAndTime } from "../util.js";
 
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
 const StoryDetail = () => {
-  const location = useLocation()
-  const commentIdFromHash = location.hash ? location.hash.slice(1) : null
+  const location = useLocation();
+  const commentIdFromHash = location.hash ? location.hash.slice(1) : null;
 
   const { sid } = useParams();
   const dispatch = useDispatch();
@@ -49,9 +49,9 @@ const StoryDetail = () => {
   const listCategories = useSelector((state) => state.listCategory.data);
   const { user, setUser } = useContext(UserContext);
   const jwt = localStorage.getItem("token");
-  const [update, setUpdate] = useState(false)
+  const [update, setUpdate] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [storyCategories, setStoryCategories] = useState([])
+  const [storyCategories, setStoryCategories] = useState([]);
 
   const config = {
     headers: {
@@ -61,11 +61,11 @@ const StoryDetail = () => {
   };
   useEffect(() => {
     async function getRateInfo(storyId) {
-      const info = await fetchRateInfo(storyId)
-      setRateInfo(info)
+      const info = await fetchRateInfo(storyId);
+      setRateInfo(info);
     }
-    getRateInfo(sid)
-  }, [sid, update])
+    getRateInfo(sid);
+  }, [sid, update]);
 
   useEffect(() => {
     fetch("http://localhost:9999/categories/all_catergories")
@@ -139,7 +139,7 @@ const StoryDetail = () => {
             setCurrentPage(response.page);
           }
         } catch (error) {
-          console.error('Error fetching page number:', error);
+          console.error("Error fetching page number:", error);
         }
       }
     };
@@ -149,12 +149,11 @@ const StoryDetail = () => {
 
   useEffect(() => {
     async function getCategoriesByStoryId(storyId) {
-      const categories = await fetchCategoriesByStoryId(storyId)
-      setStoryCategories(categories)
+      const categories = await fetchCategoriesByStoryId(storyId);
+      setStoryCategories(categories);
     }
-    getCategoriesByStoryId(sid)
-  }, [sid])
-
+    getCategoriesByStoryId(sid);
+  }, [sid]);
 
   const readFromStart = () => {
     const firstChapter = chapteres.reduce((prev, current) =>
@@ -238,7 +237,7 @@ const StoryDetail = () => {
     }
   };
   function handleUpdate() {
-    setUpdate(!update)
+    setUpdate(!update);
   }
 
   return (
@@ -284,7 +283,9 @@ const StoryDetail = () => {
                 </p>
                 <p className="story_detail_item m-0 item_primary">Thể loại:</p>
                 <p className="story_detail_item m-0 ps-0">
-                  {storyCategories.map(link => link?.categoryId.name).join(', ')}
+                  {storyCategories
+                    .map((link) => link?.categoryId?.name)
+                    .join(", ")}
                 </p>
               </li>
               <li className="d-flex ">
@@ -301,8 +302,7 @@ const StoryDetail = () => {
                   {/* {story.name} */}
                   <small className="story_detail_item m-0 ps-0">
                     Xếp hạng: {!isNaN(rateInfo.average) ? rateInfo.average : 0}
-                    /5 sao với {rateInfo.count} Lượt
-                    đánh giá.
+                    /5 sao với {rateInfo.count} Lượt đánh giá.
                   </small>
                 </p>
               </li>
@@ -317,7 +317,7 @@ const StoryDetail = () => {
                   <Button
                     onClick={(e) => handleFollow(e)}
                     value={followStatus}
-                    className={`m-0 p-0 px-3 pt-1 pb-1 mb-2 btn-danger`}
+                    className={`m-0 p-0 px-3 pt-1 pb-1                                                                                                                                         mb-2 btn-danger`}
                   >
                     {typeof followStory !== "undefined"
                       ? Object.keys(followStory).length === 0
@@ -326,7 +326,7 @@ const StoryDetail = () => {
                       : "Theo dõi"}
                   </Button>
                 )}
-                <p className="story_detail_item m-0 text-dark">
+                <p className="story_detail_item m-0 text-blue">
                   {SplitNumber(followQuantity.length)}
                 </p>
                 <p className="story_detail_item m-0">Người Đã Theo Dõi</p>
@@ -368,7 +368,12 @@ const StoryDetail = () => {
           <Col xs={12}>
             {/* <FormComment sid={sid} /> */}
             {/* comment */}
-            <Comment sid={sid} currentPage={currentPage} setCurrentPage={setCurrentPage} highlightCommentId={commentIdFromHash} />
+            <Comment
+              sid={sid}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              highlightCommentId={commentIdFromHash}
+            />
           </Col>
         </Row>
       </Col>

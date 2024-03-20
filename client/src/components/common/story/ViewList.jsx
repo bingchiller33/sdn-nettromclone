@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,8 +7,10 @@ import CalTime from "../utilities/calTime";
 import axios from "axios";
 import { BASE_URL } from "../utilities/initials";
 import { setChapterNo } from "../data/dataChapter/dataSlice";
+import { ThemeContext } from "../../../contexts/ThemeContext";
 
 const ViewList = () => {
+  const { theme } = useContext(ThemeContext);
   const dispatch = useDispatch();
   const {
     data: listStory,
@@ -65,7 +67,7 @@ const ViewList = () => {
             }}
           >
             <Card.Body
-              className="body_card_item"
+              className={`body_card_item ${theme}`}
               style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
             >
               <Link to={`/get_story/${story._id}`}>
@@ -83,7 +85,7 @@ const ViewList = () => {
                 />
               </Link>
               <Card.Subtitle
-                className="name_card_item fs-6"
+                className={`name_card_item fs-6`}
                 style={{ marginBottom: "5px", textAlign: "center" }}
               >
                 {story.name}
@@ -96,12 +98,12 @@ const ViewList = () => {
                 {story.chapters?.map((chapter) => (
                   <li
                     key={chapter._id}
-                    className="mx-0 lh-1"
+                    className={`mx-0 lh-1`}
                     style={{ marginBottom: "5px" }}
                   >
                     <Link
                       to={`/get_story/${story._id}/chapter/${chapter.chapterNo}`}
-                      className="m-0 pe-2 text-decoration-none text-dark chapter_list_view name_chapter"
+                      className={`m-0 pe-2 text-decoration-none chapter_list_view name_chapter ${theme}`}
                       onClick={() =>
                         handleChapterSelection(story._id, chapter.chapterNo)
                       }

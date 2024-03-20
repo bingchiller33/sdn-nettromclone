@@ -45,6 +45,9 @@ const StoryListAdmin = () => {
   const handleStatusChange = async (id, status) => {
     try {
       await axios.patch(`${BASE_URL}/story/${id}/status`, { status }, config);
+      const url = `${BASE_URL}/story/get_stories_by_status?status=${filter}&search=${searchQuery}`;
+      const res = await axios.get(url, config);
+      setStories(res.data);
     } catch (error) {
       console.error(error);
     }
@@ -98,8 +101,8 @@ const StoryListAdmin = () => {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item eventKey="active">Active</Dropdown.Item>
-                <Dropdown.Item eventKey="inactive">Inactive</Dropdown.Item>
+                <Dropdown.Item eventKey="inactive">Active</Dropdown.Item>
+                <Dropdown.Item eventKey="active">Deactive</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </InputGroup>
