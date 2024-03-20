@@ -43,14 +43,15 @@ const CommentDetail = ({ setActiveTab }) => {
             </tr>
           </thead>
           <tbody>
+            {!comments.length > 0 ? 'Bạn chưa có bình luận nào' : ''}
             {comments.map((comment, index) => (
               <tr key={index}>
                 <td style={{ display: 'flex', justifyContent: 'center' }}>
-                  <img src={comment.storyId.image} alt={comment.storyId.name} style={{ width: '80px', height: 'auto' }} />
+                  <img src={comment.storyId?.image} alt={comment.storyId?.name} style={{ width: '80px', height: 'auto' }} />
                 </td>
                 <td>
-                  <Link to={`/get_story/${comment.storyId._id}#${comment._id}`}>
-                    {comment.storyId.name}
+                  <Link to={`/get_story/${comment.storyId?._id}#${comment?._id}`}>
+                    {comment.storyId?.name}
                   </Link>
                 </td>
                 <td>{comment.comment}</td>

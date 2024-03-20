@@ -7,5 +7,15 @@ export function formatDate(dateString) {
   return `${day}/${month}/${year}`;
 }
 
-const formattedDate = formatDate("2024-03-15T09:27:53.322Z");
-console.log(formattedDate); // Outputs: 15/03/2024
+export function formatDateAndTime(dateString) {
+  const date = new Date(dateString);
+  const day = ("0" + date.getDate()).slice(-2); 
+  const month = ("0" + (date.getMonth() + 1)).slice(-2); 
+  const year = date.getFullYear();
+  const hour = ("0" + date.getHours()).slice(-2);
+  const minute = ("0" + date.getMinutes()).slice(-2);
+  return `${day}/${month}/${year} lúc ${hour}:${minute}`
+}
+
+// const formattedDate = formatDate("2024-03-15T09:27:53.322Z");
+// console.log(formattedDate); // Outputs: 15/03/2024

@@ -8,7 +8,7 @@ export default function Comment({ sid, currentPage, setCurrentPage, highlightCom
 
   const [comments, setComments] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [commentCount, setCommentCount] = useState(0); // Changed this for clarity
+  const [commentCount, setCommentCount] = useState(0);
 
 
   useEffect(() => {
@@ -79,13 +79,13 @@ export default function Comment({ sid, currentPage, setCurrentPage, highlightCom
   }
 
   const handleItemClick = (clickedComment) => {
-    setComments(comments.map(comment => 
-      comment._id === clickedComment._id 
-        ? { ...comment, clicked: true } 
+    setComments(comments.map(comment =>
+      comment._id === clickedComment._id
+        ? { ...comment, clicked: true }
         : comment
     ));
   };
-  
+
 
   return (
     <Container fluid className="mb-5">
@@ -110,12 +110,12 @@ export default function Comment({ sid, currentPage, setCurrentPage, highlightCom
           >
             <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '20px' }}>
               <Image src={comment.userId.img} style={{ height: '30px', width: '30px', objectFit: 'cover' }} roundedCircle />
-              <div>
+              <div style={{ flex: 1 }}>
                 <strong>{comment.userId.userName}</strong>
                 <p className="mb-0">{comment.comment}</p>
                 {/* reply */}
-                <Button variant="link" className="ps-0">Trả lời</Button>
               </div>
+              {/* <Button variant="link" className="ps-0">Trả lời</Button> */}
             </div>
           </ListGroup.Item>
         ))}
