@@ -54,6 +54,7 @@ const ListChapter = () => {
   const handleInputChange = (e) => {
     dispatch(getChapter({ ...chapter, name: e.target.value }));
   };
+  console.log(chapter);
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -63,19 +64,20 @@ const ListChapter = () => {
     dispatch(getChapter(chapter));
   };
   const handleSubmit = () => {
-    dispatch(getChapter({}));
+    console.log(chapter);
     axios
       .put(
         `${BASE_URL}/chapter/${chapter?._id}/update`,
         { chapter: chapter },
         config
       )
-      .then(() =>
+      .then(() => {
         axios
           .get(`${BASE_URL}/chapter/${sid}/story?limit=${limit}`, config)
           .then((res) => dispatch(fetchChapterSuccess(res.data)))
-          .catch((err) => console.log(err.message))
-      )
+          .catch((err) => console.log(err.message));
+        dispatch(getChapter({}));
+      })
       .catch((err) => console.log(err.message));
   };
   const handleCreateContetChapter = (chapter) => {
@@ -166,11 +168,14 @@ const ListChapter = () => {
                             : ""
                         }`}
                       >
-                        {c.name?.length === 0 && !c.isActive
-                          ? user._id === story.uploader?._id
+                        {!c.isActive
+                          ? user._id === story.uploader?._id &&
+                            c.name?.length === 0
                             ? "+"
                             : c.name
-                          : "..."}
+                          : c.name?.length > 0
+                          ? "..."
+                          : c.name}
                       </td>
                       {chapter?._id === c._id &&
                       user._id === story.uploader?._id &&
