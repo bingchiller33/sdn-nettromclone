@@ -50,6 +50,8 @@ const FollowListDetail = () => {
       .catch((e) => console.log(e.message));
   };
 
+  
+
   return (
     <React.Fragment>
       <div className="position-relative">

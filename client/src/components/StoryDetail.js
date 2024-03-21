@@ -310,7 +310,7 @@ const StoryDetail = () => {
                 <Rate sid={sid} update={handleUpdate} />
               </li>
               <li className="d-flex ">
-                {user === null ? (
+                {story?.uploader?._id === user?._id ? (
                   ""
                 ) : (
                   <Button
