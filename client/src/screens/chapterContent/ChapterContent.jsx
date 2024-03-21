@@ -8,6 +8,7 @@ import {
   HouseFill,
   List,
 } from "react-bootstrap-icons";
+import TopViewStories from "../../components/TopViewStories";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Content from "../../components/common/chapterContent";
@@ -107,7 +108,7 @@ const ChapterContent = () => {
     <AppProvider value={{ settings, setSettings }}>
       <DefaultTemplate>
         <Row className="mt-5 mb-4">
-          <Col style={{ marginLeft: "auto", marginRight: "auto" }} xs={11}>
+          <Col xs={8}>
             <Row>
               <Col xs={12} className="">
                 <Row className="text-center">
@@ -216,10 +217,13 @@ const ChapterContent = () => {
             </Row>
             <Row>
               <Col xs={12}>
-                {" "}
-                <Comment sid={sid} />{" "}
+                <Comment sid={sid} />
               </Col>
             </Row>
+          </Col>
+
+          <Col xs={4}>
+            <TopViewStories />
           </Col>
         </Row>
         <SettingsPanel
