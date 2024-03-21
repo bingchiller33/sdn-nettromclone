@@ -75,7 +75,7 @@ const SettingsPanel = ({
           value={settings.fontSize}
           onChange={handleChange}
           min="12"
-          max="24"
+          // max="24"
         />
         <div style={labelStyle}>Phông chữ:</div>
         <select
