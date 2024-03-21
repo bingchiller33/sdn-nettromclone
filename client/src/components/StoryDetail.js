@@ -288,7 +288,7 @@ const StoryDetail = () => {
                 <p className="m-0">
                   <RssFill size={24} />
                 </p>
-                <p className="story_detail_item m-0"><strong>Thể loại:</strong> {storyCategories.map(link => link?.categoryId.name).join(', ')}</p>
+                <p className="story_detail_item m-0"><strong>Thể loại:</strong> {storyCategories.map(link => link.categoryId?.name).join(', ')}</p>
               </li>
               <li className="d-flex ">
                 <p className="m-0">

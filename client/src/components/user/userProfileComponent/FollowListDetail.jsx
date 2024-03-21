@@ -22,6 +22,7 @@ const FollowListDetail = () => {
       .get(`${BASE_URL}/story/follows`, config)
       .then((response) => {
         setFollowList(response.data);
+        // console.log(response.data);
         setFollowed(response.data.map(() => true));
       })
 
@@ -49,8 +50,6 @@ const FollowListDetail = () => {
       })
       .catch((e) => console.log(e.message));
   };
-
-  
 
   return (
     <React.Fragment>
@@ -98,8 +97,9 @@ const FollowListDetail = () => {
                           Đã đọc
                         </a>
                         <button
-                          className={`following-btn ${followed[index] ? "unfollow-btn" : "follow-btn"
-                            }`}
+                          className={`following-btn ${
+                            followed[index] ? "unfollow-btn" : "follow-btn"
+                          }`}
                           onClick={() => handleFollow(story.storyId._id, index)}
                         >
                           {followed[index] ? (
@@ -117,20 +117,20 @@ const FollowListDetail = () => {
                         href="/truyen-tranh/tuyet-the-duong-mon-dau-la-dai-luc-2/chap-376/1022799"
                         title="Chapter 376"
                       >
-                        Chapter 376
                       </a>
                       <br />
-                      <time className="time">07/07/23</time>
                     </td>
                     <td className="nowrap chapter">
-                      <a
-                        href="/truyen-tranh/tuyet-the-duong-mon-dau-la-dai-luc-2/chap-429/1135576"
-                        title="Chapter 429"
+                      <Link
+                        to={`/truyen-tranh/${story.title}/${story.latestChapter?.chapterNo}`}
+                        title={`Chapter ${story.latestChapter?.chapterNo}`}
                       >
-                        Chapter 429
-                      </a>
+                        Chapter {story.latestChapter?.chapterNo}
+                      </Link>
                       <br />
-                      <time className="time">1 giờ trước</time>
+                      <time className="time">
+                        {new Date(story.publishedDate).toLocaleDateString()}
+                      </time>
                     </td>
                   </tr>
                 );
