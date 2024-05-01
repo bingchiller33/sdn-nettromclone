@@ -12,13 +12,14 @@ Bookmarking and Syncing: Readers can bookmark their progress within a novel and 
 Search and Filter: A robust search functionality enables users to quickly find specific novels or authors. Additionally, users can apply filters such as genre, author, or publication date to refine their search results.
 Social Integration: Novel Haven integrates social media sharing options, allowing users to easily share their favorite novels or reading milestones with friends and followers.
 Dark Mode: For comfortable reading in low-light conditions, Novel Haven offers a dark mode option that reduces eye strain and enhances readability.
+
 Technologies Used:
 Frontend: HTML5, CSS3, JavaScript (React.js)
 Backend: Node.js, Express.js
 Database: MongoDB
 Authentication: JWT (JSON Web Tokens)
 API Integration: RESTful APIs for fetching book data
-Deployment: Docker, AWS/Azure/GCP
+
 Installation:
 Clone the repository from https://github.com/bingchiller33/sdn-nettromclone.git.
 Install dependencies using npm or yarn.
